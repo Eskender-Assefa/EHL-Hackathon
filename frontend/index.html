@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BMW Product Decision Studio</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="connected.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="roundel">BMW</span><span>PRODUCT DECISION STUDIO</span></div><small>Evidence → requirement → decision</small></header>
+<main class="wrap">
+<div id="connection" class="demo-note" role="status">Connecting to the local database…</div>
+<section class="hero"><div><div class="eyebrow">Customer requirements workspace</div><h1>Review source evidence. Record a decision.</h1><p>Original statements and published context, with provenance at every step.</p></div>
+<div class="profile"><div><label for="derivative">Vehicle family</label><select id="derivative" disabled></select></div><div><label for="market">Market applicability</label><select id="market" disabled></select></div></div></section>
+<section class="filters card" aria-label="Evidence filters">
+<label>Dataset snapshot<select id="dataset"><option value="">Latest per dataset</option></select></label>
+<label>Category<select id="category"><option value="">All categories</option></select></label>
+<label>Scope<select id="scope"><option value="">All scopes</option><option>fixed</option><option>variable</option><option>hypothetical</option></select></label>
+<label>Origin<select id="origin"><option value="">All origins</option><option>unknown</option><option>observed</option><option>synthetic</option></select></label>
+<label>Source kind<select id="kind"><option value="">All evidence kinds</option><option value="customer_statement">Customer statements</option><option value="published_specification">Published specification</option><option value="derived_assessment">Derived assessment</option></select></label>
+<label>Review<select id="review"><option value="">All review states</option><option>unreviewed</option><option>reviewed</option><option>rejected</option></select></label>
+<label class="unscored"><input id="unscored" type="checkbox" checked> Include Unscored requirements</label>
+</section>
+<section class="kpis" aria-label="Selected cohort counts">
+<div class="kpi"><span class="label">Feedback records</span><strong id="k-feedback">—</strong></div>
+<div class="kpi"><span class="label">Catalogue page extracts</span><strong id="k-catalogue">—</strong></div>
+<div class="kpi"><span class="label">Requirements in view</span><strong id="k-requirements">—</strong></div>
+<div class="kpi"><span class="label">Synthetic sessions¹</span><strong id="k-sessions">—</strong></div>
+</section>
+<div class="workflow"><span class="step"><b>1</b>Inspect evidence</span><span class="arrow">›</span><span class="step"><b>2</b>Draft a measurable requirement</span><span class="arrow">›</span><span class="step"><b>3</b>PM decision</span><span class="arrow">›</span><span class="step"><b>4</b>Persistent audit</span></div>
+<section class="card workspace-panel"><div class="cardhead"><h2 id="table-heading">Evidence register</h2><button class="btn" id="refresh">Refresh</button></div>
+<div class="tabs" role="group" aria-label="Register"><button class="btn active" data-tab="feedback">Feedback</button><button class="btn" data-tab="catalogue-facts">Catalogue</button><button class="btn" data-tab="evidence">Collected evidence</button><button class="btn" data-tab="problems">Problems</button><button class="btn" data-tab="requirements">Requirements</button></div>
+<div class="listtools"><label class="search-label">Search<input id="search" type="search" placeholder="Search source text or requirement title"></label><label>Sort<select id="sort"><option value="id">Source order</option><option value="title">Title</option></select></label><label>Direction<select id="direction"><option value="asc">Ascending</option><option value="desc">Descending</option></select></label></div>
+<p class="subtle filter-note" id="cohort"></p><div id="list-status" role="status" aria-live="polite"></div>
+<div class="scope-scroll"><table class="scope-table connected-table"><thead><tr><th>Source / requirement</th><th>Category</th><th>Market</th><th>Origin</th><th>Review / state</th><th>Priority</th></tr></thead><tbody id="scope-table-body"></tbody></table></div>
+<div class="pagination"><button class="btn" id="previous">Previous</button><span id="list-count"></span><button class="btn" id="next">Next</button></div>
+</section>
+<div class="layout"><section class="card workspace-panel"><div class="cardhead"><h2>Selected record and source evidence</h2><span class="count" id="decision-label"></span></div><div class="detail" id="detail"><p class="empty">Select a record to inspect its sources or draft a requirement.</p></div></section>
+<aside class="rightcol"><section class="card"><div class="cardhead"><h3>Decision audit trail</h3><button class="btn" id="export-audit" disabled>Export</button></div><div class="rightbody audit" id="audit"><p class="subtle">Select a requirement to load its saved history.</p></div></section>
+<section class="card"><div class="cardhead"><h3>Optional research</h3></div><div class="rightbody"><p class="subtle" id="providers">Research and classification providers are disabled. No AI request runs on page load or refresh.</p><button class="btn" disabled>Research unavailable</button></div></section></aside></div>
+<details class="card workspace-panel" id="internal-panel"><summary class="cardhead"><h2>Synthetic configurator context¹</h2><span class="count">Session measures, not purchases</span></summary><div class="rightbody" id="configurator-summary"></div></details>
+<footer class="footer">¹ Configurator cohorts use model, market, origin and snapshot. Evidence category, review, scope and text filters do not establish session-option mappings; these metrics are hidden when such filters are active. Priority remains Unscored without an approved policy. Original files are preserved; page extracts and AI mappings are unreviewed.</footer>
+</main><script type="module" src="js/app.js"></script></body></html>

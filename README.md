@@ -6,7 +6,7 @@ That folder includes the Python implementation, setup instructions, automated te
 
 ## BMW product-manager data foundation
 
-Stages 1–2: PostgreSQL migrations and a source-preserving synthetic configurator CSV importer. No web app, scoring or production deployment is included.
+The database foundation now has a connected HTML frontend and Python API. Open the running local workspace at `http://127.0.0.1:8765`. See [integration startup and API instructions](backend/README.md) and [integration verification](database/INTEGRATION_VALIDATION.md). The supplied frontend handoff remains an isolated offline reference. No scoring or production deployment is included.
 
 ## Project idea
 
@@ -45,14 +45,14 @@ $env:BMW_TEST_DATABASE_URL='postgresql://bmw_test@127.0.0.1:55432/postgres'
 
 Tests create and drop random schemas in the configured **test** database. Without this variable PostgreSQL tests explicitly skip. No SQLite substitute is used.
 
-The workspace `.local-postgres` cluster uses trust authentication for disposable development data, listening only on 127.0.0.1:55432. Never put sensitive or production data there. It is stopped after implementation. Start/stop it explicitly:
+The workspace `.local-postgres` cluster uses trust authentication for disposable development data, listening only on 127.0.0.1:55432. Never put sensitive or production data there. Start/stop it explicitly:
 
 ```powershell
 & 'C:\Program Files\PostgreSQL\18\bin\pg_ctl.exe' -D .local-postgres -l .local-postgres/server.log -o '-h 127.0.0.1 -p 55432' -w start
 & 'C:\Program Files\PostgreSQL\18\bin\pg_ctl.exe' -D .local-postgres -m fast -w stop
 ```
 
-See [data dictionary](database/DATA_DICTIONARY.md) and [validation record](database/VALIDATION.md). Existing sources remain unchanged. Catalogue/feedback extraction, analysis and PM decisions are subsequent stages.
+See [data dictionary](database/DATA_DICTIONARY.md), [foundation validation](database/VALIDATION.md) and [integration verification](database/INTEGRATION_VALIDATION.md). Existing source files remain unchanged. Feedback ingestion, unreviewed catalogue page extracts and persistent PM decisions are now connected; reviewed structured catalogue facts and scoring remain future work.
 
 ## Team
 

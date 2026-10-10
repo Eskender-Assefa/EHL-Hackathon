@@ -19,7 +19,20 @@
 
 Raw records inherit origin from their dataset version. Composite foreign keys enforce synthetic session/scenario lineage and prevent source/version mismatches. Review status and scope layer are independent; review does not change origin. CSV checks reject repeated codes or selected-not-viewed options. Failed rows remain raw records without normalized sessions.
 
-Transaction advisory locks serialize imports and migrations independently. Migration checksums prevent silent edits to applied files. Requirements, PM actions, roles and append-only decision auditing belong to later stages.
+Transaction advisory locks serialize imports and migrations independently. Migration checksums prevent silent edits to applied files. Forward migration 002 adds evidence, requirements, PM actions and append-only application auditing.
+
+## Integration records (migration 002)
+
+| Records | Meaning |
+|---|---|
+| feedback_records, feedback_tags | One source-scoped parent per feedback ID, plus every original tag row and its raw record/location. Unknown origin and undated publication remain explicit. |
+| evidence_items | Statement-level evidence linked to a raw record and dataset version, with model/market/variant, origin, scope, review and mapping status independent. Catalogue entries are unreviewed page extracts with unknown country/variant applicability. |
+| processing_runs | Adapter algorithm/model/prompt/taxonomy versions and assumptions; no live AI runs occur during setup. |
+| problem_proposals, problem_evidence | Persistent manual issue summary and original evidence links, separate from a requirement. All priorities are Unscored. |
+| requirements, requirement_versions, requirement_evidence | Persistent identity, state, concurrency revision, versioned content/target/unit/conditions/test/owner and exact evidence snapshots. Missing targets remain needs_specification. |
+| pm_decisions, audit_events | Required rationale, fixed server actor, before/after content snapshots and revision history, committed with state changes. Audit UPDATE/DELETE is blocked and the restricted application role has SELECT/INSERT only. Owners/admins can override protections. |
+
+Default API dataset selection is the latest ingested snapshot per dataset. Explicit version filtering and original requirement evidence links preserve historical snapshots. Opaque string IDs avoid JavaScript bigint truncation. See [API and startup contract](../backend/README.md).
 
 Archival writes precede the database transaction. Failed imports may leave an unreferenced content-addressed file, which reimport safely reuses. Files are retained, never automatically deleted. Back up both PostgreSQL and `data/assets`.
 

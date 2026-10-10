@@ -105,11 +105,17 @@ def migrate(conn):
         cur.execute("SELECT pg_advisory_xact_lock(709102026)")
         cur.execute('CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, sha256 text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())')
         for path in sorted((Path(__file__).parent / 'database/migrations').glob('*.sql')):
-            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            raw = path.read_bytes()
+            canonical = raw.replace(b'\r\n', b'\n')
+            digest = hashlib.sha256(canonical).hexdigest()
+            # Older ledgers used raw bytes. Accept only the same SQL with Git's
+            # LF/CRLF conversion; preserve historical ledger values unchanged.
+            compatible = {hashlib.sha256(x).hexdigest() for x in
+                          (raw, canonical, canonical.replace(b'\n', b'\r\n'))}
             cur.execute('SELECT sha256 FROM schema_migrations WHERE name=%s', (path.name,))
             previous = cur.fetchone()
             if previous:
-                if previous[0] != digest:
+                if previous[0] not in compatible:
                     raise ValueError('Previously applied migration changed: ' + path.name)
                 continue
             cur.execute(path.read_text(encoding='utf-8'))

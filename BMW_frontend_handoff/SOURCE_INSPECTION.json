@@ -1,0 +1,63 @@
+{
+  "source_filename": "BMW_G60_Problems_Updated.html",
+  "source_sha256": "eb1516463f5818f37f9cb0d80adc2ee7539fa3e6e6f44a08d43a002e9c5d476e",
+  "source_bytes": 2358473,
+  "embedded_data": {
+    "CONFIGURATOR_SESSIONS": {
+      "kind": "list",
+      "count": 200,
+      "json_sha256": "56973086701539e4586de2eae3309a94730d92ebef9a719310386536345f72c9"
+    },
+    "INTERNAL_G60": {
+      "kind": "list",
+      "count": 5005,
+      "json_sha256": "38f8937675e7534d84e2ef78d4912485d749560ed267645bd1d4503614454c43"
+    },
+    "INTERNAL_G60_CATALOGUE": {
+      "kind": "dict",
+      "count": 249,
+      "json_sha256": "651377284a4275124fc0ae83b4d4d6c9c4ec34ef61f09f6a8aa4f8e9bc347b4c"
+    },
+    "INTERNAL_PROBLEMS": {
+      "kind": "list",
+      "count": 12,
+      "json_sha256": "d7c64b2ec93716277aabaacf3a7b743a045a82c06668d0a28b567e8db3c10c45"
+    }
+  },
+  "api_paths": [
+    "/api/classify-categories",
+    "/api/database/import",
+    "/api/logs/postgres",
+    "/api/logs/sqlite",
+    "/api/research",
+    "/api/status"
+  ],
+  "duplicate_function_declarations": {
+    "renderList": 2,
+    "renderDetail": 2
+  },
+  "status": "Editable offline prototype; startup crash repaired; no backend connected",
+  "behavior_changes": [
+    "Separated HTML, CSS, JavaScript and four unchanged embedded datasets.",
+    "Guarded removed feasibility slider and label references that crashed original startup/render.",
+    "Added visible offline/not-connected status; original reference file unchanged.",
+    "Replaced offline instructions referencing nonexistent backend scripts with honest unavailable messages."
+  ],
+  "source_preservation_checks": {
+    "original_copy": "Byte-identical",
+    "styles": "Unchanged",
+    "CONFIGURATOR_SESSIONS": "Exact JSON value match",
+    "INTERNAL_G60": "Exact JSON value match",
+    "INTERNAL_G60_CATALOGUE": "Exact JSON value match",
+    "INTERNAL_PROBLEMS": "Exact JSON value match"
+  },
+  "frontend_file_sha256": {
+    "frontend/demo-data/configurator.js": "f7ffd05f59f7154484f3099da7724d9d8abdab0e1e24d688b9e1f72730d50abf",
+    "frontend/demo-data/g60-catalogue.js": "eba27e6c4e43e0b2b39111876fdca289d011c03155df57323a25d3a571dd3194",
+    "frontend/demo-data/g60-feedback.js": "23465f23c7418412a8164df426dfc9b3bf2f50073f0d373e11496b9ebc071252",
+    "frontend/demo-data/problem-examples.js": "346e004e778c4e83e2ecc2ade794f2f3ba886847c830babbf009dbbfb7a0cddf",
+    "frontend/index.html": "d44ce0e45483a327c6230aa68746d762cf4c910f6160439bda1a3fe338fc9bd3",
+    "frontend/js/app.js": "9f172e96b0a6358dc98c6b9e769a10c4f7ae919a34f1e686b389e9c0d197ad99",
+    "frontend/styles.css": "6dae0e3d9b2a2c8705a7a06118b1f2b2f0476734f382a48f678ff5eaddfedaeb"
+  }
+}
