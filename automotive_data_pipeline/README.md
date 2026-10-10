@@ -4,6 +4,60 @@ This folder turns BMW source material, customer feedback, web/forum posts, compe
 
 The pipeline supports F70, G60, G70, and Neue_Klasse and maps every extracted aspect to exactly one C01-C10 primary category. It preserves secondary tags without using them to inflate mention counts.
 
+## Verified project status
+
+The repository was tested with the supplied BMW files using the deterministic rules engine. The latest full run produced these exact results:
+
+| Result | Observed value |
+| --- | ---: |
+| Workbook tag rows read | 13,771 |
+| Distinct feedback IDs | 10,128 |
+| Deduplicated raw records, including 78 fixed baseline pages | 10,206 |
+| Discrete aspect signals | 24,953 |
+| Product requirements across all C01-C10 categories | 238 |
+| Regional conflict flags | 29 |
+| `Critical review` requirements | 17 |
+| `Unscored` requirements | 221 |
+| Sales-volume context rows | 12 |
+| Customer-study context rows | 1,003 |
+| Python tests | 47 passed |
+| Frontend validation | Next.js production build passed; 0 npm audit vulnerabilities |
+| PowerPoint export | 22 slides; 53,244 bytes |
+
+All 238 observed requirements lacked a complete dated 30-day history, validated sales causality, or competitor two-year ROI input. The pipeline therefore leaves their missing scoring components unknown instead of inventing zeroes. The 17 severe C04 findings are still escalated to `Critical review` under the safety rule. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
+
+## Fastest complete demo
+
+From the repository root, build the evidence set and start the API:
+
+```powershell
+cd automotive_data_pipeline
+python -m pip install -e .
+python -m bmw_signals.cli run-local --material-dir ../material --engine rules --output output/local
+python -m bmw_signals.cli serve --data-dir output/local --port 8000
+```
+
+In a second PowerShell terminal, start the cockpit:
+
+```powershell
+cd automotive_data_pipeline/frontend
+npm.cmd install
+$env:NEXT_PUBLIC_API_URL = "http://127.0.0.1:8000"
+npm.cmd run dev
+```
+
+Open `http://localhost:3000`. Select F70, G60, or G70 to inspect requirements derived from the supplied evidence. The cockpit starts on Neue_Klasse; click **Do It Now** to create the clearly labelled hypothetical EU/CN demonstration data for that platform.
+
+The end-to-end data path is:
+
+```text
+BMW workbooks/PDFs + configured web sources
+    -> provenance-preserving raw records
+    -> deduplicated, single-aspect C01-C10 signals
+    -> thresholded and scored product requirements
+    -> PM decisions + hash-chained audit log + PowerPoint export
+```
+
 ## What works
 
 The implementation now provides:
@@ -171,9 +225,9 @@ In another terminal:
 
 ```powershell
 cd frontend
-npm install
+npm.cmd install
 $env:NEXT_PUBLIC_API_URL = "http://127.0.0.1:8000"
-npm run dev
+npm.cmd run dev
 ```
 
 Open `http://localhost:3000`. The UI exposes sentiment, velocity, effort, priority, evidence, EHI, conflicts, blindspots, decisions, synthetic refresh, and deck export.
