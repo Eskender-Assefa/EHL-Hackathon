@@ -11,7 +11,8 @@ Source = Literal[
 Platform = Literal["F70", "G60", "G70", "Neue_Klasse"]
 Category = Literal["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"]
 ScopeLayer = Literal["fixed_now", "variable_later", "hypothetical_later"]
-Region = Literal["EU", "CN", "US", "RoW", "Unknown"]
+Region = Literal["EU", "CN", "US", "RoW", "Unknown", "All markets"]
+ClassificationBasis = Literal["bmw_label", "keyword_rule", "llm"]
 EffortClass = Literal["software_ux", "interior_trim", "electronics_thermal", "body_platform"]
 ReviewBand = Literal["Critical review", "High", "Medium", "Low", "Unscored"]
 DecisionStatus = Literal["Proposed", "Approved", "Edited", "Rejected", "Postponed"]
@@ -62,6 +63,8 @@ class FilteredSignal(StrictModel):
     author_reputation: int | None = None
     credibility_weight: float = Field(default=1.0, ge=0, le=2)
     evidence: list[EvidenceRef] = Field(default_factory=list)
+    feedback_types: list[str] = Field(default_factory=list, description="BMW Feedback Type labels behind this signal")
+    classification_basis: ClassificationBasis = "keyword_rule"
 
     @field_validator("source_url")
     @classmethod
@@ -87,6 +90,15 @@ class FilteredSignal(StrictModel):
         return value
 
 
+class BmwLabel(StrictModel):
+    """One workbook row's own classification: BMW topic and feedback type, kept as a pair."""
+
+    topic: str = Field(min_length=1)
+    feedback_type: str = Field(min_length=1)
+    subtopic: str | None = None
+    row_number: int = Field(ge=1)
+
+
 class RawPost(StrictModel):
     source_platform: Source
     source_url: str
@@ -104,6 +116,7 @@ class RawPost(StrictModel):
     country: str | None = None
     feedback_types: list[str] = Field(default_factory=list)
     original_tags: list[str] = Field(default_factory=list)
+    bmw_labels: list[BmwLabel] = Field(default_factory=list)
     evidence: list[EvidenceRef] = Field(default_factory=list)
     credibility_weight: float = Field(default=1.0, ge=0, le=2)
 
@@ -121,6 +134,8 @@ class Aspect(StrictModel):
     topic: str = "General"
     requirement_statement: str | None = None
     secondary_tags: list[str] = Field(default_factory=list)
+    feedback_types: list[str] = Field(default_factory=list)
+    classification_basis: ClassificationBasis = "keyword_rule"
 
     @field_validator("cleaned_verbatim_text", "topic")
     @classmethod
@@ -164,6 +179,8 @@ class RequirementCandidate(StrictModel):
     scope_layer: ScopeLayer
     average_sentiment: float = Field(ge=-100, le=100)
     distinct_signal_count: int = Field(ge=1)
+    pain_respondents: int = Field(default=0, ge=0)
+    praise_respondents: int = Field(default=0, ge=0)
     current_30d_mentions: int | None = None
     previous_30d_mentions: int | None = None
     velocity_multiplier: float | None = Field(default=None, ge=1, le=3)

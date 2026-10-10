@@ -17,6 +17,8 @@ from bmw_signals.pipeline import RuleBasedEvaluator, process
 from bmw_signals.requirements import build_requirements
 from test_pipeline import post
 
+SMALL_SAMPLE = dict(min_respondents=1, min_region_sample=2, min_severe_safety=1)
+
 
 def signal(identifier, *, region="EU", sentiment=-70, timestamp=None, topic="Touchscreen", scope="variable_later"):
     return FilteredSignal(
@@ -74,7 +76,7 @@ class RuleEngineTests(unittest.IsolatedAsyncioTestCase):
 
 class RequirementTests(unittest.TestCase):
     def test_missing_inputs_remain_unscored(self):
-        requirements, baseline = build_requirements([signal("A"), signal("B")])
+        requirements, baseline = build_requirements([signal("A"), signal("B")], **SMALL_SAMPLE)
         self.assertFalse(baseline)
         self.assertEqual(requirements[0].review_band, "Unscored")
         self.assertIsNone(requirements[0].priority_score)
@@ -87,7 +89,7 @@ class RequirementTests(unittest.TestCase):
             signal("C", timestamp="2026-10-01T00:00:00Z"),
         ]
         inputs = {"G60|C07|touchscreen": ScoringInputs(sales_causality_score=20, competitor_roi_score=10, effort_class="software_ux")}
-        requirements, _ = build_requirements(signals, inputs)
+        requirements, _ = build_requirements(signals, inputs, **SMALL_SAMPLE)
         item = requirements[0]
         self.assertIsNotNone(item.velocity_multiplier)
         self.assertIsNotNone(item.priority_score)
@@ -97,7 +99,7 @@ class RequirementTests(unittest.TestCase):
     def test_regional_conflict_creates_variants(self):
         signals = [signal("EU1", region="EU", sentiment=-90), signal("EU2", region="EU", sentiment=-80),
                    signal("CN1", region="CN", sentiment=70), signal("CN2", region="CN", sentiment=60)]
-        requirements, _ = build_requirements(signals)
+        requirements, _ = build_requirements(signals, **SMALL_SAMPLE)
         self.assertEqual({item.region_variant for item in requirements}, {"EU", "CN"})
         self.assertTrue(all(item.regional_conflict for item in requirements))
         self.assertTrue(all(item.confidence_label == "Uncertain / Conflict Flag" for item in requirements))
@@ -121,7 +123,7 @@ class AuditCockpitDeckTests(unittest.TestCase):
     def test_decisions_require_rationale_and_append_audit(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
-            requirements, _ = build_requirements([signal("A"), signal("B")])
+            requirements, _ = build_requirements([signal("A"), signal("B")], **SMALL_SAMPLE)
             (directory / "requirements.json").write_text(json.dumps([item.model_dump() for item in requirements]), encoding="utf-8")
             client = TestClient(create_app(directory))
             identifier = requirements[0].requirement_id
@@ -133,7 +135,7 @@ class AuditCockpitDeckTests(unittest.TestCase):
 
     def test_powerpoint_export(self):
         with tempfile.TemporaryDirectory() as temporary:
-            requirements, _ = build_requirements([signal("A"), signal("B")])
+            requirements, _ = build_requirements([signal("A"), signal("B")], **SMALL_SAMPLE)
             destination = export_deck(requirements, Path(temporary) / "deck.pptx")
             self.assertTrue(destination.exists())
             self.assertGreaterEqual(len(Presentation(destination).slides), 3)
@@ -156,10 +158,10 @@ class AuditCockpitDeckTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             signals = [signal("A"), signal("B")]
-            generated = _write_requirements(directory, signals)
+            generated = _write_requirements(directory, signals, min_respondents=1)
             client = TestClient(create_app(directory))
             response = client.post(f"/api/requirements/{generated[0].requirement_id}/decision", json={"actor": "PM", "action": "Approve", "justification": ""})
             self.assertEqual(response.status_code, 200)
-            _write_requirements(directory, signals)
+            _write_requirements(directory, signals, min_respondents=1)
             saved = json.loads((directory / "requirements.json").read_text(encoding="utf-8"))
             self.assertEqual(saved[0]["status"], "Approved")

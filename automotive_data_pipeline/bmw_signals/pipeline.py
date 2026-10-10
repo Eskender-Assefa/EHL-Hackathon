@@ -9,6 +9,7 @@ from typing import Protocol
 import httpx
 
 from .models import Aspect, Evaluation, EvidenceRef, FilteredSignal, RawPost
+from .bmw_topics import topic_category
 from .taxonomy import TAXONOMY
 
 
@@ -36,7 +37,32 @@ CATEGORY_TERMS = {
 
 POSITIVE = ("love", "like", "great", "good", "excellent", "comfortable", "happy", "improved", "joy", "best", "fast", "stable")
 NEGATIVE = ("hate", "bad", "terrible", "suck", "slow", "difficult", "problem", "issue", "defect", "glitch", "disappoint", "missing", "inconsistent", "uncomfortable", "noise", "cannot", "can't", "worse")
+# A request reads like praise to a word counter ("would like", "would love"), so it is matched first.
+REQUEST_PHRASES = ("would like", "would love", "would prefer", "would be nice", "wish", "wishes", "wished", "should have", "needs to")
 TYPE_SENTIMENT = {"Likes": 75, "Wants": -45, "Difficult to Use": -65, "Defect": -80}
+PAIN_TYPES = frozenset({"Wants", "Difficult to Use", "Defect"})
+PRAISE_TYPE = "Likes"
+UNCLASSIFIED_TOPIC = "Unclassified"
+LABEL_CONFIDENCE = 0.9
+LABEL_CONFIDENCE_UNMAPPED_TOPIC = 0.7
+KEYWORD_CONFIDENCE_WITH_TAGS = 0.62
+KEYWORD_CONFIDENCE = 0.48
+REQUEST_SENTIMENT = TYPE_SENTIMENT["Wants"]
+KEYWORD_SENTIMENT_SCALE = 85
+PRESERVE_SENTIMENT_THRESHOLD = 30
+
+
+def _word_pattern(term: str, suffixes: str) -> re.Pattern:
+    """Match a term as a whole word, so "app" no longer fires inside "happy" or "ota" inside "total"."""
+    return re.compile(rf"(?<![a-z0-9]){re.escape(term)}(?:{suffixes})?(?![a-z0-9])")
+
+
+CATEGORY_PATTERNS = {
+    category: [(term, _word_pattern(term, "s|es")) for term in terms] for category, terms in CATEGORY_TERMS.items()
+}
+POSITIVE_PATTERNS = [_word_pattern(word, "s|d|ed|ing") for word in POSITIVE]
+NEGATIVE_PATTERNS = [_word_pattern(word, "s|es|d|ed|ing|ive|y") for word in NEGATIVE]
+REQUEST_PATTERN = re.compile("|".join(rf"(?<![a-z]){re.escape(phrase)}(?![a-z])" for phrase in REQUEST_PHRASES))
 
 
 def fingerprint(text: str) -> str:
@@ -54,26 +80,46 @@ def credibility(post: RawPost) -> float:
 
 def _category(text: str) -> tuple[str, str, list[str]]:
     lowered = text.casefold()
-    counts = Counter({category: sum(lowered.count(term) for term in terms) for category, terms in CATEGORY_TERMS.items()})
+    counts = Counter({
+        category: sum(len(pattern.findall(lowered)) for _, pattern in patterns)
+        for category, patterns in CATEGORY_PATTERNS.items()
+    })
     counts = +counts
     if not counts:
-        return "C10", "General", []
+        return "C10", UNCLASSIFIED_TOPIC, []
     primary, _ = counts.most_common(1)[0]
-    topic = next((term.title() for term in CATEGORY_TERMS[primary] if term in lowered), TAXONOMY[primary].split(":", 1)[0])
+    topic = next(term.title() for term, pattern in CATEGORY_PATTERNS[primary] if pattern.search(lowered))
     secondary = [category for category, _ in counts.most_common() if category != primary]
     return primary, topic, secondary
 
 
-def _sentiment(text: str, feedback_types: list[str]) -> int:
-    lowered = text.casefold()
-    positive = sum(lowered.count(word) for word in POSITIVE)
-    negative = sum(lowered.count(word) for word in NEGATIVE)
-    if positive or negative:
-        return max(-100, min(100, round((positive - negative) / (positive + negative) * 85)))
+def _label_sentiment(feedback_types: list[str]) -> int | None:
     tagged = [TYPE_SENTIMENT[kind] for kind in feedback_types if kind in TYPE_SENTIMENT]
-    if tagged:
-        return round(sum(tagged) / len(tagged))
-    return 0
+    return round(sum(tagged) / len(tagged)) if tagged else None
+
+
+def _keyword_sentiment(text: str) -> int | None:
+    lowered = text.casefold()
+    if REQUEST_PATTERN.search(lowered):
+        return REQUEST_SENTIMENT
+    positive = sum(len(pattern.findall(lowered)) for pattern in POSITIVE_PATTERNS)
+    negative = sum(len(pattern.findall(lowered)) for pattern in NEGATIVE_PATTERNS)
+    if positive or negative:
+        return max(-100, min(100, round((positive - negative) / (positive + negative) * KEYWORD_SENTIMENT_SCALE)))
+    return None
+
+
+def _sentiment(text: str, feedback_types: list[str]) -> int:
+    """BMW's own Feedback Type decides the sign whenever it is unambiguous; words only break ties."""
+    known = [kind for kind in feedback_types if kind in TYPE_SENTIMENT]
+    praised, pained = PRAISE_TYPE in known, any(kind in PAIN_TYPES for kind in known)
+    label = _label_sentiment(known)
+    if label is not None and praised != pained:
+        return label
+    keyword = _keyword_sentiment(text)
+    if keyword is not None:
+        return keyword
+    return label or 0
 
 
 def _fragments(text: str) -> list[str]:
@@ -81,8 +127,43 @@ def _fragments(text: str) -> list[str]:
     return [fragment for fragment in fragments if fragment and fragment in text]
 
 
+def _statement(feedback_types: list[str], sentiment: int, topic: str, platform: str | None) -> str:
+    praised = PRAISE_TYPE in feedback_types
+    pained = any(kind in PAIN_TYPES for kind in feedback_types)
+    if praised and pained:
+        action = "Review mixed feedback on"
+    elif praised or (not pained and sentiment > PRESERVE_SENTIMENT_THRESHOLD):
+        action = "Preserve"
+    else:
+        action = "Improve"
+    return f"{action} '{topic}' for {platform} customers."
+
+
+def _label_aspects(post: RawPost) -> list[Aspect]:
+    """One aspect per BMW topic on the record, with BMW's feedback types deciding the polarity."""
+    types_by_topic: dict[str, list[str]] = {}
+    for label in post.bmw_labels:
+        kinds = types_by_topic.setdefault(label.topic, [])
+        if label.feedback_type not in kinds:
+            kinds.append(label.feedback_type)
+    aspects = []
+    for topic, kinds in types_by_topic.items():
+        mapped = topic_category(topic)
+        category = mapped or _category(topic)[0]
+        sentiment = _label_sentiment(kinds)
+        if sentiment is None:
+            sentiment = _keyword_sentiment(post.post_body) or 0
+        aspects.append(Aspect(
+            taxonomy_category=category, cleaned_verbatim_text=post.post_body, sentiment_score=sentiment,
+            confidence=LABEL_CONFIDENCE if mapped else LABEL_CONFIDENCE_UNMAPPED_TOPIC, topic=topic,
+            requirement_statement=_statement(kinds, sentiment, topic, post.target_platform),
+            feedback_types=sorted(kinds), classification_basis="bmw_label",
+        ))
+    return aspects
+
+
 class RuleBasedEvaluator:
-    """Offline, deterministic baseline. Confidence stays modest because this is not an NLI model."""
+    """Offline, deterministic baseline. BMW's own labels are used where present; keywords only fill gaps."""
 
     async def evaluate(self, post: RawPost) -> Evaluation:
         if OUT_OF_SCOPE.search(post.post_body):
@@ -94,17 +175,19 @@ class RuleBasedEvaluator:
                 sentiment_score=0, confidence=0.8, topic=topic,
                 requirement_statement=None, secondary_tags=secondary,
             )])
+        if post.bmw_labels:
+            return Evaluation(is_noise=False, reason="classified by BMW topic and feedback type", aspects=_label_aspects(post))
         aspects = []
         context = " ".join(post.original_tags)
         for fragment in _fragments(post.post_body):
             category, topic, secondary = _category(fragment + " " + context)
             sentiment = _sentiment(fragment, post.feedback_types)
-            action = "Preserve" if sentiment > 30 else "Improve"
             aspects.append(Aspect(
                 taxonomy_category=category, cleaned_verbatim_text=fragment,
-                sentiment_score=sentiment, confidence=0.62 if post.original_tags else 0.48,
-                topic=topic, requirement_statement=f"{action} {topic.lower()} for {post.target_platform} customers.",
-                secondary_tags=secondary,
+                sentiment_score=sentiment,
+                confidence=KEYWORD_CONFIDENCE_WITH_TAGS if post.original_tags else KEYWORD_CONFIDENCE,
+                topic=topic, requirement_statement=_statement([], sentiment, topic.lower(), post.target_platform),
+                secondary_tags=secondary, feedback_types=sorted(post.feedback_types),
             ))
         if not aspects:
             return Evaluation(is_noise=True, reason="no actionable text", aspects=[])
@@ -189,11 +272,11 @@ async def process(posts: list[RawPost], evaluator: Evaluator, concurrency=4):
                         and len(post.post_body.split()) < 15):
                     filtered_short += 1
                     continue
-                aspect_key = (aspect.taxonomy_category, fingerprint(aspect.cleaned_verbatim_text))
+                aspect_key = (aspect.taxonomy_category, aspect.topic, fingerprint(aspect.cleaned_verbatim_text))
                 if aspect_key in aspect_seen:
                     continue
                 aspect_seen.add(aspect_key)
-                signal_identity = f"{post.source_url}|{post.source_record_id}|{post.target_platform}|{post.region}|{aspect.taxonomy_category}|{aspect_key[1]}"
+                signal_identity = f"{post.source_url}|{post.source_record_id}|{post.target_platform}|{post.region}|{aspect.taxonomy_category}|{aspect.topic}|{aspect_key[2]}"
                 evidence = post.evidence or [EvidenceRef(
                     source_uri=post.source_url, locator=post.source_url,
                     record_id=post.source_record_id, quote=aspect.cleaned_verbatim_text,
@@ -210,7 +293,8 @@ async def process(posts: list[RawPost], evaluator: Evaluator, concurrency=4):
                     region=post.region, country=post.country, source_record_id=post.source_record_id,
                     source_score=post.score, author_reputation=post.author_reputation,
                     credibility_weight=credibility(post),
-                    evidence=evidence,
+                    evidence=evidence, feedback_types=aspect.feedback_types,
+                    classification_basis=aspect.classification_basis,
                 ))
             status = "accepted" if output else "discarded"
             reason = None if output else "all aspects below low-effort threshold"
