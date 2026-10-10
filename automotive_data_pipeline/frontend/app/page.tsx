@@ -9,7 +9,8 @@ type Requirement = {
   requirement_id: string; target_platform: string; taxonomy_category: string; title: string;
   requirement_statement: string; region_variant: string; average_sentiment: number;
   velocity_acceleration_pct: number | null; effort_class: string; effort_penalty: number;
-  priority_score: number | null; review_band: string; ehi_score: number; confidence_label: string;
+  priority_score: number | null; priority_score_basis: "complete_formula" | "static_evidence_proxy";
+  review_band: string; ehi_score: number; confidence_label: string;
   regional_conflict: boolean; warnings: string[]; blindspots: string[]; evidence: Evidence[]; status: string;
 };
 
@@ -54,16 +55,17 @@ export default function Page() {
       </div>
     </header>
     {error && <aside className="error">{error}</aside>}
-    <section className="summary"><span>{visible.length} candidates</span><span>{visible.filter(x => x.review_band === "Unscored").length} unscored</span><span>{visible.filter(x => x.regional_conflict).length} regional conflicts</span></section>
+    <section className="summary"><span>{visible.length} candidates</span><span>{visible.filter(x => x.priority_score_basis === "static_evidence_proxy").length} proxy-ranked</span><span>{visible.filter(x => x.regional_conflict).length} regional conflicts</span></section>
     <section className="grid">{visible.map(item => <article key={item.requirement_id}>
       <div className="cardTop"><span className="category">{item.taxonomy_category}</span><span className={`band ${item.review_band.replace(" ", "-").toLowerCase()}`}>{item.review_band}</span></div>
       <h2>{item.title}</h2><p className="requirement">{item.requirement_statement}</p>
+      {item.region_variant !== "Global / Unassigned" && item.region_variant !== "Unknown" && <p className="region">Regional evidence: {item.region_variant}</p>}
       {(item.ehi_score < 50 || item.regional_conflict) && <div className="warning"><strong>AI uncertainty warning — {item.ehi_score.toFixed(0)}%</strong><br/>{item.warnings.join(" ") || "Human PM intervention required."}</div>}
       <div className="metrics">
         <div><small>Sentiment</small><strong className={item.average_sentiment < 0 ? "negative" : "positive"}>{item.average_sentiment > 0 ? "+" : ""}{item.average_sentiment.toFixed(0)}</strong></div>
-        <div><small>30-day velocity</small><strong>{item.velocity_acceleration_pct == null ? "Unknown" : `${item.velocity_acceleration_pct > 0 ? "+" : ""}${item.velocity_acceleration_pct}%`}</strong></div>
+        <div><small>30-day velocity</small><strong>{item.velocity_acceleration_pct == null ? "Not available" : `${item.velocity_acceleration_pct > 0 ? "+" : ""}${item.velocity_acceleration_pct}%`}</strong></div>
         <div><small>Effort</small><strong>{item.effort_class} −{item.effort_penalty}</strong></div>
-        <div><small>Priority</small><strong>{item.priority_score ?? "Unscored"}</strong></div>
+        <div><small>{item.priority_score_basis === "static_evidence_proxy" ? "Priority · evidence proxy" : "Priority"}</small><strong>{item.priority_score?.toFixed(1) ?? "Pending"}</strong></div>
       </div>
       <details><summary>Evidence grid ({item.evidence.length})</summary>{item.evidence.slice(0, 8).map((evidence, index) => <p key={index}><b>{evidence.source_uri}</b> · {evidence.locator}<br/><small>{evidence.quote}</small></p>)}</details>
       <button className="blindspot" onClick={() => setOpenBlindspots(openBlindspots === item.requirement_id ? null : item.requirement_id)}>View data blindspots</button>

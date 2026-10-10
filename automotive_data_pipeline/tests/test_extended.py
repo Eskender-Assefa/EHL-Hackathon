@@ -72,6 +72,15 @@ class ExtractionTests(unittest.TestCase):
         raw = extract('<article><time datetime="2026-10-01T12:00:00"></time><div class="body">Text</div></article>', config, config.url)[0]
         self.assertEqual(raw.timestamp, "2026-10-01T12:00:00+00:00")
 
+    def test_fallback_timestamp(self):
+        config = self.config(fallback_timestamp="2026-03-05T00:00:00Z")
+        raw = extract('<article><div class="body">Text</div></article>', config, config.url)[0]
+        self.assertEqual(raw.timestamp, "2026-03-05T00:00:00+00:00")
+
+    def test_fallback_timestamp_requires_timezone(self):
+        with self.assertRaises(ValidationError):
+            self.config(fallback_timestamp="2026-03-05T00:00:00")
+
     def test_formatted_timestamp(self):
         config = self.config(timestamp_attribute=None, timestamp_format="%d/%m/%Y %H:%M %z")
         raw = extract('<article><time>01/10/2026 12:00 +0200</time><div class="body">Text</div></article>', config, config.url)[0]
@@ -83,6 +92,7 @@ class ExtractionTests(unittest.TestCase):
         records = extract(html, config, config.url)
         self.assertEqual([r.post_body for r in records], ["First", "Second"])
         self.assertEqual([r.score for r in records], [1234, None])
+        self.assertEqual(len({r.source_record_id for r in records}), 2)
 
     def test_empty_extraction(self):
         with self.assertRaises(ValueError):
@@ -214,3 +224,29 @@ class CLITests(unittest.IsolatedAsyncioTestCase):
             self.assertFalse(failed)
             self.assertEqual(json.loads((path / "out/raw.json").read_text()), [])
             self.assertEqual(json.loads((path / "out/collection_audit.json").read_text()), [])
+
+    async def test_run_all_merges_local_and_saved_external_raw(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp)
+            local = post(
+                source_platform="BMW_Workbook", source_url="bmw-file://feedback.xlsx",
+                timestamp=None, source_record_id="LOCAL1", post_body="The touchscreen menu is difficult to navigate every day.",
+            )
+            external = post(
+                source_platform="Reddit", source_url="https://www.reddit.com/r/BMW/comments/external",
+                source_record_id="WEB1", post_body="The touchscreen menu is difficult to navigate during every commute and requires far too many taps for basic climate controls.",
+            )
+            external_path = path / "external.json"
+            external_path.write_text(json.dumps([external.model_dump()]), encoding="utf-8")
+            args = Namespace(
+                command="run-all", material_dir=str(path / "material"), config=None,
+                external_raw=[str(external_path)], engine="rules", scoring_inputs=None,
+                output=str(path / "out"),
+            )
+            with patch("bmw_signals.cli.ingest_local_materials", return_value=([local], [])), patch("bmw_signals.cli.ingest_structured_context", return_value={}):
+                failed = await run(args)
+            self.assertFalse(failed)
+            raw = json.loads((path / "out/raw.json").read_text(encoding="utf-8"))
+            self.assertEqual({item["source_platform"] for item in raw}, {"BMW_Workbook", "Reddit"})
+            requirements = json.loads((path / "out/requirements.json").read_text(encoding="utf-8"))
+            self.assertEqual(set(requirements[0]["evidence_source_counts"]), {"BMW_Workbook", "Reddit"})

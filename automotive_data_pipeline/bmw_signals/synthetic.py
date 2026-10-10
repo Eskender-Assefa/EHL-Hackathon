@@ -32,6 +32,6 @@ def generate_neue_klasse_scenario(seed: int, generated_at: datetime | None = Non
             confidence=0.25, topic=topic, requirement_statement=requirement,
             scope_layer="hypothetical_later", region=region, source_record_id=record_id,
             credibility_weight=0.35,
-            evidence=[EvidenceRef(source_uri=uri, locator=f"scenario row {index}", record_id=record_id, quote=text)],
+            evidence=[EvidenceRef(source_uri=uri, locator=f"scenario row {index}", source_platform="Synthetic", record_id=record_id, quote=text)],
         ))
     return output

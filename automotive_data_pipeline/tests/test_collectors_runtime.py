@@ -62,3 +62,10 @@ class CollectorTests(unittest.IsolatedAsyncioTestCase):
             posts, errors = await collect(CollectionConfig(reddit=[RedditConfig(subreddit="BMW", query="G60", target_platform="G60")]))
         self.assertFalse(posts)
         self.assertEqual(errors, [{"subreddit": "BMW", "status": "collection_failed", "reason": "RuntimeError"}])
+
+    async def test_missing_reddit_credentials_are_audited_without_crashing(self):
+        with patch.dict(os.environ, {}, clear=True):
+            posts, errors = await collect(CollectionConfig(reddit=[RedditConfig(subreddit="BMW", query="G60", target_platform="G60")]))
+        self.assertFalse(posts)
+        self.assertEqual(errors[0]["status"], "collection_skipped")
+        self.assertEqual(errors[0]["reason"], "MissingCredentials")

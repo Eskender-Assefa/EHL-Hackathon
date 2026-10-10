@@ -46,5 +46,12 @@
     "pages_with_text": 27,
     "publication_timestamp": "2026-05-28T00:00:00+00:00",
     "checksum_sha256": "77be9d9cb39db058928e8f6a1a02ae1ec4e2055afde1235751466b5c97b524f0"
+  },
+  {
+    "kind": "ExternalCollection",
+    "records": 1,
+    "records_by_source": {
+      "Competitor_Web": 1
+    }
   }
 ]

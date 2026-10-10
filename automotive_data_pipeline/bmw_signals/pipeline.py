@@ -4,6 +4,7 @@ import json
 import math
 import re
 from collections import Counter
+from functools import lru_cache
 from typing import Protocol
 
 import httpx
@@ -23,9 +24,9 @@ OUT_OF_SCOPE = re.compile(
 
 CATEGORY_TERMS = {
     "C09": ("parking assistant", "highway assistant", "autonomous", "hands-free", "lane change", "cruise control", "automated driving"),
-    "C04": ("safety", "brake", "collision", "blind spot", "emergency", "airbag", "warning", "sensor", "hazard"),
+    "C04": ("crash safety", "crash protection", "crash test", "crash event", "brake failure", "braking performance", "emergency braking", "forward collision", "collision warning", "collision avoidance", "blind spot", "airbag", "seat belt", "pedestrian detection", "active safety alert"),
     "C02": ("range", "charging", "charger", "battery", "energy", "emission", "consumption", "thermal"),
-    "C07": ("idrive", "carplay", "android auto", "bluetooth", "software", "touch screen", "touchscreen", "infotainment", "navigation", "ota", "instrument cluster", "operating system", "app"),
+    "C07": ("idrive", "carplay", "android auto", "bluetooth", "software", "software bug", "touch screen", "touchscreen", "infotainment", "navigation", "ota", "instrument cluster", "operating system", "app", "menu", "submenu", "user interface", "connectivity", "screen freeze", "screen freezes", "reboot"),
     "C01": ("engine", "motor", "power", "acceleration", "throttle", "transmission", "drivetrain", "differential", "handling", "steering", "driving dynamics", "xdrive"),
     "C05": ("seat", "comfort", "climate", "air conditioning", "hvac", "noise", "vibration", "ride", "suspension", "heated steering", "massage"),
     "C06": ("exterior", "headlight", "taillight", "paint", "wheel", "aerodynamic", "body styling", "roof", "grille"),
@@ -33,6 +34,16 @@ CATEGORY_TERMS = {
     "C03": ("price", "cost", "expensive", "subscription", "package", "option pack", "msrp", "value for money"),
     "C10": ("dealer", "service", "warranty", "manual", "accessory", "handover", "trunk", "key", "door"),
 }
+
+# These verbatim rules resolve category boundaries before workbook tags are
+# considered. Physical placement belongs to C08, digital interaction belongs
+# to C07, automation to C09, and C04 is reserved for an explicit safety event.
+VERBATIM_PRECEDENCE = (
+    ("C08", ("display placement", "screen placement", "dashboard layout", "center console layout")),
+    ("C07", CATEGORY_TERMS["C07"]),
+    ("C09", CATEGORY_TERMS["C09"]),
+    ("C04", CATEGORY_TERMS["C04"]),
+)
 
 POSITIVE = ("love", "like", "great", "good", "excellent", "comfortable", "happy", "improved", "joy", "best", "fast", "stable")
 NEGATIVE = ("hate", "bad", "terrible", "suck", "slow", "difficult", "problem", "issue", "defect", "glitch", "disappoint", "missing", "inconsistent", "uncomfortable", "noise", "cannot", "can't", "worse")
@@ -52,22 +63,53 @@ def credibility(post: RawPost) -> float:
     return round(min(2.0, value), 4)
 
 
-def _category(text: str) -> tuple[str, str, list[str]]:
-    lowered = text.casefold()
-    counts = Counter({category: sum(lowered.count(term) for term in terms) for category, terms in CATEGORY_TERMS.items()})
+def _normalise_for_matching(text: str) -> str:
+    return " " + re.sub(r"\s+", " ", re.sub(r"[-_/]+", " ", text.casefold())).strip() + " "
+
+
+@lru_cache(maxsize=None)
+def _term_pattern(term: str) -> re.Pattern:
+    needle = re.sub(r"[-_/]+", " ", term.casefold())
+    escaped = re.escape(needle)
+    if needle.endswith("y") and len(needle) > 1 and needle[-2].isalpha():
+        escaped = escaped[:-1] + r"(?:y|ies)"
+    elif not needle.endswith(("s", "ing")):
+        escaped += r"(?:s|es)?"
+    return re.compile(rf"(?<!\w){escaped}(?!\w)")
+
+
+def _term_count_normalised(normalised: str, term: str) -> int:
+    return len(_term_pattern(term).findall(normalised))
+
+
+def _category(text: str, context: str = "") -> tuple[str, str, list[str]]:
+    normalised_text = _normalise_for_matching(text)
+    normalised_context = _normalise_for_matching(context)
+    explicit = next((
+        category for category, terms in VERBATIM_PRECEDENCE
+        if any(_term_count_normalised(normalised_text, term) for term in terms)
+    ), None)
+    counts = Counter({
+        category: 3 * sum(_term_count_normalised(normalised_text, term) for term in terms)
+        + sum(_term_count_normalised(normalised_context, term) for term in terms)
+        for category, terms in CATEGORY_TERMS.items()
+    })
     counts = +counts
     if not counts:
         return "C10", "General", []
-    primary, _ = counts.most_common(1)[0]
-    topic = next((term.title() for term in CATEGORY_TERMS[primary] if term in lowered), TAXONOMY[primary].split(":", 1)[0])
+    primary = explicit or counts.most_common(1)[0][0]
+    topic = next(
+        (term.title() for term in CATEGORY_TERMS[primary] if _term_count_normalised(normalised_text, term)),
+        next((term.title() for term in CATEGORY_TERMS[primary] if _term_count_normalised(normalised_context, term)), TAXONOMY[primary].split(":", 1)[0]),
+    )
     secondary = [category for category, _ in counts.most_common() if category != primary]
     return primary, topic, secondary
 
 
 def _sentiment(text: str, feedback_types: list[str]) -> int:
-    lowered = text.casefold()
-    positive = sum(lowered.count(word) for word in POSITIVE)
-    negative = sum(lowered.count(word) for word in NEGATIVE)
+    normalised = _normalise_for_matching(text)
+    positive = sum(_term_count_normalised(normalised, word) for word in POSITIVE)
+    negative = sum(_term_count_normalised(normalised, word) for word in NEGATIVE)
     if positive or negative:
         return max(-100, min(100, round((positive - negative) / (positive + negative) * 85)))
     tagged = [TYPE_SENTIMENT[kind] for kind in feedback_types if kind in TYPE_SENTIMENT]
@@ -88,7 +130,7 @@ class RuleBasedEvaluator:
         if OUT_OF_SCOPE.search(post.post_body):
             return Evaluation(is_noise=True, reason="out-of-scope regulatory or component engineering content", aspects=[])
         if post.source_platform == "BMW_PDF":
-            category, topic, secondary = _category(post.post_body + " " + " ".join(post.original_tags))
+            category, topic, secondary = _category(post.post_body, " ".join(post.original_tags))
             return Evaluation(is_noise=False, reason="fixed baseline evidence", aspects=[Aspect(
                 taxonomy_category=category, cleaned_verbatim_text=post.post_body,
                 sentiment_score=0, confidence=0.8, topic=topic,
@@ -96,14 +138,18 @@ class RuleBasedEvaluator:
             )])
         aspects = []
         context = " ".join(post.original_tags)
-        for fragment in _fragments(post.post_body):
-            category, topic, secondary = _category(fragment + " " + context)
+        fragments = _fragments(post.post_body)
+        for fragment in fragments:
+            # Workbook tags describe the complete feedback record. Once that
+            # record is split, a tag must not force unrelated clauses into the
+            # same category. It remains a fallback for a single-clause record.
+            fragment_context = context if len(fragments) == 1 else ""
+            category, topic, secondary = _category(fragment, fragment_context)
             sentiment = _sentiment(fragment, post.feedback_types)
-            action = "Preserve" if sentiment > 30 else "Improve"
             aspects.append(Aspect(
                 taxonomy_category=category, cleaned_verbatim_text=fragment,
                 sentiment_score=sentiment, confidence=0.62 if post.original_tags else 0.48,
-                topic=topic, requirement_statement=f"{action} {topic.lower()} for {post.target_platform} customers.",
+                topic=topic, requirement_statement=None,
                 secondary_tags=secondary,
             ))
         if not aspects:
@@ -124,7 +170,11 @@ class LLMEvaluator:
             "distinct customer-facing component or sentiment into an exact contiguous source excerpt. "
             "Assign exactly one C01-C10 primary category and optional secondary category tags. Score "
             "polarity from -100 (severe pain) to +100 (strong delight), give confidence from 0 to 1, "
-            "name a concise topic, and propose a customer-facing testable requirement. Fixed BMW PDF "
+            "name a concise topic, and propose a professional, testable requirement that states the exact "
+            "functional change. Never use generic wording such as 'Improve [keyword] for [model] customers'. "
+            "Touchscreens, menus, iDrive interaction, connectivity, and software bugs belong to C07; "
+            "physical dashboard or display placement belongs to C08. Reserve C04 for explicit crash safety, "
+            "airbag, braking, collision-warning, or other critical safety events. Fixed BMW PDF "
             "facts are baseline evidence and must not be presented as customer demand. C09 takes "
             "precedence for autonomous operation, automated parking, hands-free driving, and automated "
             "lane changes. C08 is physical display placement; C07 is digital UI behavior. Competitor "
@@ -196,8 +246,13 @@ async def process(posts: list[RawPost], evaluator: Evaluator, concurrency=4):
                 signal_identity = f"{post.source_url}|{post.source_record_id}|{post.target_platform}|{post.region}|{aspect.taxonomy_category}|{aspect_key[1]}"
                 evidence = post.evidence or [EvidenceRef(
                     source_uri=post.source_url, locator=post.source_url,
+                    source_platform=post.source_platform,
                     record_id=post.source_record_id, quote=aspect.cleaned_verbatim_text,
                 )]
+                evidence = [
+                    item if item.source_platform else item.model_copy(update={"source_platform": post.source_platform})
+                    for item in evidence
+                ]
                 output.append(FilteredSignal(
                     signal_id=hashlib.sha256(signal_identity.encode()).hexdigest()[:24],
                     source_platform=post.source_platform, source_url=post.source_url,

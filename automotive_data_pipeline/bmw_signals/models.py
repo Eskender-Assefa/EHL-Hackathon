@@ -11,7 +11,7 @@ Source = Literal[
 Platform = Literal["F70", "G60", "G70", "Neue_Klasse"]
 Category = Literal["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10"]
 ScopeLayer = Literal["fixed_now", "variable_later", "hypothetical_later"]
-Region = Literal["EU", "CN", "US", "RoW", "Unknown"]
+Region = Literal["EU", "CN", "US", "RoW", "Unknown", "Global / Unassigned"]
 EffortClass = Literal["software_ux", "interior_trim", "electronics_thermal", "body_platform"]
 ReviewBand = Literal["Critical review", "High", "Medium", "Low", "Unscored"]
 DecisionStatus = Literal["Proposed", "Approved", "Edited", "Rejected", "Postponed"]
@@ -24,6 +24,7 @@ class StrictModel(BaseModel):
 class EvidenceRef(StrictModel):
     source_uri: str = Field(min_length=1)
     locator: str = Field(min_length=1)
+    source_platform: Source | None = None
     record_id: str | None = None
     page_number: int | None = Field(default=None, ge=1)
     sheet_name: str | None = None
@@ -174,6 +175,7 @@ class RequirementCandidate(StrictModel):
     effort_class: EffortClass
     effort_penalty: int = Field(ge=0, le=50)
     priority_score: float | None = None
+    priority_score_basis: Literal["complete_formula", "static_evidence_proxy"] = "complete_formula"
     partial_priority_score: float
     review_band: ReviewBand
     ehi_score: float = Field(ge=0, le=100)
@@ -185,5 +187,6 @@ class RequirementCandidate(StrictModel):
     warnings: list[str] = Field(default_factory=list)
     blindspots: list[str] = Field(default_factory=list)
     evidence: list[EvidenceRef]
+    evidence_source_counts: dict[Source, int] = Field(default_factory=dict)
     status: DecisionStatus = "Proposed"
     pm_rationale: str | None = None
