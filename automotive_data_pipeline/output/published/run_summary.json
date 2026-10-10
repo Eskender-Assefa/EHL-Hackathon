@@ -1,50 +1,67 @@
 {
-  "published_at": "2026-10-10T19:47:25.376249+00:00",
-  "source_run": "final-verification",
+  "published_at": "2026-10-10T20:29:37.793597+00:00",
+  "source_run": "relabelled",
   "engine": "rules",
+  "classification": "BMW Feedback Type and Vfc level2 topic where present; whole-word keyword rules otherwise",
   "counts": {
     "workbook_tag_rows": 13771,
     "distinct_feedback_ids": 10128,
     "raw_records": 10206,
-    "aspect_signals": 24953,
+    "respondents_classified_by_bmw_label": 8930,
+    "respondents_classified_by_keyword_rule": 1198,
+    "signals": 13754,
     "fixed_baseline_signals": 78,
-    "requirements": 238,
-    "regional_conflicts": 29,
+    "requirements": 188,
+    "regional_conflicts": 0,
     "sales_volume_rows": 12,
     "customer_study_rows": 1003,
-    "audit_events": 252
+    "audit_events": 188
+  },
+  "not_proposed": {
+    "minimum_respondents": 15,
+    "unclassified_respondents": 1041,
+    "topics_below_minimum": 470,
+    "respondents_in_topics_below_minimum": 2604,
+    "note": "Counted but not proposed. Missing evidence is silence, not low priority."
   },
   "requirements_by_category": {
-    "C01": 31,
-    "C02": 16,
-    "C03": 14,
-    "C04": 24,
+    "C01": 21,
+    "C02": 14,
+    "C04": 15,
     "C05": 28,
-    "C06": 17,
-    "C07": 44,
-    "C08": 20,
-    "C09": 17,
-    "C10": 27
+    "C06": 23,
+    "C07": 37,
+    "C08": 21,
+    "C09": 11,
+    "C10": 18
   },
   "requirements_by_review_band": {
-    "Critical review": 17,
-    "Unscored": 221
+    "Critical review": 11,
+    "Unscored": 177
+  },
+  "requirements_by_confidence_label": {
+    "Verified Evidence": 85,
+    "Medium Evidence": 103
   },
   "processing_by_status": {
     "accepted": 10206
   },
   "validation": {
     "python_tests": {
-      "passed": 47,
+      "passed": 65,
       "failed": 0
     },
-    "nextjs_production_build": "passed",
-    "npm_audit_vulnerabilities": 0,
+    "independent_recount": "168 of 168 label-based requirements match a separate recount of the workbooks",
+    "nextjs_production_build": "not re-run after the classification change",
     "powerpoint_slides": 22,
-    "powerpoint_bytes": 53244
+    "powerpoint_bytes": 53533
   },
   "known_limitations": [
     "All observed requirements lack at least one required dated velocity, validated sales-causality, or competitor two-year ROI input.",
-    "Raw records and aspect signals are reproducible but excluded from the published Git snapshot because of their generated size."
+    "The BMW topic to C01-C10 table is a project judgement and has not been reviewed by BMW.",
+    "No BMW topic maps to C03 Price with enough respondents, so C03 has no requirement.",
+    "Requirement statements are templates around BMW topic names, not reviewed requirement wording.",
+    "G60 and G70 feedback is over 90% US and there is no China feedback, so no regional conflict meets the sample gate.",
+    "Raw records and signals are reproducible but excluded from the published Git snapshot because of their generated size."
   ]
 }
