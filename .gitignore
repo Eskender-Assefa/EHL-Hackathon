@@ -7,3 +7,5 @@ api.txt
 reports/
 .local-postgres/
 data/assets/
+node_modules/
+.next/

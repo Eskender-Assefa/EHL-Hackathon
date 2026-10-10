@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
 from pydantic import Field
-from .models import Platform, RawPost, Source, StrictModel
+from .models import Platform, RawPost, Region, Source, StrictModel
 
 HOSTS = {
     "BIMMERPOST": ("bimmerpost.com",),
@@ -23,6 +23,8 @@ class PageConfig(StrictModel):
     url: str
     target_platform: Platform | None = None
     benchmark_context: str | None = None
+    region: Region = "Unknown"
+    country: str | None = None
     post_selector: str
     body_selector: str
     title_selector: str = "h1"
@@ -39,8 +41,11 @@ class RedditConfig(StrictModel):
     subreddit: str
     query: str
     target_platform: Platform
+    region: Region = "Unknown"
+    country: str | None = None
     limit: int = Field(default=25, ge=1, le=500)
     comment_limit: int = Field(default=100, ge=0, le=1000)
+    fetch_author_reputation: bool = True
 
 
 class CollectionConfig(StrictModel):
@@ -97,6 +102,8 @@ def extract(html, config, final_url):
             thread_title=title, post_body=body.get_text(" ", strip=True),
             timestamp=timestamp, score=score, target_platform=config.target_platform,
             collected_at=now(), benchmark_context=config.benchmark_context,
+            scope_layer="hypothetical_later" if config.source_platform == "Competitor_Web" else "variable_later",
+            region=config.region, country=config.country,
         ))
     if not results:
         raise ValueError("No posts extracted; check selectors or access restrictions")
@@ -142,18 +149,34 @@ async def collect(config: CollectionConfig):
             async def reddit_job(item):
                 async with semaphore:
                     records = []
+                    reputation_cache = {}
+                    async def reputation(author):
+                        if not item.fetch_author_reputation or author is None:
+                            return None
+                        name = str(author)
+                        if name in reputation_cache:
+                            return reputation_cache[name]
+                        try:
+                            await author.load()
+                            value = int(getattr(author, "link_karma", 0)) + int(getattr(author, "comment_karma", 0))
+                        except Exception:
+                            value = None
+                        reputation_cache[name] = value
+                        return value
                     subreddit = await reddit.subreddit(item.subreddit)
                     async for submission in subreddit.search(item.query, sort="new", limit=item.limit):
-                        def record(body, created, score, permalink):
+                        def record(body, created, score, permalink, author_reputation):
                             return RawPost(source_platform="Reddit", source_url="https://www.reddit.com" + permalink,
                                            thread_title=submission.title, post_body=body,
                                            timestamp=datetime.fromtimestamp(created, timezone.utc).isoformat(),
-                                           score=score, target_platform=item.target_platform, collected_at=now())
-                        records.append(record(submission.selftext, submission.created_utc, submission.score, submission.permalink))
+                                           score=score, author_reputation=author_reputation,
+                                           target_platform=item.target_platform, collected_at=now(),
+                                           region=item.region, country=item.country, credibility_weight=0.75)
+                        records.append(record(submission.selftext, submission.created_utc, submission.score, submission.permalink, await reputation(getattr(submission, "author", None))))
                         if item.comment_limit:
                             await submission.comments.replace_more(limit=0)
                             for comment in submission.comments.list()[:item.comment_limit]:
-                                records.append(record(comment.body, comment.created_utc, comment.score, comment.permalink))
+                                records.append(record(comment.body, comment.created_utc, comment.score, comment.permalink, await reputation(getattr(comment, "author", None))))
                     return records
             results = await asyncio.gather(*(reddit_job(r) for r in config.reddit), return_exceptions=True)
             for item, result in zip(config.reddit, results):

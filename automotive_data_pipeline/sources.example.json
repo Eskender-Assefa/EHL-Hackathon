@@ -1,0 +1,10 @@
+{
+  "concurrency": 3,
+  "reddit": [
+    {"subreddit": "BMW", "query": "F70", "target_platform": "F70", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "BMW", "query": "G60", "target_platform": "G60", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "BMW", "query": "G70", "target_platform": "G70", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "electricvehicles", "query": "BMW Neue Klasse", "target_platform": "Neue_Klasse", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true}
+  ],
+  "pages": []
+}
