@@ -58,6 +58,8 @@ BMW workbooks/PDFs + configured web sources
     -> PM decisions + hash-chained audit log + PowerPoint export
 ```
 
+A canonical copy of the verified generated results is committed under [`output/published`](output/published). It contains the requirement matrix, evidence manifest, structured context, processing audit, fixed baselines, immutable audit events, run summary, and board deck. Raw records and aspect-level signals remain reproducible through `run-local`; they are omitted from Git because the two JSON files add about 88 MB and contain the same source evidence expanded at record level.
+
 ## What works
 
 The implementation now provides:

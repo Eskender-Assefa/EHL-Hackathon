@@ -3,6 +3,11 @@ __pycache__/
 .venv/
 .env
 output/
+!automotive_data_pipeline/output/
+automotive_data_pipeline/output/*
+!automotive_data_pipeline/output/README.md
+!automotive_data_pipeline/output/published/
+!automotive_data_pipeline/output/published/**
 api.txt
 reports/
 .local-postgres/

@@ -1,0 +1,50 @@
+[
+  {
+    "source": "F70_feedback_hackathon.xlsx",
+    "kind": "Feedback_Explorer",
+    "tagged_rows": 4076,
+    "distinct_feedback_ids": 2128,
+    "duplicates_collapsed": 1948,
+    "checksum_sha256": "651f09e3d899eb6fd294ee89aee23cc41417030425ec19420fbf615ad798163e"
+  },
+  {
+    "source": "G60_feedback_hackathon.xlsx",
+    "kind": "Feedback_Explorer",
+    "tagged_rows": 5005,
+    "distinct_feedback_ids": 4000,
+    "duplicates_collapsed": 1005,
+    "checksum_sha256": "ffaeb3ab943d299380542c228b3d944ed749bc80af54c75aa30a5e84b221d34f"
+  },
+  {
+    "source": "G70_feedback_hackathon.xlsx",
+    "kind": "Feedback_Explorer",
+    "tagged_rows": 4690,
+    "distinct_feedback_ids": 4000,
+    "duplicates_collapsed": 690,
+    "checksum_sha256": "60d1c9932283bc244661ce9cd6c825099714d855bc4f3b9f1544d49a80821cf1"
+  },
+  {
+    "source": "F70_OptionList.PDF",
+    "kind": "OptionList",
+    "pages": 23,
+    "pages_with_text": 23,
+    "publication_timestamp": "2026-05-28T00:00:00+00:00",
+    "checksum_sha256": "e7823aecbb4cc2b8b267ea65a0f128f464fc241719791082c30979dcb885635d"
+  },
+  {
+    "source": "G60_OptionList.PDF",
+    "kind": "OptionList",
+    "pages": 28,
+    "pages_with_text": 28,
+    "publication_timestamp": "2026-06-22T00:00:00+00:00",
+    "checksum_sha256": "97ee14fae6239473f125d72518b710d72e3a7c5481c2e6b635d3c1f289a2669d"
+  },
+  {
+    "source": "G70_OptionList.PDF",
+    "kind": "OptionList",
+    "pages": 27,
+    "pages_with_text": 27,
+    "publication_timestamp": "2026-05-28T00:00:00+00:00",
+    "checksum_sha256": "77be9d9cb39db058928e8f6a1a02ae1ec4e2055afde1235751466b5c97b524f0"
+  }
+]
