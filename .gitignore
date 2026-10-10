@@ -5,8 +5,15 @@ __pycache__/
 .env.*
 !.env.example
 output/
+!automotive_data_pipeline/output/
+automotive_data_pipeline/output/*
+!automotive_data_pipeline/output/README.md
+!automotive_data_pipeline/output/published/
+!automotive_data_pipeline/output/published/**
 api.txt
 reports/
 .local-postgres/
 data/assets/
 BMW_database_package.zip
+node_modules/
+.next/

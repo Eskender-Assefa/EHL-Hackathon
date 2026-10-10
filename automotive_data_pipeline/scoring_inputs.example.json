@@ -1,0 +1,9 @@
+{
+  "G60|C07|touchscreen": {
+    "sales_causality_score": 20,
+    "competitor_roi_score": 12,
+    "effort_class": "software_ux",
+    "assumptions": ["Example only: replace with validated experiment and finance references."],
+    "synthetic": true
+  }
+}

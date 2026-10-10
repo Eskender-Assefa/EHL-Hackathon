@@ -1,83 +1,146 @@
-# Test results — 2026-10-10
+# Verification results — 2026-10-10
 
-Environment: Windows PowerShell, Python 3.12.8. No application logic was changed during this testing pass. Added expanded tests and diagnostic probes.
+Environment: Windows, PowerShell, Python 3.12.8, Node.js 24.14.0, Next.js 16.4.0.
 
-The implementation and test artifacts were subsequently grouped into `automotive_data_pipeline/`. Run the commands in this report from that folder; timings and results below record the original test executions before the move.
+## Python suite
 
-After relocation, the suite was rerun from this folder: **34 tests passed in 0.398 seconds**, with zero failures/errors/skips. CLI help and Python compilation both returned exit code 0. The real browser smoke test was not rerun during relocation.
-
-## Automated suite
-
-Command: `python -m unittest discover -s tests -v`
-
-Final suite run:
+Command run from `automotive_data_pipeline`:
 
 ```text
-Ran 34 tests in 0.412s
+python -m unittest discover -s tests -v
+```
+
+Final result:
+
+```text
+Ran 56 tests
 OK
 ```
 
-34 passed; zero failures, errors or skips. An asyncio debug message reported a CLI test task taking 0.250 seconds; the test passed.
+There were zero failures, errors, or skips. FastAPI emitted a `StarletteDeprecationWarning` about its current test-client compatibility layer; it did not affect execution.
 
-| Area | Tests | Observed results |
-| --- | ---: | --- |
-| Collector runtime with mocked APIs | 3 | Browser success plus HTTP 403 isolation; page/context/browser cleanup; Reddit submission and comment metadata; comment limit; source error audit |
-| CLI output | 2 | Empty collection produced two empty JSON arrays; processing produced one valid signal and accepted/quarantined audit entries, returning failure status for quarantine |
-| HTML extraction | 9 | Source allowlists, invalid host rejection, timestamp parsing, explicit timezone, missing dates, multiple posts, unwanted markup removal, scores, empty extraction, competitor context |
-| LLM HTTP with MockTransport | 6 | Valid request/response: 1 request; 429 then success: 2; persistent 500: 3 then exception; 401: 1 without retry; invalid JSON then success: 2; missing choices: 3 then KeyError |
-| Processing | 11 | Aspect splitting, stable IDs, post/aspect deduplication, empty/removed input, missing metadata, invalid timestamp/category/excerpt quarantine, noise audit; observed peak concurrency exactly 3 with limit 3 |
-| Schema | 3 | All 200 category/platform/source combinations validated; eight invalid-field variants rejected; contradictory noise/aspect structures rejected |
+Covered behavior includes:
 
-All LLM and Reddit responses in this suite were synthetic. It does not measure semantic classification accuracy, spam detection quality, sentiment splitting quality, or live website selector compatibility.
+- source-domain allowlists and rendered-page extraction;
+- Async PRAW submission/comment metadata, missing-credential handling, and source failure isolation;
+- LLM HTTP success, 401 behavior, 429 retry, 500 exhaustion, malformed JSON, and invalid schema responses;
+- exact aspect splitting, sentiment polarity, taxonomy validation, and low-effort filtering;
+- verbatim-first classification for C07 software, C08 physical display placement, and strict C04 safety evidence;
+- prevention of record-level workbook tags contaminating unrelated split fragments;
+- distinct workbook-ID consolidation with every original row citation preserved;
+- stable per-publication IDs so split web/Reddit aspects do not inflate source volume;
+- missing-data handling, stable identifiers, and platform-aware deduplication;
+- velocity and deterministic priority calculation with complete inputs;
+- labelled static-evidence proxy scoring when velocity, causality, or ROI is absent;
+- professional action titles and `Global / Unassigned` regional normalization;
+- multi-source aggregation, round-robin evidence, and competitor/customer metric separation;
+- `run-all` merging of local material with saved external raw data;
+- regional-conflict derivative branching and fixed-baseline separation;
+- audit-chain tamper detection and PM rationale enforcement;
+- labelled Neue Klasse synthetic trigger;
+- PowerPoint generation and external-source reservation in its 20 detail slides.
 
-## Diagnostic probes: actual gaps
+The LLM HTTP tests use a mocked transport. Collector runtime tests use mocked external APIs. A six-source integration fixture proves that BMW workbook, Reddit, BIMMERPOST, Bimmerforums, German Car Forum, and Mercedes/BYD-style competitor citations remain in `requirements.json` and the generated `.pptx`.
 
-Command: `$env:PYTHONPATH = (Get-Location).Path; python tests/probe_limitations.py`
+## Full local plus live-competitor run
 
-These probes print observed undesirable behavior and are separate from the passing assertions:
+Commands:
 
 ```text
-missing_metadata_then_valid_duplicate: {"signals": 0, "statuses": ["quarantined", "discarded"], "reasons": ["missing publication timestamp or target platform", "duplicate"]}
-same_body_different_platform: {"platforms_retained": ["G60"], "statuses": ["accepted", "discarded"]}
-model_accepts_short_complaint: {"signals": 1, "status": "accepted"}
-weak_schema_inputs: {"signal_id": "abc", "source_platform": "Reddit", "source_url": "not-a-url", "timestamp": "2026-10-01T00:00:00Z", "target_platform": "G60", "taxonomy_category": "C05", "cleaned_verbatim_text": " ", "is_noise": false}
+python -m bmw_signals.cli collect --config sources.example.json --output output/live-sources
+python -m bmw_signals.cli run-all --material-dir ../material --external-raw output/live-sources/raw.json --engine rules --output output/revision-v6
+python -m bmw_signals.cli build-requirements --signals output/revision-v6/signals.json --output output/revision-v8
 ```
 
-1. Deduplication happens before metadata validation: a quarantined post suppresses a later valid copy.
-2. Deduplication uses only the body: identical text assigned to different comparison platforms keeps only the first platform.
-3. The under-15-word low-effort complaint rule relies on the model; code accepts such a complaint if the model accepts it.
-4. The schema accepts non-URL source strings and whitespace-only excerpts, and coerces the string `"false"` into a boolean.
+The collection command returned a nonzero status because some configured sources were audited as unavailable; it still wrote the successful BYD record and complete collection audit. `run-all` completed successfully.
 
-These gaps remain unfixed in this testing pass.
+| Measure | Result |
+| --- | ---: |
+| Feedback workbook tag rows | 13,771 |
+| Distinct feedback IDs | 10,128 |
+| Repeated tag rows collapsed for counting | 3,643 |
+| OptionList pages | 78 |
+| Live competitor pages | 1 |
+| Total raw records | 10,207 |
+| Accepted raw records | 10,207 |
+| Quarantined raw records | 0 |
+| Discrete aspect signals | 24,988 |
+| Fixed baseline signals | 78 |
+| Requirement candidates | 282 |
+| Requirements with competitor evidence | 7 |
+| Regional conflicts | 43 |
+| Critical-review safety candidates | 9 |
+| High-priority candidates | 125 |
+| Medium-priority candidates | 93 |
+| Low-priority candidates | 55 |
+| Unscored candidates | 0 |
+| Static-evidence proxy scores | 282 |
+| Presentation regions marked `Unknown` | 0 |
+| Sales context rows | 12 |
+| Customer-study rows | 1,003 |
 
-## Other command results
+Requirement coverage by taxonomy:
 
-- `python -m compileall -q bmw_signals tests`: exit 0, no output.
-- `python -m bmw_signals.cli --help`: exit 0; displayed `collect` and `process` subcommands.
-- Collection using nonexistent `missing-sources.json`: exit 1 with an uncaught `FileNotFoundError` traceback. The CLI does not present a friendly configuration error.
-- No `LLM_*` or `REDDIT_*` environment variables were present.
-- Playwright and Async PRAW were initially absent. Sandbox dependency download failed with Windows socket error 10013. Approved download succeeded, installing Playwright 1.63.0 and Async PRAW 8.0.3 under ignored `output/test-deps`. Pip emitted an aiohttp/open-webui conflict warning; installation was isolated to this target directory.
-- The sandbox could not read those installed dependency directories. An approved external-sandbox smoke test imported them successfully but initially failed to launch Chromium because its executable was missing.
-
-## Real browser integration
-
-Downloaded Chromium Headless Shell 153.0.8010.12 into `output/test-browsers` and ran `tests/browser_smoke.py` with the isolated dependencies, outside the sandbox. Exit code 0, tool-reported wall time 8.897 seconds.
-
-The actual Chromium process executed page JavaScript that inserted the post body. The page response was intercepted synthetic HTML; the LLM HTTP response was mocked. Observed output:
-
-```json
-{
-  "raw_posts": 1,
-  "signals": 2,
-  "categories": ["C05", "C07"],
-  "audit": [{
-    "source_url": "https://www.bimmerpost.com/test-fixture",
-    "status": "accepted",
-    "signals": 2
-  }]
-}
+```text
+C01 37   C02 31   C03 20   C04 13   C05 32
+C06 22   C07 53   C08 21   C09 18   C10 35
 ```
 
-Signal text was `The seats are comfortable` (C05) and `the touch screen menu is terrible` (C07). The output JSON is saved at `output/browser-smoke/signals.json`. This smoke test covers real browser rendering, BeautifulSoup extraction, HTTP response parsing, aspect validation and output serialization; it does not navigate a live forum or call a real LLM.
+The raw source mix was 10,128 BMW workbook records, 78 BMW PDF pages, and one live official BYD release. The BYD page produced 35 discrete aspects and seven benchmark requirement topics. Every such requirement records exactly one `Competitor_Web` publication, confirming that aspect splitting did not inflate source volume.
 
-No live Reddit posts, forum posts, official competitor content or real LLM classifications have been produced in this test pass.
+The three OptionList publication dates were recovered correctly:
+
+```text
+F70  2026-05-28
+G60  2026-06-22
+G70  2026-05-28
+```
+
+`pypdf` warned that rotated text on some pages may be incomplete. The pipeline retained page-level provenance. This remains a material limitation for detailed catalogue fact extraction.
+
+The supplied feedback workbooks contain no event timestamp and provide neither validated take-rate causality nor competitor two-year ROI. The pipeline keeps those inputs absent and exposes them as blindspots. For static review it assigns a labelled proxy score equal to normalized mean absolute sentiment severity multiplied by logarithmically normalized distinct source volume. This produces useful ranking without representing missing business inputs as observed evidence.
+
+The strict classifier reduced C04 from the original 24 groups to 13. The resulting distribution contains 53 C07 software requirements and 21 C08 interior-design requirements. No generated title uses the old `Improve [keyword] for [model] customers` template.
+
+## PowerPoint
+
+Command:
+
+```text
+python -m bmw_signals.cli export-deck --requirements output/revision-v8/requirements.json --destination output/revision-v8/BMW_board_deck.pptx
+```
+
+Result: exit code `0`, 81,891-byte `.pptx`, 22 slides, and a successful `python-pptx` reopen. Microsoft PowerPoint rendered all 22 slides to 1600×900 PNG files. The title, overview, and detail slides, including the long BYD citation slide, were visually inspected for wrapping, clipping, contrast, padding, evidence readability, and long-title handling. The deck contains the live `media.byd.com` citation and contains neither `Unscored` nor `Region: Unknown`.
+
+## Next.js cockpit
+
+Command:
+
+```text
+npm.cmd run build
+```
+
+Result: exit code `0`. The production build compiled, passed TypeScript, generated three static pages, and prerendered `/` plus `/_not-found`. `npm audit` reported zero vulnerabilities.
+
+## Regression probes
+
+Command:
+
+```text
+$env:PYTHONPATH = (Get-Location).Path
+python tests/probe_limitations.py
+```
+
+Observed result:
+
+```text
+invalid_then_valid_record: invalid record quarantined; later valid record accepted
+same_body_different_platform: G60 and G70 records both accepted
+short_complaint: zero signals; discarded below low-effort threshold
+```
+
+## Live external-source result
+
+The checked-in [`sources.example.json`](sources.example.json) was run through Chromium. The official BYD media release returned HTTP 200 and yielded one 7,411-character competitor record dated `2026-03-05T00:00:00+00:00`. BIMMERPOST timed out at its access-verification page, German Car Forum and the Mercedes-Benz Group page rejected automated access, and all four Reddit searches were marked `collection_skipped / MissingCredentials`. The collector produced a structured audit for all seven unavailable source jobs and did not bypass access controls.
+
+This run proves live BYD ingestion and end-to-end citation in the deck. It does not claim that Reddit, BIMMERPOST, German Car Forum, or Mercedes content was collected in this environment. Their aggregation behavior is verified with the automated six-source fixture; a deployment with Reddit API credentials and source-approved forum access must rerun `run-all` to place their real URLs in `requirements.json` and the board deck.

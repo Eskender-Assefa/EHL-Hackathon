@@ -1,0 +1,61 @@
+{
+  "concurrency": 3,
+  "reddit": [
+    {"subreddit": "BMW", "query": "F70", "target_platform": "F70", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "BMW", "query": "G60", "target_platform": "G60", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "BMW", "query": "G70", "target_platform": "G70", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true},
+    {"subreddit": "electricvehicles", "query": "BMW Neue Klasse", "target_platform": "Neue_Klasse", "limit": 25, "comment_limit": 50, "fetch_author_reputation": true}
+  ],
+  "pages": [
+    {
+      "source_platform": "BIMMERPOST",
+      "url": "https://g60.bimmerpost.com/forums/showthread.php?t=2120140",
+      "target_platform": "G60",
+      "region": "Global / Unassigned",
+      "post_selector": "article.message",
+      "body_selector": ".message-body",
+      "title_selector": "h1.p-title-value",
+      "timestamp_selector": "time.u-dt",
+      "timestamp_attribute": "datetime",
+      "permalink_selector": "a.message-attribution-main",
+      "wait_selector": "article.message"
+    },
+    {
+      "source_platform": "German_Car_Forum",
+      "url": "https://www.germancarforum.com/threads/the-new-bmw-5-series-g60-official.196464/page-120",
+      "target_platform": "G60",
+      "region": "EU",
+      "post_selector": "article.message",
+      "body_selector": ".message-body",
+      "title_selector": "h1.p-title-value",
+      "timestamp_selector": "time.u-dt",
+      "timestamp_attribute": "datetime",
+      "permalink_selector": "a.message-attribution-main",
+      "wait_selector": "article.message"
+    },
+    {
+      "source_platform": "Competitor_Web",
+      "url": "https://group.mercedes-benz.com/technology/digitalisation/operating-system/mb-os.html",
+      "target_platform": "Neue_Klasse",
+      "benchmark_context": "Mercedes-Benz Operating System benchmark",
+      "region": "EU",
+      "post_selector": "body",
+      "body_selector": "main",
+      "title_selector": "h1",
+      "wait_selector": "main",
+      "fallback_timestamp": "2022-03-29T00:00:00+01:00"
+    },
+    {
+      "source_platform": "Competitor_Web",
+      "url": "https://media.byd.com/byd-breaksdown-finalbarriers-toelectrification-withblade-battery20-andflash-charging/?lang=eng",
+      "target_platform": "Neue_Klasse",
+      "benchmark_context": "BYD Blade Battery 2.0 and FLASH Charging benchmark",
+      "region": "EU",
+      "post_selector": "body",
+      "body_selector": "main",
+      "title_selector": "h1",
+      "wait_selector": "main",
+      "fallback_timestamp": "2026-03-05T00:00:00Z"
+    }
+  ]
+}

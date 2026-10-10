@@ -1,0 +1,57 @@
+[
+  {
+    "source_url": "https://g60.bimmerpost.com/forums/showthread.php?t=2120140",
+    "status": "collection_failed",
+    "reason": "TimeoutError"
+  },
+  {
+    "source_url": "https://www.germancarforum.com/threads/the-new-bmw-5-series-g60-official.196464/page-120",
+    "status": "collection_failed",
+    "reason": "ValueError"
+  },
+  {
+    "source_url": "https://group.mercedes-benz.com/technology/digitalisation/operating-system/mb-os.html",
+    "status": "collection_failed",
+    "reason": "ValueError"
+  },
+  {
+    "subreddit": "BMW",
+    "status": "collection_skipped",
+    "reason": "MissingCredentials",
+    "missing": [
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET",
+      "REDDIT_USER_AGENT"
+    ]
+  },
+  {
+    "subreddit": "BMW",
+    "status": "collection_skipped",
+    "reason": "MissingCredentials",
+    "missing": [
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET",
+      "REDDIT_USER_AGENT"
+    ]
+  },
+  {
+    "subreddit": "BMW",
+    "status": "collection_skipped",
+    "reason": "MissingCredentials",
+    "missing": [
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET",
+      "REDDIT_USER_AGENT"
+    ]
+  },
+  {
+    "subreddit": "electricvehicles",
+    "status": "collection_skipped",
+    "reason": "MissingCredentials",
+    "missing": [
+      "REDDIT_CLIENT_ID",
+      "REDDIT_CLIENT_SECRET",
+      "REDDIT_USER_AGENT"
+    ]
+  }
+]

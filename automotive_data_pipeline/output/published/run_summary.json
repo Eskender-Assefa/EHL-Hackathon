@@ -1,0 +1,85 @@
+{
+  "published_at": "2026-10-10T20:29:45.323970+00:00",
+  "source_run": "revision-v8",
+  "engine": "rules",
+  "counts": {
+    "workbook_tag_rows": 13771,
+    "distinct_feedback_ids": 10128,
+    "raw_records": 10207,
+    "aspect_signals": 24988,
+    "fixed_baseline_signals": 78,
+    "requirements": 282,
+    "requirements_with_competitor_evidence": 7,
+    "regional_conflicts": 43,
+    "sales_volume_rows": 12,
+    "customer_study_rows": 1003,
+    "audit_events": 282
+  },
+  "raw_records_by_source": {
+    "BMW_Workbook": 10128,
+    "BMW_PDF": 78,
+    "Competitor_Web": 1
+  },
+  "aspect_signals_by_source": {
+    "BMW_Workbook": 24875,
+    "BMW_PDF": 78,
+    "Competitor_Web": 35
+  },
+  "requirements_by_category": {
+    "C01": 37,
+    "C02": 31,
+    "C03": 20,
+    "C04": 13,
+    "C05": 32,
+    "C06": 22,
+    "C07": 53,
+    "C08": 21,
+    "C09": 18,
+    "C10": 35
+  },
+  "requirements_by_review_band": {
+    "Critical review": 9,
+    "High": 125,
+    "Medium": 93,
+    "Low": 55
+  },
+  "priority_score_basis": {
+    "static_evidence_proxy": 282
+  },
+  "processing_by_status": {
+    "accepted": 10207
+  },
+  "collection_audit_by_outcome": [
+    {
+      "status": "collection_failed",
+      "reason": "TimeoutError",
+      "count": 1
+    },
+    {
+      "status": "collection_failed",
+      "reason": "ValueError",
+      "count": 2
+    },
+    {
+      "status": "collection_skipped",
+      "reason": "MissingCredentials",
+      "count": 4
+    }
+  ],
+  "validation": {
+    "python_tests": {
+      "passed": 56,
+      "failed": 0
+    },
+    "nextjs_production_build": "passed",
+    "npm_audit_vulnerabilities": 0,
+    "powerpoint_slides": 22,
+    "powerpoint_bytes": 81891,
+    "powerpoint_contains_live_byd_url": true
+  },
+  "known_limitations": [
+    "Workbook evidence lacks dated 30-day history and validated sales-causality inputs; all requirements use the labelled static-evidence proxy.",
+    "BIMMERPOST, German Car Forum, and Mercedes rejected or timed out during this live run; Reddit credentials were absent. Failures are retained in collection_audit.json.",
+    "Raw records and aspect signals are reproducible but excluded from the published Git snapshot because of their generated size."
+  ]
+}
