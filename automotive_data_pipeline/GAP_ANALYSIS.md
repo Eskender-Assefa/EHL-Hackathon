@@ -14,7 +14,7 @@ No live source configuration, Reddit credentials, LLM credentials, or collected 
 | --- | --- | --- |
 | C01-C10 taxonomy | Implemented | Strict Pydantic literal; one primary category and optional secondary tags. |
 | BMW files plus external ingestion | Implemented | `Feedback_Explorer`, OptionLists, sales/study context, Async PRAW, Playwright/BeautifulSoup. Live selectors/credentials still require deployment configuration. |
-| Aspect splitting and sentiment | Implemented | Exact excerpts; `[-100,+100]`; deterministic rules or LLM. Rules engine is a baseline, not production NLI. |
+| Aspect splitting and sentiment | Implemented | BMW `Feedback Type` and topic labels decide polarity and topic for labelled workbook rows; whole-word keyword rules or an LLM cover the rest. |
 | Signal threshold | Implemented | Distinct-ID frequency × credibility × absolute severity. Upvotes and optional author karma influence bounded credibility. |
 | 30-day velocity | Implemented for dated sources | Supplied feedback workbooks contain no dates; their velocity is correctly unknown. |
 | Deterministic priority | Implemented | Urgency + sales `[0,30]` + ROI `[0,25]` − effort `[0,50]`; missing components yield `Unscored`. |
@@ -32,6 +32,14 @@ No live source configuration, Reddit credentials, LLM credentials, or collected 
 | Out-of-scope guardrails | Implemented | Homologation/regulatory certification and deep component-engineering phrases are filtered. |
 
 ## Actual supplied-data result
+
+> **Superseded numbers.** The figures below describe the first keyword-based run. The classification was
+> changed on 2026-10-10 to use BMW's own `Feedback Type` and `Vfc level2 Name` labels. Current results:
+> 65 Python tests passed; 8,930 of 10,128 respondents classified by BMW label and 1,198 by keyword fallback;
+> 13,754 signals; 188 requirement candidates (11 `Critical review`, 177 `Unscored`); 0 regional conflicts;
+> 85 `Verified Evidence` and 103 `Medium Evidence`. 1,041 respondents have no usable classification and
+> 470 topic groups (2,604 respondents) fall below the 15-respondent minimum; both are reported in
+> `output/published/exclusions.json` and not proposed. The Next.js build was not re-run after this change.
 
 The verified deterministic local run processed:
 

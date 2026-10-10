@@ -13,18 +13,23 @@ The repository was tested with the supplied BMW files using the deterministic ru
 | Workbook tag rows read | 13,771 |
 | Distinct feedback IDs | 10,128 |
 | Deduplicated raw records, including 78 fixed baseline pages | 10,206 |
-| Discrete aspect signals | 24,953 |
-| Product requirements across all C01-C10 categories | 238 |
-| Regional conflict flags | 29 |
-| `Critical review` requirements | 17 |
-| `Unscored` requirements | 221 |
+| Respondents classified by BMW label / by keyword fallback | 8,930 / 1,198 |
+| Signals (one per respondent and BMW topic) | 13,754 |
+| Product requirements (nine categories; no topic reaches C03 Price) | 188 |
+| Counted but not proposed: unclassified respondents / topic groups below 15 respondents | 1,041 / 470 |
+| Regional conflict flags (each region needs 15 respondents) | 0 |
+| `Critical review` requirements | 11 |
+| `Unscored` requirements, ordered by number of complaining respondents | 177 |
+| `Verified Evidence` / `Medium Evidence` | 85 / 103 |
 | Sales-volume context rows | 12 |
 | Customer-study context rows | 1,003 |
-| Python tests | 47 passed |
-| Frontend validation | Next.js production build passed; 0 npm audit vulnerabilities |
-| PowerPoint export | 22 slides; 53,244 bytes |
+| Python tests | 65 passed |
+| Frontend validation | Not re-run after the classification change |
+| PowerPoint export | 22 slides; 53,533 bytes |
 
-All 238 observed requirements lacked a complete dated 30-day history, validated sales causality, or competitor two-year ROI input. The pipeline therefore leaves their missing scoring components unknown instead of inventing zeroes. The 17 severe C04 findings are still escalated to `Critical review` under the safety rule. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
+All 188 observed requirements lacked a complete dated 30-day history, validated sales causality, or competitor two-year ROI input. The pipeline therefore leaves their missing scoring components unknown instead of inventing zeroes. A C04 topic is escalated to `Critical review` only when at least three respondents report a defect and the average sentiment is negative; 11 topics meet that rule.
+
+Topic and polarity come from BMW's own workbook labels (`Vfc level2 Name`, `Feedback Type`) wherever a row carries them. The C01-C10 category is looked up in [`bmw_signals/bmw_topics.py`](bmw_signals/bmw_topics.py), a project judgement that BMW has not reviewed. Keyword rules, now matched on whole words, are used only for rows without labels and for web sources, and every requirement built from them says so in its warnings. An independent recount of the workbooks matches the respondent, complaint and praise counts of all 168 label-based requirements. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
 
 ## Fastest complete demo
 

@@ -1,5 +1,13 @@
 # Verification results — 2026-10-10
 
+> **Superseded numbers.** The figures below describe the first keyword-based run. The classification was
+> changed on 2026-10-10 to use BMW's own `Feedback Type` and `Vfc level2 Name` labels. Current results:
+> 65 Python tests passed; 8,930 of 10,128 respondents classified by BMW label and 1,198 by keyword fallback;
+> 13,754 signals; 188 requirement candidates (11 `Critical review`, 177 `Unscored`); 0 regional conflicts;
+> 85 `Verified Evidence` and 103 `Medium Evidence`. 1,041 respondents have no usable classification and
+> 470 topic groups (2,604 respondents) fall below the 15-respondent minimum; both are reported in
+> `output/published/exclusions.json` and not proposed. The Next.js build was not re-run after this change.
+
 Environment: Windows, PowerShell, Python 3.12.8, Node.js 24.14.0, Next.js 16.4.0.
 
 ## Python suite
