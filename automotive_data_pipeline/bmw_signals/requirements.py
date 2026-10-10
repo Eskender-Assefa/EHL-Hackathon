@@ -8,7 +8,9 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from .bmw_topics import GENERIC_TOPICS
 from .models import FilteredSignal, RequirementCandidate, ScoringInputs
+from .pipeline import PAIN_TYPES, PRAISE_TYPE, UNCLASSIFIED_TOPIC
 from .taxonomy import TAXONOMY
 
 EFFORT_DEFAULTS = {
@@ -108,6 +110,16 @@ SOURCE_PRESENTATION_ORDER = (
     "German_Car_Forum", "Bimmerforums", "Synthetic", "BMW_PDF",
 )
 
+# Gates for observed BMW workbook feedback. The CLI applies them; library callers opt in.
+OBSERVED_SOURCE = "BMW_Workbook"
+MIN_RESPONDENTS = 15
+MIN_REGION_SAMPLE = 15
+MIN_SEVERE_SAFETY = 3
+SEVERE_SENTIMENT = -80
+SEVERE_TYPE = "Defect"
+MIXED_SHARE = 0.3
+PRESERVE_RATIO = 2
+
 
 def _topic_key(topic: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", topic.casefold()).strip("_") or "general"
@@ -141,11 +153,11 @@ def _velocity(signals: list[FilteredSignal]):
     return current, previous, round(multiplier, 4), None if acceleration is None else round(acceleration, 2)
 
 
-def _conflict(regional: dict[str, list[FilteredSignal]]) -> tuple[bool, float]:
+def _conflict(regional: dict[str, list[FilteredSignal]], min_region_sample: int = 2) -> tuple[bool, float]:
     means = [
         sum(s.sentiment_score for s in group) / len(group)
         for region, group in regional.items()
-        if region not in {"Unknown", "Global / Unassigned"} and len(group) >= 2
+        if region not in {"Unknown", "Global / Unassigned"} and len(group) >= min_region_sample
     ]
     if len(means) < 2:
         return False, 0.0
@@ -232,7 +244,52 @@ def _professional_statement(platform: str, action: str, signals: list[FilteredSi
     return f"The {platform} shall {action[0].lower() + action[1:]}."
 
 
-def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, ScoringInputs] | None = None, threshold=0.5):
+def _is_pain(signal: FilteredSignal) -> bool:
+    if signal.feedback_types:
+        return any(kind in PAIN_TYPES for kind in signal.feedback_types)
+    return signal.sentiment_score < 0
+
+
+def _is_praise(signal: FilteredSignal) -> bool:
+    if signal.feedback_types:
+        return PRAISE_TYPE in signal.feedback_types
+    return signal.sentiment_score > 0
+
+
+def _is_severe(signal: FilteredSignal) -> bool:
+    return SEVERE_TYPE in signal.feedback_types or signal.sentiment_score <= SEVERE_SENTIMENT
+
+
+def _is_observed(signals: list[FilteredSignal]) -> bool:
+    return bool(signals) and all(signal.source_platform == OBSERVED_SOURCE for signal in signals)
+
+
+def summarise_exclusions(signals: list[FilteredSignal], min_respondents: int = 15) -> dict:
+    """Say what the requirement list leaves out, so silence is not mistaken for low priority."""
+    groups = defaultdict(list)
+    for signal in signals:
+        if signal.scope_layer != "fixed_now" and signal.source_platform == OBSERVED_SOURCE:
+            groups[(signal.target_platform, signal.taxonomy_category, _topic_key(signal.topic))].append(signal)
+    unclassified: set[str] = set()
+    thin_topics = thin_respondents = 0
+    for group in groups.values():
+        group = _unique_signals(group)
+        if group[0].topic == UNCLASSIFIED_TOPIC:
+            unclassified.update(signal.source_record_id or signal.signal_id for signal in group)
+        elif len(group) < min_respondents:
+            thin_topics += 1
+            thin_respondents += len(group)
+    return {
+        "minimum_respondents": min_respondents,
+        "unclassified_respondents": len(unclassified),
+        "topics_below_minimum": thin_topics,
+        "respondents_in_topics_below_minimum": thin_respondents,
+        "note": "Counted but not proposed. Missing evidence is silence, not low priority.",
+    }
+
+
+def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, ScoringInputs] | None = None, threshold=0.5,
+                       min_respondents=1, min_region_sample=2, min_severe_safety=1):
     scoring_inputs = scoring_inputs or {}
     fixed_baseline = [signal for signal in signals if signal.scope_layer == "fixed_now"]
     candidates = [signal for signal in signals if signal.scope_layer != "fixed_now"]
@@ -244,15 +301,21 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
         group = _unique_signals(group)
         benchmarks = [signal for signal in group if signal.source_platform == "Competitor_Web"]
         demand = [signal for signal in group if signal.source_platform != "Competitor_Web"]
+        observed = _is_observed(demand)
+        if observed and demand[0].topic == UNCLASSIFIED_TOPIC and min_respondents > 1:
+            continue
+        respondents_gate = min_respondents if observed else 1
+        region_gate = min_region_sample if observed else 2
+        severe_gate = min_severe_safety if observed else 1
         regional = defaultdict(list)
         for signal in demand:
             regional[signal.region].append(signal)
-        conflict, conflict_penalty = _conflict(regional) if demand else (False, 0.0)
+        conflict, conflict_penalty = _conflict(regional, region_gate) if demand else (False, 0.0)
         if conflict and demand:
             branches = [
                 (_display_region(region), region_group)
                 for region, region_group in regional.items()
-                if region not in {"Unknown", "Global / Unassigned"}
+                if region not in {"Unknown", "Global / Unassigned"} and len(region_group) >= region_gate
             ]
             unassigned = [signal for region in ("Unknown", "Global / Unassigned") for signal in regional.get(region, [])]
             if unassigned:
@@ -304,11 +367,18 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
             if roi is None:
                 missing.append("No validated competitor two-year ROI score.")
             complete = not missing
+            # Only complaints raise priority: praise is a reason to preserve, not to act urgently.
             priority = round(partial, 2) if complete else static_priority_proxy(
-                [signal.sentiment_score for signal in metric_signals], len(metric_signals)
+                [min(0, signal.sentiment_score) for signal in metric_signals], len(metric_signals)
             )
             priority_basis = "complete_formula" if complete else "static_evidence_proxy"
-            severe_safety = category == "C04" and any(signal.sentiment_score <= -80 for signal in metric_signals)
+            severe_count = sum(_is_severe(signal) for signal in metric_signals)
+            severe_safety = category == "C04" and severe_count >= severe_gate and (severe_gate == 1 or sentiment < 0)
+            if len(metric_signals) < respondents_gate and not severe_safety:
+                continue
+            pain = sum(_is_pain(signal) for signal in metric_signals)
+            praise = sum(_is_praise(signal) for signal in metric_signals)
+            label_based = any(signal.classification_basis == "bmw_label" for signal in metric_signals)
             band = priority_band(priority, severe_safety=severe_safety)
             groundedness = sum(signal.confidence for signal in support) / len(support)
             verbatims = len(metric_signals) if demand else 0
@@ -318,6 +388,10 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
             confidence_label = "Verified Evidence" if ehi >= 80 and not conflict else "Medium Evidence" if ehi >= 50 and not conflict else "Uncertain / Conflict Flag"
             action = _professional_action(category, branch[0].topic, support)
             statement = _professional_statement(platform, action, metric_signals)
+            if label_based and praise >= PRESERVE_RATIO * max(pain, 1):
+                # Customers mostly praise this topic: it is a strength to keep, not a defect to fix.
+                action = f"Preserve the current strength in {branch[0].topic}"
+                statement = f"The {platform} shall preserve its current customer-rated strength in '{branch[0].topic}'."
             evidence_source_counts = dict(sorted(Counter(signal.source_platform for signal in support).items()))
             warnings = []
             if conflict:
@@ -326,6 +400,12 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
                 warnings.append("Low evidence volume: fewer than five distinct feedback records.")
             if groundedness < 0.7:
                 warnings.append("Groundedness is below 70%; human validation is required.")
+            if label_based and min(pain, praise) >= MIXED_SHARE * len(metric_signals):
+                warnings.append(f"Mixed evidence: {pain} respondents complain and {praise} praise this topic. Read the quotes.")
+            if branch[0].topic in GENERIC_TOPICS:
+                warnings.append("Generic BMW topic covering overall impressions; it does not name one feature.")
+            if observed and not label_based:
+                warnings.append("Topic and polarity come from keyword rules, not BMW labels.")
             if competitors:
                 warnings.append(f"Includes {competitors} competitor benchmark record{'s' if competitors != 1 else ''}; benchmark evidence does not inflate customer-demand volume or sentiment.")
             if not demand:
@@ -334,7 +414,7 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
                 warnings.append("Priority uses synthetic causality/ROI scenario inputs, not observed outcomes.")
                 warnings.extend(score_input.assumptions)
             if not complete:
-                warnings.append("Priority is a static evidence proxy based on absolute sentiment severity and distinct source volume; missing business inputs remain listed as blindspots.")
+                warnings.append("Priority is a static evidence proxy based on complaint severity and distinct source volume; missing business inputs remain listed as blindspots.")
             title = f"{platform} ({category}): {action}"
             identifier = hashlib.sha256(f"{platform}|{category}|{topic_key}|{region}".encode()).hexdigest()[:16].upper()
             output.append(RequirementCandidate(
@@ -342,6 +422,7 @@ def build_requirements(signals: list[FilteredSignal], scoring_inputs: dict[str, 
                 title=title, requirement_statement=statement, topic=branch[0].topic,
                 region_variant=region, scope_layer=metric_signals[0].scope_layer,
                 average_sentiment=round(sentiment, 2), distinct_signal_count=len(metric_signals),
+                pain_respondents=pain, praise_respondents=praise,
                 current_30d_mentions=current, previous_30d_mentions=previous,
                 velocity_multiplier=velocity, velocity_acceleration_pct=acceleration,
                 signal_threshold_score=round(signal_score, 3), sales_causality_score=sales,

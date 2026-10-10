@@ -9,10 +9,11 @@ from pathlib import Path
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .models import EvidenceRef, RawPost
+from .models import BmwLabel, EvidenceRef, RawPost
 
+UNCLASSIFIED_TAG = "no_class_found"
 COUNTRY_REGION = {
-    "US": "US", "CA": "US", "CN": "CN",
+    "US": "US", "CN": "CN",
     "GB": "EU", "FR": "EU", "SE": "EU", "DK": "EU", "FI": "EU",
     "NO": "EU", "ES": "EU", "LV": "EU", "DE": "EU", "AT": "EU",
 }
@@ -61,15 +62,22 @@ def ingest_feedback_workbook(path: str | Path) -> tuple[list[RawPost], dict]:
         country = str(values[column["Country"]] or "").strip() or None
         entry = grouped.setdefault(str(record_id), {
             "text": str(text).strip(), "platform": platform, "country": country,
-            "types": [], "tags": [], "evidence": [],
+            "types": [], "tags": [], "labels": [], "evidence": [],
         })
         feedback_type = values[column["Feedback Type"]]
         if feedback_type and str(feedback_type) not in entry["types"]:
             entry["types"].append(str(feedback_type))
+        topic = values[column["Vfc level2 Name"]]
+        if feedback_type and topic and topic != UNCLASSIFIED_TAG:
+            subtopic = values[column["Vfc level3 Name"]] if "Vfc level3 Name" in column else None
+            entry["labels"].append(BmwLabel(
+                topic=str(topic).strip(), feedback_type=str(feedback_type).strip(),
+                subtopic=str(subtopic).strip() if subtopic else None, row_number=row_number,
+            ))
         for name in ("Vfc level2 3 Name", "Vfc level2 Name", "Vfc level3 Name"):
             if name in column:
                 tag = values[column[name]]
-                if tag and tag != "no_class_found" and str(tag) not in entry["tags"]:
+                if tag and tag != UNCLASSIFIED_TAG and str(tag) not in entry["tags"]:
                     entry["tags"].append(str(tag))
         entry["evidence"].append(EvidenceRef(
             source_uri=file_uri(path), locator=f"Feedback_Explorer!row {row_number}",
@@ -85,6 +93,7 @@ def ingest_feedback_workbook(path: str | Path) -> tuple[list[RawPost], dict]:
         source_record_id=record_id, scope_layer="variable_later",
         region=COUNTRY_REGION.get(entry["country"], "RoW") if entry["country"] else "Unknown",
         country=entry["country"], feedback_types=entry["types"], original_tags=entry["tags"],
+        bmw_labels=entry["labels"],
         evidence=entry["evidence"], credibility_weight=1.25,
     ) for record_id, entry in grouped.items()]
     return posts, {

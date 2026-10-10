@@ -26,6 +26,14 @@ The repository was tested with the supplied BMW files using the deterministic ru
 
 All 282 observed requirements lack at least one complete dated 30-day history, validated sales-causality input, or competitor two-year ROI input. They receive a clearly labelled static-evidence proxy score based only on absolute sentiment severity and distinct source volume, while every missing business input remains visible as a blindspot. Safety escalation remains independent of the proxy score. Seven benchmark requirements cite the collected BYD release, and the deck reserves a detail slide for available external evidence even when it ranks below the top 20. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
 
+## Classification by BMW labels
+
+Workbook rows that carry BMW labels are classified from those labels, not from words in the comment: `Feedback Type` decides polarity and `Vfc level2 Name` is the topic. [`bmw_signals/bmw_topics.py`](bmw_signals/bmw_topics.py) maps the 225 BMW topics to C01-C10; that table is a project judgement and should be reviewed. Keyword rules still cover unlabelled rows and web sources, and requirements built from them carry a warning.
+
+The CLI applies three gates to observed workbook feedback: 15 distinct respondents before a topic is proposed (`--min-respondents`), 15 per region before a regional conflict is flagged, and three defect reports with negative average sentiment before a C04 topic is escalated. Respondents left out are counted in `exclusions.json`. The static priority proxy counts complaints only, so a topic customers mostly praise is worded as a strength to preserve and does not rank as high priority.
+
+The files in `output/published` predate this change and still reflect keyword classification. Regenerate them with `run-all` and the saved external raw file before quoting their numbers.
+
 ## Fastest complete demo
 
 From the repository root, build the evidence set and start the API:

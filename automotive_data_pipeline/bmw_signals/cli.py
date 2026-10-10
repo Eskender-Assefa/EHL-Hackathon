@@ -12,7 +12,10 @@ from .deck import export_deck
 from .local_ingestion import ingest_local_materials, ingest_structured_context
 from .models import FilteredSignal, RawPost, RequirementCandidate
 from .pipeline import LLMEvaluator, RuleBasedEvaluator, process
-from .requirements import build_requirements, load_scoring_inputs
+from .requirements import (
+    MIN_REGION_SAMPLE, MIN_RESPONDENTS, MIN_SEVERE_SAFETY, build_requirements, load_scoring_inputs,
+    summarise_exclusions,
+)
 
 
 def write(path, records):
@@ -34,8 +37,13 @@ async def _process_records(posts, engine):
         return await process(posts, evaluator)
 
 
-def _write_requirements(directory: Path, signals: list[FilteredSignal], inputs_path=None):
-    requirements, baseline = build_requirements(signals, load_scoring_inputs(inputs_path))
+def _write_requirements(directory: Path, signals: list[FilteredSignal], inputs_path=None, min_respondents=1):
+    strict = min_respondents > 1
+    requirements, baseline = build_requirements(
+        signals, load_scoring_inputs(inputs_path), min_respondents=min_respondents,
+        min_region_sample=MIN_REGION_SAMPLE if strict else 2, min_severe_safety=MIN_SEVERE_SAFETY if strict else 1,
+    )
+    write(directory / "exclusions.json", summarise_exclusions(signals, min_respondents))
     requirements_path = directory / "requirements.json"
     previous = {}
     if requirements_path.exists():
@@ -86,7 +94,7 @@ async def run(args):
         return any(record["status"] == "quarantined" for record in audit)
     if args.command == "build-requirements":
         signals = [FilteredSignal.model_validate(item) for item in json.loads(Path(args.signals).read_text(encoding="utf-8-sig"))]
-        _write_requirements(directory, signals, args.scoring_inputs)
+        _write_requirements(directory, signals, args.scoring_inputs, getattr(args, "min_respondents", 1))
         return False
     if args.command in {"run-local", "run-all"}:
         posts, manifest = ingest_local_materials(args.material_dir)
@@ -111,7 +119,7 @@ async def run(args):
         signals, audit = await _process_records(posts, args.engine)
         write(directory / "signals.json", [signal.model_dump() for signal in signals])
         write(directory / "processing_audit.json", audit)
-        _write_requirements(directory, signals, args.scoring_inputs)
+        _write_requirements(directory, signals, args.scoring_inputs, getattr(args, "min_respondents", 1))
         return bool(collection_audit) or any(record["status"] == "quarantined" for record in audit)
     if args.command == "export-deck":
         requirements = [RequirementCandidate.model_validate(item) for item in json.loads(Path(args.requirements).read_text(encoding="utf-8-sig"))]
@@ -150,6 +158,9 @@ def main():
     serve.add_argument("--data-dir", default="output")
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
+    for command in (requirements, complete, all_sources):
+        command.add_argument("--min-respondents", type=int, default=MIN_RESPONDENTS,
+                             help="Fewest distinct workbook respondents before a topic is proposed")
     for command in (collection, local, processing, requirements, complete, all_sources):
         command.add_argument("--output", default="output")
     args = parser.parse_args()
