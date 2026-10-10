@@ -3,3 +3,7 @@ __pycache__/
 .venv/
 .env
 output/
+api.txt
+reports/
+.local-postgres/
+data/assets/
