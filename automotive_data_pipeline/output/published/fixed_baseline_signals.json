@@ -1,6 +1,6 @@
 [
   {
-    "signal_id": "0152a26ccc816d7fe3b5a26a",
+    "signal_id": "2f890db391740455254626ae",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -10,7 +10,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -24,18 +24,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 1",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P1",
         "page_number": 1,
         "sheet_name": null,
         "row_number": null,
         "quote": "BM  W     1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJULI 2026                Freude am Fahre n"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "e59ab58965844213f532ca43",
+    "signal_id": "4237e18b9f6d8a363d28c8ec",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -59,18 +58,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 2",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P2",
         "page_number": 2,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE & MODELLE                                  AUSSTATTUNGEN                                            TECHNISCHE WERTE\n\n Fahrzeugpreise                                           Räder und Reifen                                          Technische Werte\n Serienausstattungen                                      Farbwelt Exterieur                                        Technische Maßzeichnung\n M Sport Design                                           Farbwelt Interieur\n M Sportpaket    "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "5ec46cf6d45519c45c29ef0c",
+    "signal_id": "5615d6a9b742a8ec873c13ff",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -80,7 +78,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -94,18 +92,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 3",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P3",
         "page_number": 3,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE &\n     MODELLE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "5395d783c7094f6f6d17a203",
+    "signal_id": "a5b3786e4fb133490ce3fdeb",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -129,18 +126,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 4",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P4",
         "page_number": 4,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE.\n\n\n  BENZINER\n\n\n\n                                                                                        116                                  120                              123 xDrive                           M135 xDrive\n\nGetriebe                                                                    7-Gang, automatisch                   7-Gang, automatisch                  7-Gang, automatisch                   7-Gang, automatisch\n\nZylinder/Hubraum, Anzahl/cm3                      "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "3f643fa225130444b95e717d",
+    "signal_id": "da06abeed2e6b366c6517de2",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -150,7 +146,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -164,18 +160,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 5",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P5",
         "page_number": 5,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nEXTERIEUR\n\n\nLackierung Schwarz Uni                                                                                                                           ■        ■        ■       ■        ■\n\nLackierung Alpinweiß Uni                                                                                                                                                                     ■\n\nIm Umfang M Sportpaket enthalten\n\n17\" Leichtmetallräder Y-Speiche 97 1  "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4f4da923e4f224d4db61bab7",
+    "signal_id": "7b9496610d0f0c2043ff61a0",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -201,18 +196,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 6",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P6",
         "page_number": 6,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nBMW Live Cockpit Plus                                                                                                                                            ■         ■         ■        ■         ■         ■\n\n– BMW Curved Display\n– Displaykombination mit 10, 25\" Instrumentendisplay und 10,7\" Control Display\n– BMW Operating System 9\n– Navigationsfunktion\n– Intuitive Bedienmöglichkeiten\n– Bluetooth / WiFi Schnittstelle m"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "1ae82d328c0f492543e11ffb",
+    "signal_id": "7130689aceee33ca495a74f2",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -236,18 +230,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 7",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P7",
         "page_number": 7,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKOMFORT UND FUNKTIONALITÄT\n\n\n2-Zonen-Klimaautomatik mit erweiterten Umfängen                                                                                                   ■        ■       ■        ■        ■        ■\n\nDriving Assistant                                                                                                                                 ■        ■       ■        ■        ■        ■\nKamera- und radarbasiertes Fahrerassistenzsys"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "49ca5ab960b022b9f7bd53cf",
+    "signal_id": "e558226be027a6dc9e9ad06a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -257,7 +250,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -271,18 +264,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 8",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P8",
         "page_number": 8,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SP OR T DE SIGN.\n\nDas M Sport Design enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um weitere\nSonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                            SA-Nr.             EUR inkl.                                                                                                       19                       % MwSt. [EUR ohne Mw"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "a631f73909472d268486b29c",
+    "signal_id": "e0dfef50e3dab4f22b8c75b4",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -292,7 +284,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -306,18 +298,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 9",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P9",
         "page_number": 9,
         "sheet_name": null,
         "row_number": null,
         "quote": "M       S      P       O      R       T       P   A       K        E        T.\n\nDas M Sportpaket enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um weitere\nSonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                          SA-Nr.             EUR inkl.                                                                                            "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "cc0da9be12f85b944cb78d6f",
+    "signal_id": "04c8c1ba1f18790edb842c2f",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -341,18 +332,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 10",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P10",
         "page_number": 10,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SPORTPAK E T PRO.\n\nDas M Sportpaket Pro enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um\nweitere   Sonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                          SA-Nr.             EUR inkl.                                                                                                       19                       % MwSt. [EUR ohne"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "f89ca1413f92e6ece90e36b5",
+    "signal_id": "0606023415a11580adfeafa6",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -376,18 +366,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 11",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P11",
         "page_number": 11,
         "sheet_name": null,
         "row_number": null,
         "quote": "M  135  x D R I  V  E  .\n\nDer M135 xDrive enthält bereits umfangreiche Serienausstattungen und kann aus einem vielfältigen Angebot an\nSonderausstattungen ergänzt werden.\n\n\n\n\n\n\n                                                                                                                             SA-Nr.            EUR inkl.                                                                                                       19                       % MwSt. [EUR ohne MwSt.]\n\nRÄDER UND REIFEN\n\n"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "bfd3d32b496667321093f047",
+    "signal_id": "a37016362433bfb591b53300",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -397,7 +386,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -411,18 +400,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 12",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P12",
         "page_number": 12,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSSTATTUNGEN"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "571d1a52bce61dc834a2671e",
+    "signal_id": "666b0be7839118f1b869ab28",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -432,7 +420,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -446,18 +434,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 13",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P13",
         "page_number": 13,
         "sheet_name": null,
         "row_number": null,
         "quote": "RÄDER UND REIFEN.\n\n\n\n\n\n\n\n\nRÄDER UND REIFEN\n\n\n17\" Leichtmetallräder Y-Speiche 97 1                                                                                                                      1H0               Serie                ■           ■          ■           ■          ■\n7,5                          J x 17 mit Bereifung 205/55 R17\nLightning Grey Alugussrad\n\nHinweis: nicht mit Radschraubensicherung\n\n17\" Leichtmetallräder Y-Speiche 972                                                 "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4b190810a15424482b802997",
+    "signal_id": "95cc43376fe212bcdd3c0f67",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -467,7 +454,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -481,18 +468,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 14",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P14",
         "page_number": 14,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT EXTERIEUR.\n\n\n\n\n\n\n\n\nUNI\n\n\nSchwarz uni                                                                                                                                         668              Serie               ■          ■          ■          ■          ■\nNicht in Verbindung mit M Sportpaket\n\nAlpinweiß uni                                                                                                                                       300              270,–               □          □"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "ab62ca8dec1a0051138078f9",
+    "signal_id": "a0a781be9595d692467d1d07",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -502,7 +488,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -516,31 +502,30 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 15",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P15",
         "page_number": 15,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT INTERIEUR.\n\n\n\n\n\n\n\n\nPOLSTER\n\n\nSTOFF/ARKTUR\n\nAnthrazit                                                                                                                             B  L  AT         Serie             ■          ■         ■         ■         ■\nNicht in Verbindung mit Sportsitze für Fahrer und Beifahrer oder M Sportsitze für Fahrer\nund Beifahrer\n\nECONEER\n\nBicolor Blau                                                                                                               "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "6454917ba07ab964ff883c51",
+    "signal_id": "7b5709b4c9cdbdf7c5985adc",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
     "target_platform": "F70",
-    "taxonomy_category": "C09",
+    "taxonomy_category": "C07",
     "cleaned_verbatim_text": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nAUSSTATTUNGSPAKETE\n\nPREMIUM PAKET                                                                                                                   7EV           1.900,–            □        □         □         □        □         □\n                                                                                                                                            [1.596,64]\n\n– Komfortzugang\n– Innen- und Außenspiegelpaket\n– Innenspiegel automatisch abblendend\n– Adaptiver LED-Scheinwerfer\n– Fernlichtassistent\n– Wireless Charging Ablage\n\nNicht in Verbindung mit Innovationspaket\n\nINNOVATIONSPAKET                                                                                                                7EW           3.800,–            □        □         □         □        □         □\n                                                                                                                                            [3.193, 28]\n\n– Komfortzugang\n– Innen- und Außenspiegelpaket\n– Innenspiegel automatisch abblendend\n– Adaptiver LED-Scheinwerfer\n– Fernlichtassistent\n– Wireless Charging Ablage\n\nBMW Niere Iconic Glow\n– Inszenierung der BMW Niere durch Konturbeleuchtung\n– Aktiv in Fahrzeugruhe und während der Fahrt\n\nBMW Live Cockpit Professional\nBestehend aus:\n\n– BMW Head-Up-Display\n– BMW Curved Display\n– Displaykombination mit 10, 25\" Instrumentendisplay und 10,7\" Control Display\n– BMW Operating System 9\n– Navigationsfunktion\n– Intuitive Bedienmöglichkeiten\n– Bluetooth / WiFi Schnittstelle mit Freisprecheinrichtung\n– Audio Tuner mit Diversity-Empfang und RDS\n– 4G LTE Connectivity\n– Remote Software Upgrade\n– BMW My Modes\n– BMW Maps\n– Intelligent Personal Assistant3\n– Intelligenter Notruf inkl. Teleservices und BMW Unfallhilfe\n– BMW Digital Premiumdienste über Connected Drive Store kostenpflichtig buchbar\n\n\nParking Assistant Plus2\nKamera und ultraschallbasiertes Parkssistenzsystem bestehend aus den Funktionen vom\nParking Assistant sowie:\n\n– Remote 3D View\n– Anti-Diebstahl-Rekorder\n(Ausstattungsalternative zu reduziertem Preis: Parking Assistant Professional)\n\nM TECHNIK PAKET II                                                                                                              33F           3.950,–                                                            □\n                                                                                                                                             [3.319,33]\n\n– 19\" M Compound-Bremse, Grau hochglänzend\n– 19\" M Schmiederäder Y-Speiche 1085 M mit Sportreifen\n– M Leichtbaumaßnahmen\n– M Sportsitze für Fahrer und Beifahrer\n– M Leuchten Shadow Line\n– M Hochglanz Shadow Line mit erweiterten Umfängen\n– M Sicherheitsgurte\n\nNicht in Verbindung mit M Sportpaket Pro\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2 Bitte beachten: Die in der Sonderausstattung enthaltenen Systemumfänge unterstützen nur innerhalb definierter Systemgrenzen. Verantwortung und Reaktion auf\n das reale Verkehrsgeschehen verbleiben beim/bei der jeweiligen Fahrer/-in. Die Funktion kann bei Dunkelheit, Nebel und starkem Gegenlicht eingeschränkt sein.\n3 Laufzeit 2 Jahre\n■ Serienausstattung                                                                                                                                                                  □ Sonderausstattung                                                                                                                                                                  –,– Sonderausstattung ohne Mehr-/ Minderpreis",
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Parking Assistant",
+    "topic": "Bluetooth",
     "requirement_statement": null,
     "secondary_tags": [
-      "C07",
+      "C09",
       "C02"
     ],
     "scope_layer": "fixed_now",
@@ -554,31 +539,30 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 16",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P16",
         "page_number": 16,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nAUSSTATTUNGSPAKETE\n\nPREMIUM PAKET                                                                                                                   7EV           1.900,–            □        □         □         □        □         □\n                                                                                                                                            [1.596,64]\n\n– Komfortzugang\n– Innen- und Außenspiegelpaket\n– Innenspiegel automatisch abblendend\n– A"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "b85b1b75cd6b2d08e4301711",
+    "signal_id": "05836f1b116a07adb4879f38",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
     "target_platform": "F70",
-    "taxonomy_category": "C09",
+    "taxonomy_category": "C07",
     "cleaned_verbatim_text": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nEXTERIEUR\n\n\nDach in Schwarz                                                                                                                                    3B5              500,–               □          □          □          □          □          □\nAusführung der Spiegelkappen in Schwarz                                                                                                                           [420,17]\nNicht in Verbindung mit ausgewählten Aussenfarben\n\nPanorama Glasdach                                                                                                                                  402             1.180,–              □          □          □          □          □          □\n                                                                                                                                                                  [991,59]\n\nModellschriftzug, Entfall                                                                                                                          320                –,–               □          □          □          □          □          □\n\nINTERIEUR\n\n\nLenkradheizung                                                                                                                                     248              250,–               □          □          □          □          □          □\n                                                                                                                                                                  [210,08]\n\nANTRIEB/FAHRDYNAMIK                                                                                                                                                                                                                                                                                                                                            /FAHRWERK\n\n\nSteptronic Getriebe mit Doppelkupplung und Schaltwippen                                                                                            2TE                –,–               □          □          □          □          □          ■\nNur in Verbindung mit M Lederlenkrad\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nHiFi Lautsprechersystem harman/kardon                                                                                                              674              600,–               □          □          □          □          □          ■\n                                                                                                                                                                  [504, 20]\n\nFAHRASSISTENZ UND SICHERHEIT\n\n\nDriving Assistant Plus                                                                                                                             5  AT            700,–               □          □          □          □          □          □\nKamera- und radarbasiertes Fahrerassistenzsystem bestehend aus:                                                                                                   [588, 24]\n\n– Automatischer Speed Limit Assist\n– Lenk und Spurführungsassistent\n– Manueller Speed Limit Assist\n– Streckenverlaufsregelung\n\nDriving Assistant Professional                                                                                                                     5AU             2. 280,–             □          □          □          □          □          □\nKamera- und radarbasiertes Fahrerassistenzsystem bestehend aus:                                                                                                  [1.915,67]\n\n– Lenk- und Spurführungsassistent inklusive Stauassistent\n– Nothalteassistent\n– Automatischer Speed Limit Assist\n– Spurwechselassistent\n– Abstandsregelung mit aktiver Navigationsführung\n– Spurhalteassistent mit aktiven Seitenkollisionsschutz\n– Querverkehrswarnung vorne/hinten\n– Frontkollisionswarnung mit Bremseingriff\n– Ausweichhilfe\n– Ausstiegswarnung (Safe Exit)\n– Rettungsgassenassistent\n– Ampelerkennung\n– Kreuzungswarnung / Vorfahrtswarnung\n– Falschfahrwarnung\n\nNur in Verbindung mit Innovationspaket\n\nParking Assistant Professional                                                                                                                    5DW               250,–                          □                     □          □\nKamera- und ultraschallbasiertes Assistenzsystem bestehend aus den Funktionen vom Parking                                                                         [210,08]\nAssistant und dem Parking Assistant Plus sowie:\n– Remotebedinung (Kompatibles Smartphone erforderlich)\n– Ferngesteuertes Parken\n– Manöverirassistent\n–                       Rückfahrassistent (Professional)\n\nNur in Verbindung mit Innovationspaket\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n■ Serienausstattung                                                                                                                                                                  □ Sonderausstattung                                                                                                                                                                  –,– Sonderausstattung ohne Mehr-/ Minderpreis",
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Parking Assistant",
+    "topic": "Infotainment",
     "requirement_statement": null,
     "secondary_tags": [
-      "C07"
+      "C09"
     ],
     "scope_layer": "fixed_now",
     "region": "EU",
@@ -591,18 +575,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 17",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P17",
         "page_number": 17,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nEXTERIEUR\n\n\nDach in Schwarz                                                                                                                                    3B5              500,–               □          □          □          □          □          □\nAusführung der Spiegelkappen in Schwarz                                                                                                                           [420,17]\nNicht in Verbindung mit ausgewählten Aussenfarb"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "d2d8e8cece8b1c7ecaf39924",
+    "signal_id": "1251923a52d938a8da1649cd",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -626,18 +609,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 18",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P18",
         "page_number": 18,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKOMFORT UND FUNKTIONALITÄT\n\n\nSitzverstellung, elektrisch, mit Memory                                                                                          459            850,–             □        □         □         □        □         □\n                                                                                                                                              [7 14, 28]\n\nAktivsitz für Fahrer und Beifahrer                                          "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4a6368235f63d0d0de5b277a",
+    "signal_id": "a9fa62a81f9b065a23838b34",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -647,7 +629,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -661,18 +643,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 19",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P19",
         "page_number": 19,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "7c9ac2a455519eece6f7908f",
+    "signal_id": "34ec45d99647abb67279c9fa",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -696,18 +677,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 20",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P20",
         "page_number": 20,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW      1er      Benziner /Diesel                                             118d                 120d                  116                 120              123 xDrive          M135 xDrive\n\nGESAMTFAHRZEUGANTRIEB1\n\nAntriebstyp                                                                   Diesel          Diesel–48     Volt       Benzin          Benzin–48     Volt   Benzin–48     Volt        Benzin\n                                                                        "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2498f6301827d71c695318a8",
+    "signal_id": "cb19ea612cbd121c425cc290",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -731,18 +711,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 21",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P21",
         "page_number": 21,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE MAßZEICHNUNG.\n\n118d, 120d, 116, 120, 123 xDrive\n\n\n\n\n\n\n\n\n\n\n\n                                                                                                                                                                                                                                                                                                                                                                                                                                              "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "55e6f1876d471af55cf4c596",
+    "signal_id": "792a868d03c3ef4a9b21dafd",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -752,7 +731,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -766,18 +745,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 22",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P22",
         "page_number": 22,
         "sheet_name": null,
         "row_number": null,
         "quote": "Ihre Automobilabholung in der BMW Welt in München macht einen großen Tag zum unvergesslichen Erlebnis.\n   Denn hier sind Sie mit BMW Group Werk, BMW Museum und BMW Konzernzentrale direkt umgeben von\n   aufregender Historie, atemberaubender Gegenwart und spektakulären Zukunftsvisionen.\n\n   Erleben Sie die Übergabe Ihres neuen BMW, eingebettet in ein perfekt auf Sie abgestimmtes Rahmenprogramm.\n   Informieren Sie sich gerne vorab bei Ihrem BMW Partner vor Ort, online unter bmw/uni00ADwelt.com, tel"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "e69981d0e284a34781e24859",
+    "signal_id": "422d28c6b85651b22bf2e52d",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://F70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -787,7 +765,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -801,18 +779,17 @@
       {
         "source_uri": "bmw-file://F70_OptionList.PDF",
         "locator": "PDF page 23",
+        "source_platform": "BMW_PDF",
         "record_id": "F70-OPTION-P23",
         "page_number": 23,
         "sheet_name": null,
         "row_number": null,
         "quote": "Jedes unserer Fahrzeuge lässt sich am Ende seiner Nutzungsphase, wie gesetzlich vorgeschrieben, zu mindestens 95                                                                                        % verwerten sowie zu\nmindestens 85                                                                                         % stofflich recyclen. Weitere Informationen finden Sie auf unserer Internetseite unter www.bmw.de/recycling.\n\n© BMW AG, München/Deutschland. Nachdruck, auch auszugsweise, nur mi"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "9c66fc009f28dc3d6f8695ae",
+    "signal_id": "65d0969e156ba6c56bb7be2e",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -822,7 +799,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -836,18 +813,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 1",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P1",
         "page_number": 1,
         "sheet_name": null,
         "row_number": null,
         "quote": "BM  W     5\n                      LIMOUSINE\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJULI 2026              Freude am Fahre n"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "53beb3d87c9cb852410bb4b2",
+    "signal_id": "47768ce8cff5de884eca238a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -871,18 +847,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 2",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P2",
         "page_number": 2,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE & MODELLE                                    AUSSTATTUNGEN                                              TECHNISCHE WERTE\n\n Fahrzeugpreise                                             Räder und Reifen                                            Technische Werte\n Serienausstattungen                                        Farbwelt Exterieur                                          Technische Maßzeichnung\n M Sportpaket                                               Farbwelt Interieur\n i5"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "3e209628631910a26a7ef619",
+    "signal_id": "29484196a64b85e151793b9a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -892,7 +867,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -906,18 +881,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 3",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P3",
         "page_number": 3,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE &\n     MODELLE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4afbab82c292730bd89a4add",
+    "signal_id": "dacc642f3c2898066bc22b1f",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -941,18 +915,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 4",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P4",
         "page_number": 4,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE.\n\n\n  VOLLELEKTRISCH\n\n\n\n                                                                                       i5 eDrive40                                      i5 xDrive40                                     i5 M60 xDrive\n\nGetriebe                                                                         1-Gang,        automatisch                       1-Gang,        automatisch                        1-Gang,        automatisch\n\nMotor                                                  "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "fc90fb8edbe1fcd1fa967816",
+    "signal_id": "9e465c321cd9caccbc59a855",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -976,18 +949,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 5",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P5",
         "page_number": 5,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE.\n\n\n  BENZINER\n\n\n\n                                                                                              520i\n\nGetriebe                                                                            8-Gang Steptronic\n                                                                                     mit Schaltwippen\n\nZylinder/Hubraum, Anzahl/cm3                                                               4/1.998\n\nLeistung Gesamtfahrzeugantrieb in kW (PS)2                     "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "722dd5a9b84f0fcbc32cc437",
+    "signal_id": "5feefd3673a0bada0ede8b96",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1014,32 +986,31 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 6",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P6",
         "page_number": 6,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\nM SPORTPAKET PRO                                                                                                                                                                                  ■\n\n\nM Leuchten Shadow Line\nM Hochglanz Shadow Line mit erweiterten Umfängen\nM Sportbremse, rot hochglänzend\nM Heckspoiler in Black Sapphire\nM Sicherheitsgurte\nLaunch Control\n\nEXTERIEUR\n\n\nUni-Lackierung, Alpinweiß                                                      "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "b2245f913ca7eefb485bdffa",
+    "signal_id": "585282b3e2d9d5a0c687e351",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
     "target_platform": "G60",
-    "taxonomy_category": "C09",
+    "taxonomy_category": "C07",
     "cleaned_verbatim_text": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nDAB-Tuner                                                                                                                     ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nPersonal eSIM                                                                                                                 ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nWireless Charging Ablage                                                                                                      ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nHiFi Lautsprechersystem harman/kardon                                                                                         ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nANTRIEB/FAHRDYNAMIK                                                                                                                                                                                                                                                                                                                                            /FAHRWERK\n\n\nSteptronic Getriebe mit Schaltwippen                                                                                                                        ■         ■         ■         ■         ■         ■         ■\n\nAdaptives Fahrwerk Professional                                                                                                         ■         ■                             ■\n\nBMW IconicSounds Electric                                                                                                     ■         ■         ■         ■         ■         ■\n\nLadekabel Professional (Mode 3) für öffentliches Laden                                                                        ■         ■         ■         ■         ■         ■\n\nAC-Laden Professional (22 kW)                                                                                                                     ■\n\nFAHRERASSISTENZ UND SICHERHEIT\n\n\nDriving Assistant                                                                                                             ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\nradarbasiertes Fahrerassistenzsystem bestehend aus:\n\n– Spurwechselwarnung\n– Querverkehrswarnung hinten mit Bremseingriff\n– Ausstiegswarnung (Safe Exit)\n– Heckkollisionswarnung\n\nParking Assistant                                                                                                             ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\nkamera- und ultraschallbasiertes Assistenzsystem bestehend aus:\n\n– Active Park Distance Control\n– Parkassistent\n– Rückfahrkamera bis zu 50 m\n– Active Park Distance Control\n– Einparkhilfe Seite\n– Parken-Anfahrüberwachung\n– Rückfahrkamera mit Panoramaansicht hinten\n– Anhängerassistent\n\nSpurverlassenswarnung mit aktiver Rückführung                                                                                 ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nFrontkollisionswarnung mit Bremsfunktion, Ausweichhilfe und Bremseingriff                                                     ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nLinksabbiegewarnung (Fahrzeug) mit Bremsfunktion                                                                              ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nSpeed Limit Info                                                                                                              ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\ninkl. Vorausschau und Überholverbotsanzeige, manueller Speed Limit Assist\n\nAlarmanlage                                                                                                                   ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nReifendruck-Kontrolle                                                                                                         ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nReifenreparatur Set oder Reifenpannenset Plus                                                                                 ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\nAusstattung abhängig vom gewählten Leichtmetallrad\n\nWarndreieck und Verbandskasten                                                                                                ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nAkustischer Fußgängerschutz                                                                                                   ■         ■         ■         ■         ■         ■\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n■ Serienausstattung",
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Parking Assistant",
+    "topic": "Infotainment",
     "requirement_statement": null,
     "secondary_tags": [
-      "C02",
-      "C07"
+      "C09",
+      "C02"
     ],
     "scope_layer": "fixed_now",
     "region": "EU",
@@ -1052,18 +1023,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 7",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P7",
         "page_number": 7,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nDAB-Tuner                                                                                                                     ■         ■         ■         ■         ■         ■         ■         ■         ■         ■\n\nPersonal eSIM                                                                                                                 ■         ■         ■         ■         ■         ■         ■         ■         ■"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "792e5b1b050cec5f4cf3e6f5",
+    "signal_id": "4a4d42be90db6f81192aacba",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1087,18 +1057,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 8",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P8",
         "page_number": 8,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKOMFORT UND FUNKTIONALITÄT\n\n\nAdaptiver LED-Scheinwerfer                                                                         ■      ■       ■       ■       ■      ■       ■       ■       ■       ■\n\nFernlichtassistent \"BMW Selective Beam\"                                                            ■      ■       ■       ■       ■      ■       ■       ■       ■       ■\n\nBMW Digital Key                                                                       "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "7df0ee62c23e3da4a9594674",
+    "signal_id": "3a6cca8d57659f0bbddbd617",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1124,18 +1093,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 9",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P9",
         "page_number": 9,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SPORTPAKET.\n\nDas M Sportpaket enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um weitere\nSonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                 SA-Nr.            EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\n\nM Sportpaket                      "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "643a3b9987dfda5e6a0557aa",
+    "signal_id": "a24fc88a2c09b2507009e457",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1161,18 +1129,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 10",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P10",
         "page_number": 10,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SPORTPAKET PRO.\n\nDas M Sportpaket Pro enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um weitere\nSonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                             SA-Nr.             EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\n\nM Sportpaket "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2a804f3219863d8022cdd083",
+    "signal_id": "db7359ea93b47a045a0e2771",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1196,18 +1163,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 11",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P11",
         "page_number": 11,
         "sheet_name": null,
         "row_number": null,
         "quote": "i5 M60 xDRIVE.\n\n\n\n\n\n\n\n\n\n\n\n                                                                                                                                   SA-Nr.             EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\nM SPORTPAKET PRO                                                                                                                     33B\n\n\nM Leuchten Shadow Line\nM Hochglanz Shadow Li"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "21d481c637cd563dff2de9fe",
+    "signal_id": "7c9a16fa40eaa50b05f13895",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1217,7 +1183,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1231,18 +1197,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 12",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P12",
         "page_number": 12,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSSTATTUNGEN"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "1bd5eb9c2b0c8b41e318e9a6",
+    "signal_id": "2eeffcccd9f45f30f8c157d0",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1266,18 +1231,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 13",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P13",
         "page_number": 13,
         "sheet_name": null,
         "row_number": null,
         "quote": "RÄDER UND REIFEN.\n\n\n\n\n\n\n\n\nRÄDER UND REIFEN\n\n\n18\" Leichtmetallräder Y-Speiche 932                                                                   3FY                                                                                                   ■          ■          ■          ■\n7,5J                                      x               18 mit Bereifung 225/55\nGrau\n\nHinweis: ohne Radschraubensicherung\n\n19\" Leichtmetallräder Triplex-Speiche 933                                                  "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "12d6f66c1e6edf779e8e927f",
+    "signal_id": "6d4f834f4d71558ca92f9d5f",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1301,18 +1265,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 14",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P14",
         "page_number": 14,
         "sheet_name": null,
         "row_number": null,
         "quote": "RÄDER UND REIFEN.\n\n\n\n\n\n\n\n\nRÄDER UND REIFEN\n\n20\" M Aerodynamikräder 940 M Bicolor mit Mischbereifung1                                        3GT            1. 250,–                                 □\n8,5J x 20 mit Bereifung 245/40 vorn                                                                          [1.050,42]\n10J x 20 mit Bereifung 275/35 hinten\nJetblack\n\nHinweis: mit Radschraubensicherung\n\n21\" BMW Individual Aerodynamikräder 954 I Bicolor mit                                           3GV"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "bfe8262b356fab02dcb36526",
+    "signal_id": "191f137001a1d14a61c1da1a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1322,7 +1285,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1336,18 +1299,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 15",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P15",
         "page_number": 15,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT EXTERIEUR.\n\n\n\n\n\n\n\n\nUNI\n\n\nAlpinweiß                                                                                           300              Serie              ■          ■          ■          ■         ■          ■          ■          ■         ■          ■\n\nMETALLIC\n\n\nSaphirschwarz                                                                                       475             1.120,–             □          □          □          □         □          □          □          □      "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "b133848bb1acf3cfea868039",
+    "signal_id": "865234d0b5e194520a552b32",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1371,32 +1333,31 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 16",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P16",
         "page_number": 16,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT INTERIEUR.\n\n\n\n\n\n\n\n\nPOLSTER\n\nKUNSTLEDER\n\nVeganza perforiert  | Schwarz                                                                KUSW                                ■         ■                    ■         ■         ■         ■          ■         ■         ■\n\nM Alcantara | Veganza-Kombination | Schwarz                                                  KTSW                –,–             □         □          ■         □         □         □         □          □         □         □\nNur "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4498150cacc5f543d33589f2",
+    "signal_id": "3773069ee35868fbab576935",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
     "target_platform": "G60",
-    "taxonomy_category": "C09",
+    "taxonomy_category": "C07",
     "cleaned_verbatim_text": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nAUSSTATTUNGSPAKETE\n\nINNOVATIONSPAKET                                                                           7EW           2.400,–            □         □        □         □         □         □        □         □         □         □\n                                                                                                       [2.016,81]\n\n\nBMW Live Cockpit Professional inkl. BMW Head-Up Display\n\nInnenraumkamera\n\nParking Assistant Plus\nkamera- und ultraschallbasiertes Assistenzsystem bestehend aus:\n– Surround View System\n– Remote 3D View\n– Panoramaansicht vorne\n– Drive Recorder\n–Anti-Diebstahl-Rekorder\n\n(Ausstattungsalternative mit reduziertem Preis: Parking Assistant\nProfessional, weitere Informationen siehe Seite 17)\n\nCOMFORT PAKET                                                                              7VB           2.750,–            □         □                  □         □         □        □         □         □         □\n                                                                                                       [2.310,92]\n\n\n– Sitzverstellung, elektrisch, mit Memory für Fahrer                                                     1.150,–                               □\n– Sitzheizung vorn und hinten                                                                           [966,39]\n– Aktive Sitzbelüftung vorn\n– Klimaautomatik mit 4-Zonenregelung\n\nAusstattungsalternative: optional gegen Aufpreis sind\nKomfortsitze für Fahrer und Beifahrer erhältlich (siehe Seite 17)\n\nTRAVEL PAKET                                                                               7LK           1.900,–            □         □        □         □         □         □        □         □         □         □\n                                                                                                       [1.596,64]\n\n\n– Automatische Heckklappenbetätigung\n– Komfortzugang\n– Travel & Comfort System\n\nEXTERIEUR\n\n\nEntfall, Modellschriftzug                                                                  320              –,–             □         □        □         □         □         □        □         □         □         □\n\nBMW Iconic Glow Exterieurpaket                                                             3DP            550,–             □         □        ■         □         □         □        □         □         □         □\n                                                                                                        [462,18]\nIm Umfang M Sportpaket Pro enthalten\n\nM Carbon Exterieurpaket                                                                    7 1C          1.900,–            □         □                  □         □         □        □         □         □         □\nNur in Verbindung mit M Sportpaket                                                                     [1.596,64]\n\n                                                                                                         1.800,–                               □\n                                                                                                        [1.512,61]\n\nIn Verbindung mit M Sportpaket Pro                                                                       1.600,–            □         □                  □         □         □        □         □         □         □\n                                                                                                       [1.344,54]\n\nM Heckspoiler in Wagenfarbe                                                                754            300,–             □         □        □         □         □         □        □         □         □         □\nNicht in Verbindung mit M Carbon Exterieurpaket                                                          [252,10]\nNur in Verbindung mit M Sportpaket\n\nIn Verbindung mit M Sportpaket Pro in Black Sapphire                                                        –,–             □         □        □         □         □         □        □         □         □         □\n\nINTERIEUR\n\n\nGlasapplikation 'CraftedClarity' für Interieurelemente                                     4A2            610,–             □         □        □         □         □         □        □         □         □         □\n                                                                                                         [512,61]\n\nLenkradheizung                                                                             248            350,–             □         □        □         □         □         □        □         □         □         □\n                                                                                                         [294,12]\n\nM Dachhimmel Alcantara anthrazit                                                           776           1.600,–            □         □                  □         □         □        □         □         □         □\nNur in Verbindung mit Panorama Glasdach                                                                [1.344,54]\n\n                                                                                                         1. 200,–                              □\n                                                                                                       [1.008,40]\n\nIn Verbindung mit M Sportpaket                                                                           1. 200,–           □         □                  □         □         □        □         □         □         □\n                                                                                                       [1.008,40]\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nBowers & Wilkins Surround Sound System                                                     6F4            750,–             □         □        □         □         □         □        □         □         □         □\n                                                                                                        [630, 25]\n\n\n■ Serienausstattung                                                                                                                                                                  □ Sonderausstattung                                                                                                                                                                  –,– Sonderausstattung ohne Mehr-/ Minderpreis",
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Parking Assistant",
+    "topic": "Infotainment",
     "requirement_statement": null,
     "secondary_tags": [
-      "C05",
-      "C07"
+      "C09",
+      "C05"
     ],
     "scope_layer": "fixed_now",
     "region": "EU",
@@ -1409,18 +1370,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 17",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P17",
         "page_number": 17,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nAUSSTATTUNGSPAKETE\n\nINNOVATIONSPAKET                                                                           7EW           2.400,–            □         □        □         □         □         □        □         □         □         □\n                                                                                                       [2.016,81]\n\n\nBMW Live Cockpit Professional inkl. BMW Head-Up Display\n\nInnenraumkamera\n\nParking Assistant Plus\nkamera- und ultraschallb"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "aa089b84964308a1551d8f58",
+    "signal_id": "53825a445a57426a33362b3b",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1446,18 +1406,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 18",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P18",
         "page_number": 18,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nANTRIEB / FAHRDYNAMIK / FAHRWERK\n\n\nAdaptives Fahrwerk Professional                                                                       2VV            2.440,–              □          ■          ■          □          □          ■          □          □          □          □\n– Elektronisch geregelte Stoßdämpfer                                                                               [2.050,42]\n– Integral-Aktivlenkung\n\nIn Verbindung mit M Sportpaket                "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "7063f4264b47231c9df75ab9",
+    "signal_id": "ce7d247239ab61ba1ebb335e",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1467,7 +1426,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1481,18 +1440,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 19",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P19",
         "page_number": 19,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKLIMAKOMFORT\n\n\nPanorama Glasdach inkl. Dachlackierung in Schwarz Hochglanz                                            402             1.630,–              □          □          □          □          □          □          □          □          □          □\n                                                                                                                     [1.369,75]\n\nSonnenschutzrollos                                                                    "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2bcf2645123f81bd351c7f79",
+    "signal_id": "e1fb49c5936e52c4f74ca39c",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1502,7 +1460,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1516,18 +1474,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 20",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P20",
         "page_number": 20,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "3d3669c60653caf8be76e28d",
+    "signal_id": "36c35cccc23b91ed1d72eb87",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1551,18 +1508,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 21",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P21",
         "page_number": 21,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW Vollelektrisch                                                                    i5 eDrive40                      i5 xDrive40                     i5 M60 xDrive\n\nGESAMTFAHRZEUGANTRIEB\n\n\nAntriebstyp                                                                            Elektrisch                       Elektrisch                        Elektrisch\n\nLeistung in KW (PS)                                                                    250 (340)                        2"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4d1cdd58b70e327500fa223f",
+    "signal_id": "497606072a7e1a9914a1c416",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1586,18 +1542,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 22",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P22",
         "page_number": 22,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\nBMW 5er Plug-In-Hybrid                                                                 530e                        530e xDrive                      550e xDrive\n\nGESAMTFAHRZEUGANTRIEB\n\nAntriebstyp                                                                           Benzin                           Benzin                          Benzin\n                                                                                 Plug-in-Hybrid                   Plug-in-Hybrid        "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "39af9de87bda93c681a7d4f7",
+    "signal_id": "cc3c241378c525547b8079ee",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1621,18 +1576,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 23",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P23",
         "page_number": 23,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW 5er Plug-In-Hybrid                                                                 530e                        530e xDrive                     550e xDrive\n\nBATTERIE/LADEN\n\nEnergieinhalt Batterie in kWh, Netto                                                   19,4                             19,4                            19,0\n\nMaximale Ladeleistung AC in kW                                                           11                              11                    "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "9ef0b3afe37c6d2607fe5d71",
+    "signal_id": "4cb0446ae9a8568f3b02d79c",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1656,18 +1610,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 24",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P24",
         "page_number": 24,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW      5er      Benziner /Diesel                                                   520i                           520d                       520d xDrive                     540d xDrive\n\nGESAMTFAHRZEUGANTRIEB1\n\nAntriebstyp                                                                   Benzin – 48 Volt                Diesel – 48 Volt               Diesel – 48 Volt                Diesel – 48 Volt\n                                                                           "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "0e8778698a98706a550999d9",
+    "signal_id": "d56e797578a5e54666993a6a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1691,18 +1644,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 25",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P25",
         "page_number": 25,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE MAßZEICHNUNG.\n\ni5 eDRIVE40/ i5 xDRIVE40.\n\n\n\n\n\n\n\n\n\n                                                                                                       1033            969\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                    1616 - 1622                               945                                  2995                               1120\n\n                     1900                                                                          5060\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                              "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "bb6de4decb78ac4b4c27a547",
+    "signal_id": "d81fb705fe457fd1787b4338",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1726,18 +1678,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 26",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P26",
         "page_number": 26,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE MAßZEICHNUNG.\n\n530e, 530e xDRIVE, 550e xDRIVE, 520i, 520d, 520d xDRIVE,\n540d xDRIVE.\n\n\n\n\n\n\n\n\n\n                                                                                        1033          969\n\n\n\n\n\n\n\n\n\n\n\n\n\n                1616 - 1634                          945                            2995                          1120\n\n                  1900                                                              5060\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                         "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "51b96a823cdba920c2b725b3",
+    "signal_id": "3fb22805664ed9b0a3921bfb",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1747,7 +1698,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1761,18 +1712,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 27",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P27",
         "page_number": 27,
         "sheet_name": null,
         "row_number": null,
         "quote": "Ihre Automobilabholung in der BMW Welt in München macht einen großen Tag zum unvergesslichen Erlebnis.\n   Denn hier sind Sie mit BMW Group Werk, BMW Museum und BMW Konzernzentrale direkt umgeben von\n   aufregender Historie, atemberaubender Gegenwart und spektakulären Zukunftsvisionen.\n\n   Erleben Sie die Übergabe Ihres neuen BMW, eingebettet in ein perfekt auf Sie abgestimmtes Rahmenprogramm.\n   Informieren Sie sich gerne vorab bei Ihrem BMW Partner vor Ort, online unter bmw/uni00ADwelt.com, tel"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "e75a3e2e95a5db69d9beae5e",
+    "signal_id": "e1e5036201ae821c42af71ed",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G60_OptionList.PDF",
     "timestamp": "2026-06-22T00:00:00+00:00",
@@ -1782,7 +1732,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1796,18 +1746,17 @@
       {
         "source_uri": "bmw-file://G60_OptionList.PDF",
         "locator": "PDF page 28",
+        "source_platform": "BMW_PDF",
         "record_id": "G60-OPTION-P28",
         "page_number": 28,
         "sheet_name": null,
         "row_number": null,
         "quote": "Jedes unserer Fahrzeuge lässt sich am Ende seiner Nutzungsphase, wie gesetzlich vorgeschrieben, zu mindestens 95                                                                                        % verwerten sowie zu\nmindestens 85                                                                                         % stofflich recyclen. Weitere Informationen finden Sie auf unserer Internetseite unter www.bmw.de/recycling.\n\n© BMW AG, München/Deutschland. Nachdruck, auch auszugsweise, nur mi"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "8030229da7eda95a71986513",
+    "signal_id": "a742f04e139ccfcbeba726e3",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1817,7 +1766,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1831,18 +1780,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 1",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P1",
         "page_number": 1,
         "sheet_name": null,
         "row_number": null,
         "quote": "BM  W     7\n                      LIMOUSINE\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJULI 2026              Freude am Fahre n"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "877e1b80f804af4e3626fbe8",
+    "signal_id": "3331190b00ba660e4699a759",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1866,18 +1814,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 2",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P2",
         "page_number": 2,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE & MODELLE                                  AUSSTATTUNGEN                                            TECHNISCHE WERTE\n\n Fahrzeugpreise                                           Räder und Reifen                                          Technische Werte\n Serienausstattungen                                      Farbwelt Exterieur\n M Sportpaket                                             Farbwelt Interieur\n M Sportpaket Pro                                         Sonderausstattungen\n i"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "fcbf1d4799a4378e42554741",
+    "signal_id": "acfecb7be81b862f3dc3662e",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1887,7 +1834,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -1901,18 +1848,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 3",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P3",
         "page_number": 3,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE &\n     MODELLE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "d365d7502bdb0dd556c56a42",
+    "signal_id": "84da1aeadc7dc0bbe199715b",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1936,18 +1882,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 4",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P4",
         "page_number": 4,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE.\n\n\n  VOLLELEKTRISCH\n\n\n\n                                                                                       i7 50xDrive                                       i7 60xDrive                                     i7 M70 xDrive\n\nGetriebe                                                                         1-Gang,        automatisch                        1-Gang,        automatisch                       1-Gang,        automatisch\n\nMotor                                                 "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "dcaec2304f4af6325838161f",
+    "signal_id": "b08c03edc5df396a4427be95",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1971,18 +1916,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 5",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P5",
         "page_number": 5,
         "sheet_name": null,
         "row_number": null,
         "quote": "FAHRZEUGPREISE.\n\n\n  BENZINER\n\n\n\n                                                                                          740 xDrive\n\nGetriebe                                                                             8-Gang Steptronic\n\nZylinder/Hubraum, Anzahl/cm3                                                               6/2.998\n\nLeistung Gesamtfahrzeugantrieb in kW (PS)2                                                294 (400)\n\n\nMit 48 V Mild-Hybrid-Technologie in kW (PS)                 "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "ba0c557bdd098566d351a931",
+    "signal_id": "eed367b95628757088324c9c",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -1992,7 +1936,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2006,18 +1950,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 6",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P6",
         "page_number": 6,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nEXTERIEUR\n\n\nUni-Lackierung, Alpinweiß                                                                                                                                    ■       ■        ■       ■\n\n20\" Leichtmetallräder Sternspeiche 905 Bicolor                                                                                                                                ■\n9 J x 20 mit Bereifung 255/45 R20 vorn\n10,5 J x 20 mit Bereifung 285/40 R20 hinten\nMit"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4c6a2289e7b555bc30d11473",
+    "signal_id": "48ab3cb42c16a0a884c8458b",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2043,18 +1986,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 7",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P7",
         "page_number": 7,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKONNEKTIVITÄT UND INFOTAINMENT\n\n\nBMW Panoramic Vision                                                                                                                                                                        ■         ■         ■         ■\nDas virtuelle Display projiziert Inhalte gut sichtbar für alle Insassen über die gesamte Breite der Frontscheibe.\n\nBMW Panoramic iDrive                                                                       "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "7db74d0ea72eb32325a50233",
+    "signal_id": "90ed4e240c21de5db0653295",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2078,31 +2020,30 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 8",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P8",
         "page_number": 8,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nFAHRERASSISTENZ UND SICHERHEIT\n\n\nGesetzlicher Notruf inkl. Teleservices und BMW Unfallhilfe                                                                                             ■       ■       ■       ■\n\nDriving Assistant Plus                                                                                                                                 ■       ■       ■       ■\nkamera- und radarbasiertes Fahrerassistenzsystem bestehend aus:\n\n– Spee"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "016d6cbab228b51f7a16c0d2",
+    "signal_id": "59034cc95ec82d61b3cac3cb",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
     "target_platform": "G70",
-    "taxonomy_category": "C02",
+    "taxonomy_category": "C07",
     "cleaned_verbatim_text": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKOMFORT UND FUNKTIONALITÄT\n\n\nSonnenschutzrollos                                                                                                                                                                            ■         ■         ■         ■\n\nSoft-Close-Automatik  für Türen                                                                                                                                                               ■         ■         ■         ■\n\nAutomatische Heckklappenbetätigung                                                                                                                                                            ■         ■         ■         ■\n\nWireless Charging Ablage                                                                                                                                                                      ■         ■         ■         ■\n\nKomfortzugang                                                                                                                                                                                 ■         ■         ■         ■\n\nDurchladesystem                                                                                                                                                                               ■         ■         ■         ■\n\nStandklimatisierung                                                                                                                                                                           ■         ■                   ■\nIndividuelles Temperieren des Fahrgastraums durch Aufheizen oder Abkühlen, inklusive Vorkonditionierung, Aktivierung der\nKlimatisierung im                                                                                                                                                                                                                                                            Rahmen von BMW ConnectedDrive per Smartphone-App möglich (Kompatibles Smartphone erforderlich). Kühlung der\nBatterie bei warmen Außentemperaturen für optimale Betriebsbedingungen\n\nMultifunktionssitze für Fahrer und Beifahrer                                                                                                                                                  ■         ■         ■         ■\n\nBMW IconicSounds Electric                                                                                                                                                                     ■         ■                   ■\nJeder Fahrmodus hat seinen eigenen Sound\n\nTravel & Comfort System                                                                                                                                                                       ■         ■         ■         ■\nSchnittstelle im Sitz zur Halterung von Tablets etc. inkl. USB-C Buchse\n\nGaragentoröffner, integriert                                                                                                                                                                  ■         ■         ■         ■\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n■ Serienausstattung",
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Charging",
+    "topic": "App",
     "requirement_statement": null,
     "secondary_tags": [
-      "C07",
+      "C02",
       "C05"
     ],
     "scope_layer": "fixed_now",
@@ -2116,18 +2057,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 9",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P9",
         "page_number": 9,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSGEWÄHLTE SERIENAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nKOMFORT UND FUNKTIONALITÄT\n\n\nSonnenschutzrollos                                                                                                                                                                            ■         ■         ■         ■\n\nSoft-Close-Automatik  für Türen                                                                                                                                                               ■         ■      "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "68fd607d8a34d2da24e4f8fd",
+    "signal_id": "00ec1607aca845a18d5307e3",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2151,18 +2091,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 10",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P10",
         "page_number": 10,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SPORTPAKET.\n\nDas M Sportpaket enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um weitere\nSonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                            SA-Nr.             EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\n\nNicht in Verbindung mi"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "7d38cb2ac5bf8a0aad961e7b",
+    "signal_id": "14f6a972d16093fc7ba63598",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2186,18 +2125,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 11",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P11",
         "page_number": 11,
         "sheet_name": null,
         "row_number": null,
         "quote": "M SPORTPAKET PRO.\n\nDas M Sportpaket Pro enthält neben der Serienausstattung zusätzliche Designumfänge und Ausstattungen, die um\nweitere Sonderausstattungen ergänzt werden können.\n\n\n\n\n\n\n                                                                                                                                        SA-Nr.             EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\n\nNicht in Verbindun"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "938d22dd944b0567efe8eb35",
+    "signal_id": "95acf403b4f3a2e609a9b12f",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2221,18 +2159,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 12",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P12",
         "page_number": 12,
         "sheet_name": null,
         "row_number": null,
         "quote": "i7 M70 xDRIVE.\n\n\n\n\n\n\n\n\n\n\n\n                                                                                                                              SA-Nr.           EUR inkl.                                                                                                       19 % MwSt. [EUR ohne MwSt.]\n\nRÄDER UND REIFEN\n\n\n21\" M Aerodynamikräder 909 M Multicolor 3D-Glanzschliff mit Mischbereifung                                                      1FE            Serie\n9 J x 21 mit Bereifung"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "df5fc893e2a4c040f4f060e7",
+    "signal_id": "27ef09064993378119f07108",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2242,7 +2179,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2256,18 +2193,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 13",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P13",
         "page_number": 13,
         "sheet_name": null,
         "row_number": null,
         "quote": "AUSSTATTUNGEN"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4446a58a6e1f94d7bfa7e400",
+    "signal_id": "501745ecec54d5bfda96157a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2277,7 +2213,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2291,18 +2227,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 14",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P14",
         "page_number": 14,
         "sheet_name": null,
         "row_number": null,
         "quote": "RÄDER UND REIFEN.\n\n\n\n\n\n\n\n\nRÄDER UND REIFEN\n\n\n20\" Leichtmetallräder Sternspeiche 905 Bicolor                                                                                                                                                   1F4                  –,–                  □           □            ■\n9 J x 20 mit Bereifung 255/45 R20 vorn\n10,5 J x 20 mit Bereifung 285/40 R20 hinten\nMitdnight Grey, glanzgedreht\nHinweis: Schneekettenmontage nicht möglich\n\nIn Verbindung mit BMW Individual Prem"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "8ea94b5bd4a9421f8f04b0c1",
+    "signal_id": "4058e74df52d71915e90198c",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2312,7 +2247,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2326,18 +2261,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 15",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P15",
         "page_number": 15,
         "sheet_name": null,
         "row_number": null,
         "quote": "RÄDER UND REIFEN.\n\n\n\n\n\n\n\n\nRÄDER UND REIFEN\n\n\n21\" BMW Individual Leichtmetallräder Vielspeiche 1055 I Bicolor mit Mischbereifung                                                                                               1WK              1.600,–                □          □           □\n9 J x 21 Bereifung 255/40 R21 vorn                                                                                                                                                              [1.344,54]\n10,5 J x 2"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "3e6a84c127836bc94baca72d",
+    "signal_id": "c61d50b7e1657358d693d9e6",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2347,7 +2281,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2361,18 +2295,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 16",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P16",
         "page_number": 16,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT EXTERIEUR.\n\n\n\n\n\n\n\n\nUNI\n\n\nAlpinweiß                                                                                                                                               300             Serie            ■         ■         ■         ■\n\nMETALLIC\n\n\nMineralweiss                                                                                                                                            A96           1. 220,–           □         □         □         □\nAveturinrot         "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2cdb67fa78ec0b6d98fd7bdf",
+    "signal_id": "3204254f92c0070d6b09f646",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2382,7 +2315,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2396,18 +2329,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 17",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P17",
         "page_number": 17,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT INTERIEUR.\n\n\n\n\n\n\n\n\nPOLSTER\n\nKUNSTLEDER\n\nKunstleder Veganza\n\n\nSchwarz                                                                                                                                                   KVSW             Serie             ■          ■         ■\n\nMokka                                                                                                                                                     KVMY               –,–             □          □         □\nCogna"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "550ea3c754d4256f9ad21f88",
+    "signal_id": "b0fee120b6bebe7739488a2e",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2417,7 +2349,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2431,18 +2363,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 18",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P18",
         "page_number": 18,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT INTERIEUR.\n\n\n\n\n\n\n\n\nINTERIEURLEISTEN\n\n\nInterieurleisten Edelholz Lindenholz Fineline braun, offenporig                                                                                                      4D7              Serie              ■          ■         ■          □\n\nInterieurakzent Silberbronze                                                                                                                                        4H4                –,–               □          □    "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "4a292e5266054605b9c7ee73",
+    "signal_id": "328b5451e155d638c631d40a",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2466,18 +2397,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 19",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P19",
         "page_number": 19,
         "sheet_name": null,
         "row_number": null,
         "quote": "FARBWELT INTERIEUR.\n\n\n\n\n\n\n\n\nLENKRÄDER\n\n\nSport-Lenkrad                                                                                                                                              2XH             300,–              □         □         □\nSport Lenkrad mit Shy-Tech-Bedienelementen:                                                                                                                               [252,10]\n\n– Multlifunktionslenkrad\n– M-Emblem auf Lenkradspeiche\n– 2 Speichen "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "e07f82c5dc994376e0e77035",
+    "signal_id": "e4d75d55dbfcf80473a246ec",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2487,7 +2417,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2501,18 +2431,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 20",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P20",
         "page_number": 20,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nAUSSTATTUNGSPAKETE\n\n\nEXECUTIVE PAKET                                                                                                                                           9DA           4.450,–             □         □         □         □\nbestehend aus:                                                                                                                                                        [3.739,50]\n\n– Aktive Sitzbelüftung im Fond\n– Multifunktionssitze"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "01635f7f04c3ef80d2ae10f4",
+    "signal_id": "a22b27f765139c68051c2d4e",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2536,18 +2465,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 21",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P21",
         "page_number": 21,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nEXTERIEUR\n\n\nModellschriftzug, Entfall                                                                                                                          320              –,–            □         □        □         □\n\nINTERIEUR\n\n\nExecutive Lounge Seating                                                                                                                           4F4           2. 200,–          □         □        □         □\n                          "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "dfe96f18367264ee0fa90992",
+    "signal_id": "daad70c0f79ad0fe98e18fb0",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2557,7 +2485,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2571,18 +2499,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 22",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P22",
         "page_number": 22,
         "sheet_name": null,
         "row_number": null,
         "quote": "SONDERAUSSTATTUNGEN.\n\n\n\n\n\n\n\n\nASSISTENZSYSTEME\n\nAutobahn- & City-Assistent (laufzeitbegrenzt)1,2                                                                                                      5BB           1.980,–            □         □         □         □\nkamera- und radarbasiertes Fahrerassistenzsystem bestehend aus:                                                                                                   [1.663,87]\n\n– Spurwechselassistent\n– Autobahnassistent\n– Lenk- und Spurführu"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2fe3d9c423da094472646d9d",
+    "signal_id": "bcce682e63180eede8c877ab",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2592,7 +2519,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2606,18 +2533,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 23",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P23",
         "page_number": 23,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "6e7146a821a1413ace224fc2",
+    "signal_id": "d7f871d102dd0a53df84f5ff",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2643,18 +2569,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 24",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P24",
         "page_number": 24,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW 7er Vollelektrisch                                                                     i7 50xDrive                                  i7 60xDrive                                 i7 M70 xDrive\n\nGESAMTFAHRZEUGANTRIEB\n\n\nAntriebstyp                                                                               Vollelektrisch                               Vollelektrisch                               Vollelektrisch\n\nLeistung in kW (PS)                                           "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2ac924f6bde94bb409db47e1",
+    "signal_id": "11cb87cd00276e636256d4a0",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2678,18 +2603,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 25",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P25",
         "page_number": 25,
         "sheet_name": null,
         "row_number": null,
         "quote": "TECHNISCHE WERTE.\n\n\n\n\n\nBMW 7er Benziner                                                                     740 xDrive\n\nGESAMTFAHRZEUGANTRIEB1\n\n\nAntriebstyp                                                                            Benzin\n\nLeistung in kW (PS)                                                                  294 (400)\n\nDrehmoment in Nm                                                                        580\n\nGetriebe                                                               "
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "963e6b5830bcef87cc8db4bc",
+    "signal_id": "5d6b30783eff4bd8b04a5e7c",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2699,7 +2623,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2713,18 +2637,17 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 26",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P26",
         "page_number": 26,
         "sheet_name": null,
         "row_number": null,
         "quote": "Ihre Automobilabholung in der BMW Welt in München macht einen großen Tag zum unvergesslichen Erlebnis.\n   Denn hier sind Sie mit BMW Group Werk, BMW Museum und BMW Konzernzentrale direkt umgeben von\n   aufregender Historie, atemberaubender Gegenwart und spektakulären Zukunftsvisionen.\n\n   Erleben Sie die Übergabe Ihres neuen BMW, eingebettet in ein perfekt auf Sie abgestimmtes Rahmenprogramm.\n   Informieren Sie sich gerne vorab bei Ihrem BMW Partner vor Ort, online unter bmw/uni00ADwelt.com, tel"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   },
   {
-    "signal_id": "2c36e7752f44b779b39aafe5",
+    "signal_id": "92fee311c1c4f0df373e8445",
     "source_platform": "BMW_PDF",
     "source_url": "bmw-file://G70_OptionList.PDF",
     "timestamp": "2026-05-28T00:00:00+00:00",
@@ -2734,7 +2657,7 @@
     "is_noise": false,
     "sentiment_score": 0,
     "confidence": 0.8,
-    "topic": "Unclassified",
+    "topic": "General",
     "requirement_statement": null,
     "secondary_tags": [],
     "scope_layer": "fixed_now",
@@ -2748,14 +2671,13 @@
       {
         "source_uri": "bmw-file://G70_OptionList.PDF",
         "locator": "PDF page 27",
+        "source_platform": "BMW_PDF",
         "record_id": "G70-OPTION-P27",
         "page_number": 27,
         "sheet_name": null,
         "row_number": null,
         "quote": "Jedes unserer Fahrzeuge lässt sich am Ende seiner Nutzungsphase, wie gesetzlich vorgeschrieben, zu mindestens 95                                                                                        % verwerten sowie zu\nmindestens 85                                                                                         % stofflich recyclen. Weitere Informationen finden Sie auf unserer Internetseite unter www.bmw.de/recycling.\n\n© BMW AG, München/Deutschland. Nachdruck, auch auszugsweise, nur mi"
       }
-    ],
-    "feedback_types": [],
-    "classification_basis": "keyword_rule"
+    ]
   }
 ]

@@ -1,67 +1,85 @@
 {
-  "published_at": "2026-10-10T20:29:37.793597+00:00",
-  "source_run": "relabelled",
+  "published_at": "2026-10-10T20:29:45.323970+00:00",
+  "source_run": "revision-v8",
   "engine": "rules",
-  "classification": "BMW Feedback Type and Vfc level2 topic where present; whole-word keyword rules otherwise",
   "counts": {
     "workbook_tag_rows": 13771,
     "distinct_feedback_ids": 10128,
-    "raw_records": 10206,
-    "respondents_classified_by_bmw_label": 8930,
-    "respondents_classified_by_keyword_rule": 1198,
-    "signals": 13754,
+    "raw_records": 10207,
+    "aspect_signals": 24988,
     "fixed_baseline_signals": 78,
-    "requirements": 188,
-    "regional_conflicts": 0,
+    "requirements": 282,
+    "requirements_with_competitor_evidence": 7,
+    "regional_conflicts": 43,
     "sales_volume_rows": 12,
     "customer_study_rows": 1003,
-    "audit_events": 188
+    "audit_events": 282
   },
-  "not_proposed": {
-    "minimum_respondents": 15,
-    "unclassified_respondents": 1041,
-    "topics_below_minimum": 470,
-    "respondents_in_topics_below_minimum": 2604,
-    "note": "Counted but not proposed. Missing evidence is silence, not low priority."
+  "raw_records_by_source": {
+    "BMW_Workbook": 10128,
+    "BMW_PDF": 78,
+    "Competitor_Web": 1
+  },
+  "aspect_signals_by_source": {
+    "BMW_Workbook": 24875,
+    "BMW_PDF": 78,
+    "Competitor_Web": 35
   },
   "requirements_by_category": {
-    "C01": 21,
-    "C02": 14,
-    "C04": 15,
-    "C05": 28,
-    "C06": 23,
-    "C07": 37,
+    "C01": 37,
+    "C02": 31,
+    "C03": 20,
+    "C04": 13,
+    "C05": 32,
+    "C06": 22,
+    "C07": 53,
     "C08": 21,
-    "C09": 11,
-    "C10": 18
+    "C09": 18,
+    "C10": 35
   },
   "requirements_by_review_band": {
-    "Critical review": 11,
-    "Unscored": 177
+    "Critical review": 9,
+    "High": 125,
+    "Medium": 93,
+    "Low": 55
   },
-  "requirements_by_confidence_label": {
-    "Verified Evidence": 85,
-    "Medium Evidence": 103
+  "priority_score_basis": {
+    "static_evidence_proxy": 282
   },
   "processing_by_status": {
-    "accepted": 10206
+    "accepted": 10207
   },
+  "collection_audit_by_outcome": [
+    {
+      "status": "collection_failed",
+      "reason": "TimeoutError",
+      "count": 1
+    },
+    {
+      "status": "collection_failed",
+      "reason": "ValueError",
+      "count": 2
+    },
+    {
+      "status": "collection_skipped",
+      "reason": "MissingCredentials",
+      "count": 4
+    }
+  ],
   "validation": {
     "python_tests": {
-      "passed": 65,
+      "passed": 56,
       "failed": 0
     },
-    "independent_recount": "168 of 168 label-based requirements match a separate recount of the workbooks",
-    "nextjs_production_build": "not re-run after the classification change",
+    "nextjs_production_build": "passed",
+    "npm_audit_vulnerabilities": 0,
     "powerpoint_slides": 22,
-    "powerpoint_bytes": 53533
+    "powerpoint_bytes": 81891,
+    "powerpoint_contains_live_byd_url": true
   },
   "known_limitations": [
-    "All observed requirements lack at least one required dated velocity, validated sales-causality, or competitor two-year ROI input.",
-    "The BMW topic to C01-C10 table is a project judgement and has not been reviewed by BMW.",
-    "No BMW topic maps to C03 Price with enough respondents, so C03 has no requirement.",
-    "Requirement statements are templates around BMW topic names, not reviewed requirement wording.",
-    "G60 and G70 feedback is over 90% US and there is no China feedback, so no regional conflict meets the sample gate.",
-    "Raw records and signals are reproducible but excluded from the published Git snapshot because of their generated size."
+    "Workbook evidence lacks dated 30-day history and validated sales-causality inputs; all requirements use the labelled static-evidence proxy.",
+    "BIMMERPOST, German Car Forum, and Mercedes rejected or timed out during this live run; Reddit credentials were absent. Failures are retained in collection_audit.json.",
+    "Raw records and aspect signals are reproducible but excluded from the published Git snapshot because of their generated size."
   ]
 }

@@ -12,24 +12,27 @@ The repository was tested with the supplied BMW files using the deterministic ru
 | --- | ---: |
 | Workbook tag rows read | 13,771 |
 | Distinct feedback IDs | 10,128 |
-| Deduplicated raw records, including 78 fixed baseline pages | 10,206 |
-| Respondents classified by BMW label / by keyword fallback | 8,930 / 1,198 |
-| Signals (one per respondent and BMW topic) | 13,754 |
-| Product requirements (nine categories; no topic reaches C03 Price) | 188 |
-| Counted but not proposed: unclassified respondents / topic groups below 15 respondents | 1,041 / 470 |
-| Regional conflict flags (each region needs 15 respondents) | 0 |
-| `Critical review` requirements | 11 |
-| `Unscored` requirements, ordered by number of complaining respondents | 177 |
-| `Verified Evidence` / `Medium Evidence` | 85 / 103 |
+| Deduplicated raw records, including 78 fixed baseline pages and one live BYD release | 10,207 |
+| Discrete aspect signals | 24,988 |
+| Product requirements across all C01-C10 categories | 282 |
+| Regional conflict flags | 43 |
+| Priority bands | 9 Critical review; 125 High; 93 Medium; 55 Low |
+| `Unscored` requirements | 0 |
 | Sales-volume context rows | 12 |
 | Customer-study context rows | 1,003 |
-| Python tests | 65 passed |
-| Frontend validation | Not re-run after the classification change |
-| PowerPoint export | 22 slides; 53,533 bytes |
+| Python tests | 56 passed |
+| Frontend validation | Next.js production build passed; 0 npm audit vulnerabilities |
+| PowerPoint export | 22 slides; 81,891 bytes; includes the live BYD URL |
 
-All 188 observed requirements lacked a complete dated 30-day history, validated sales causality, or competitor two-year ROI input. The pipeline therefore leaves their missing scoring components unknown instead of inventing zeroes. A C04 topic is escalated to `Critical review` only when at least three respondents report a defect and the average sentiment is negative; 11 topics meet that rule.
+All 282 observed requirements lack at least one complete dated 30-day history, validated sales-causality input, or competitor two-year ROI input. They receive a clearly labelled static-evidence proxy score based only on absolute sentiment severity and distinct source volume, while every missing business input remains visible as a blindspot. Safety escalation remains independent of the proxy score. Seven benchmark requirements cite the collected BYD release, and the deck reserves a detail slide for available external evidence even when it ranks below the top 20. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
 
-Topic and polarity come from BMW's own workbook labels (`Vfc level2 Name`, `Feedback Type`) wherever a row carries them. The C01-C10 category is looked up in [`bmw_signals/bmw_topics.py`](bmw_signals/bmw_topics.py), a project judgement that BMW has not reviewed. Keyword rules, now matched on whole words, are used only for rows without labels and for web sources, and every requirement built from them says so in its warnings. An independent recount of the workbooks matches the respondent, complaint and praise counts of all 168 label-based requirements. See [TEST_RESULTS.md](TEST_RESULTS.md) for the commands, limitations, and detailed output.
+## Classification by BMW labels
+
+Workbook rows that carry BMW labels are classified from those labels, not from words in the comment: `Feedback Type` decides polarity and `Vfc level2 Name` is the topic. [`bmw_signals/bmw_topics.py`](bmw_signals/bmw_topics.py) maps the 225 BMW topics to C01-C10; that table is a project judgement and should be reviewed. Keyword rules still cover unlabelled rows and web sources, and requirements built from them carry a warning.
+
+The CLI applies three gates to observed workbook feedback: 15 distinct respondents before a topic is proposed (`--min-respondents`), 15 per region before a regional conflict is flagged, and three defect reports with negative average sentiment before a C04 topic is escalated. Respondents left out are counted in `exclusions.json`. The static priority proxy counts complaints only, so a topic customers mostly praise is worded as a strength to preserve and does not rank as high priority.
+
+The files in `output/published` predate this change and still reflect keyword classification. Regenerate them with `run-all` and the saved external raw file before quoting their numbers.
 
 ## Fastest complete demo
 
@@ -63,7 +66,7 @@ BMW workbooks/PDFs + configured web sources
     -> PM decisions + hash-chained audit log + PowerPoint export
 ```
 
-A canonical copy of the verified generated results is committed under [`output/published`](output/published). It contains the requirement matrix, evidence manifest, structured context, processing audit, fixed baselines, immutable audit events, run summary, and board deck. Raw records and aspect-level signals remain reproducible through `run-local`; they are omitted from Git because the two JSON files add about 88 MB and contain the same source evidence expanded at record level.
+A canonical copy of the verified generated results is committed under [`output/published`](output/published). It contains the requirement matrix, evidence manifest, structured context, collection and processing audits, fixed baselines, immutable audit events, run summary, and board deck. Raw records and aspect-level signals remain reproducible through `run-all`; they are omitted from Git because the two JSON files add about 88 MB and contain the same source evidence expanded at record level.
 
 ## What works
 
@@ -75,6 +78,8 @@ The implementation now provides:
 - row-level, page-level, and URL-level evidence citations;
 - one-feedback-ID counting even when a workbook repeats that ID across tag rows;
 - exact-excerpt aspect splitting, C01-C10 classification, sentiment from -100 to +100, and source credibility weighting;
+- verbatim-first category precedence that keeps digital menus and bugs in C07, physical display placement in C08, and reserves C04 for explicit safety evidence;
+- professional requirement titles in the form `G60 (C07): Flatten the iDrive menu hierarchy...`;
 - a deterministic offline rules engine and an optional chat-completions LLM engine;
 - 30-day current/prior mention windows and velocity multiplier for dated observations;
 - deterministic priority scoring, official review bands, evidence/honesty scores, blindspots, and regional conflict branches;
@@ -83,6 +88,8 @@ The implementation now provides:
 - a chronological SHA-256 hash-chained audit log;
 - a manual, explicitly hypothetical Neue Klasse EU/CN scenario trigger;
 - PowerPoint board-deck export.
+
+External evidence follows the same processing and requirement-aggregation path as workbook evidence. Citations are selected round-robin by source so a high-volume workbook cannot crowd Reddit, forum, or competitor URLs out of an evidence box. Competitor records enrich benchmark support but do not increase customer mention counts or change customer sentiment. A stable source-record ID ensures that splitting one long page into many aspects still counts it as one publication.
 
 See [GAP_ANALYSIS.md](GAP_ANALYSIS.md) for the requirement-by-requirement assessment and [TEST_RESULTS.md](TEST_RESULTS.md) for exact observed results.
 
@@ -123,7 +130,15 @@ priority = customer_urgency + sales_causality[0..30]
 
 Effort defaults are `software_ux=0`, `interior_trim=5`, `electronics_thermal=15`, and `body_platform=50`. Inputs can be overridden in a scoring-input JSON file.
 
-A requirement remains `Unscored` when velocity, validated synthetic take-rate causality, or competitor ROI is absent. Missing evidence never becomes a zero. Severe negative C04 safety evidence is escalated to `Critical review` even when the numeric formula is incomplete. With complete inputs, bands are Critical review `>=85`, High `>=60`, Medium `>=30`, and Low `<30`.
+When any required business input is absent, the static ranking fallback is:
+
+```text
+severity = mean(abs(signal_sentiment)) / 100
+volume = min(1, log(1 + distinct_source_count) / log(21))
+static_priority_proxy = 100 × severity × volume
+```
+
+The output marks this with `priority_score_basis="static_evidence_proxy"`; it does not substitute fabricated velocity, causality, or ROI values. Complete inputs use `priority_score_basis="complete_formula"`. Severe negative C04 evidence is escalated to `Critical review`. Bands are Critical review `>=85`, High `>=60`, Medium `>=30`, and Low `<30`.
 
 The Evidence & Honesty Index is:
 
@@ -196,7 +211,16 @@ Then run:
 python -m bmw_signals.cli collect --config sources.json --output output/web
 ```
 
-Page entries require `source_platform`, `url`, `post_selector`, and `body_selector`. Optional selectors cover title, timestamp, score, permalink, and wait target. Dates without a timezone need `timestamp_timezone`. Forum selectors must be verified against the current site DOM. The collector respects login/CAPTCHA boundaries and reports failures; it does not bypass access controls.
+To ingest local files and external sources in one requirement matrix and deck input, use either live collection or previously saved raw files:
+
+```powershell
+python -m bmw_signals.cli run-all --material-dir ../material --config sources.json --engine rules --output output/all-sources
+# or, after a separate collection run
+python -m bmw_signals.cli run-all --material-dir ../material --external-raw output/web/raw.json --engine rules --output output/all-sources
+python -m bmw_signals.cli export-deck --requirements output/all-sources/requirements.json --destination output/all-sources/BMW_board_deck.pptx
+```
+
+[`sources.example.json`](sources.example.json) contains r/BMW, r/electricvehicles, BIMMERPOST, German Car Forum, Mercedes-Benz, and BYD examples. Page entries require `source_platform`, `url`, `post_selector`, and `body_selector`. Optional selectors cover title, timestamp, a timezone-aware publication fallback, score, permalink, and wait target. Dates without a timezone need `timestamp_timezone`. Forum selectors must be verified against the current site DOM. The collector respects login/CAPTCHA boundaries and reports failures; it does not bypass access controls. Missing Reddit credentials are recorded as `collection_skipped` instead of aborting local processing.
 
 ## Add validated scoring inputs
 

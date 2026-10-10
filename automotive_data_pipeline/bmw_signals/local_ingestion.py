@@ -81,6 +81,7 @@ def ingest_feedback_workbook(path: str | Path) -> tuple[list[RawPost], dict]:
                     entry["tags"].append(str(tag))
         entry["evidence"].append(EvidenceRef(
             source_uri=file_uri(path), locator=f"Feedback_Explorer!row {row_number}",
+            source_platform="BMW_Workbook",
             record_id=str(record_id), sheet_name="Feedback_Explorer", row_number=row_number,
             quote=str(text).strip(),
         ))
@@ -129,6 +130,7 @@ def ingest_option_list(path: str | Path) -> tuple[list[RawPost], dict]:
             source_record_id=f"{platform}-OPTION-P{page_number}", scope_layer="fixed_now",
             region="EU", country="DE", evidence=[EvidenceRef(
                 source_uri=file_uri(path), locator=f"PDF page {page_number}",
+                source_platform="BMW_PDF",
                 record_id=f"{platform}-OPTION-P{page_number}", page_number=page_number,
                 quote=page_text[:500],
             )], credibility_weight=1.5,

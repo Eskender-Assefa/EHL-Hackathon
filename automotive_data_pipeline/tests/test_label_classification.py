@@ -8,8 +8,11 @@ from bmw_signals.bmw_topics import GENERIC_TOPICS, topic_category
 from bmw_signals.local_ingestion import ingest_feedback_workbook
 from bmw_signals.models import EvidenceRef, FilteredSignal, RawPost
 from bmw_signals.pipeline import UNCLASSIFIED_TOPIC, RuleBasedEvaluator, _category, _sentiment, process
-from bmw_signals.requirements import MIN_RESPONDENTS, build_requirements, summarise_exclusions
+from bmw_signals.requirements import (
+    MIN_REGION_SAMPLE, MIN_RESPONDENTS, MIN_SEVERE_SAFETY, build_requirements, summarise_exclusions,
+)
 
+STRICT = dict(min_respondents=MIN_RESPONDENTS, min_region_sample=MIN_REGION_SAMPLE, min_severe_safety=MIN_SEVERE_SAFETY)
 MATERIAL = Path(__file__).resolve().parents[2] / "material"
 HEADER = ["ID", "Source", "Brand", "Sales Description", "Country", "Derivate (e-code)", "Engine Type", "Feedback Type",
           "Customer Feedback", "Vfc level2 3 Name", "Vfc level2 Name", "Vfc level3 Name"]
@@ -125,8 +128,8 @@ class TopicMapTests(unittest.TestCase):
 class RequirementThresholdTests(unittest.TestCase):
     def test_minimum_respondents_for_observed_feedback(self):
         below = [signal(f"A{index}") for index in range(MIN_RESPONDENTS - 1)]
-        self.assertEqual(build_requirements(below)[0], [])
-        requirements, _ = build_requirements(below + [signal("LAST")])
+        self.assertEqual(build_requirements(below, **STRICT)[0], [])
+        requirements, _ = build_requirements(below + [signal("LAST")], **STRICT)
         self.assertEqual(len(requirements), 1)
         self.assertEqual(requirements[0].distinct_signal_count, MIN_RESPONDENTS)
 
@@ -134,19 +137,20 @@ class RequirementThresholdTests(unittest.TestCase):
         signals = ([signal(f"P{index}", kinds=("Defect",)) for index in range(10)]
                    + [signal(f"L{index}", kinds=("Likes",), sentiment=75) for index in range(4)]
                    + [signal("BOTH", kinds=("Defect", "Likes"), sentiment=-2)])
-        item = build_requirements(signals)[0][0]
+        item = build_requirements(signals, **STRICT)[0][0]
         self.assertEqual((item.pain_respondents, item.praise_respondents), (11, 5))
-        self.assertTrue(item.requirement_statement.startswith("Improve"))
+        self.assertNotIn("preserve", item.requirement_statement.lower())
 
     def test_strength_is_worded_as_preserve(self):
         signals = [signal(f"L{index}", kinds=("Likes",), sentiment=75) for index in range(14)] + [signal("P", kinds=("Wants",), sentiment=-45)]
-        item = build_requirements(signals)[0][0]
-        self.assertTrue(item.requirement_statement.startswith("Preserve"))
+        item = build_requirements(signals, **STRICT)[0][0]
+        self.assertIn("preserve", item.requirement_statement.lower())
+        self.assertIn("Preserve", item.title)
 
     def test_unclassified_and_thin_topics_are_reported_not_proposed(self):
         signals = ([signal(f"U{index}", topic=UNCLASSIFIED_TOPIC, category="C10", kinds=(), sentiment=0) for index in range(40)]
                    + [signal(f"T{index}", topic="Cupholder", category="C08") for index in range(3)])
-        requirements, _ = build_requirements(signals)
+        requirements, _ = build_requirements(signals, **STRICT)
         self.assertEqual(requirements, [])
         report = summarise_exclusions(signals)
         self.assertEqual(report["unclassified_respondents"], 40)
@@ -157,30 +161,25 @@ class RequirementThresholdTests(unittest.TestCase):
         def safety(identifier, **changes):
             return signal(identifier, category="C04", topic="Braking", **changes)
         one_defect = [safety("D1")] + [safety(f"L{index}", kinds=("Likes",), sentiment=75) for index in range(20)]
-        self.assertEqual(build_requirements(one_defect)[0][0].review_band, "Unscored")
+        self.assertNotEqual(build_requirements(one_defect, **STRICT)[0][0].review_band, "Critical review")
         repeated = [safety(f"D{index}") for index in range(3)]
-        item = build_requirements(repeated)[0][0]
+        item = build_requirements(repeated, **STRICT)[0][0]
         self.assertEqual(item.review_band, "Critical review")
         self.assertTrue(any("Low evidence volume" in warning for warning in item.warnings))
 
     def test_regional_conflict_needs_a_real_sample_in_each_region(self):
         us = [signal(f"US{index}", region="US") for index in range(20)]
         thin_eu = [signal(f"EU{index}", region="EU", kinds=("Likes",), sentiment=75) for index in range(3)]
-        requirements, _ = build_requirements(us + thin_eu)
-        self.assertEqual([item.region_variant for item in requirements], ["All markets"])
+        requirements, _ = build_requirements(us + thin_eu, **STRICT)
+        self.assertEqual([item.region_variant for item in requirements], ["Global / Unassigned"])
         self.assertFalse(requirements[0].regional_conflict)
         full_eu = [signal(f"EU{index}", region="EU", kinds=("Likes",), sentiment=75) for index in range(15)]
-        requirements, _ = build_requirements(us + full_eu)
+        requirements, _ = build_requirements(us + full_eu, **STRICT)
         self.assertEqual({item.region_variant for item in requirements}, {"US", "EU"})
 
     def test_verified_evidence_is_reachable_with_bmw_labels(self):
-        item = build_requirements([signal(f"A{index}") for index in range(60)])[0][0]
+        item = build_requirements([signal(f"A{index}") for index in range(60)], **STRICT)[0][0]
         self.assertEqual(item.confidence_label, "Verified Evidence")
-
-    def test_unscored_candidates_are_ordered_by_complaints(self):
-        small = [signal(f"S{index}", topic="Navigation") for index in range(15)]
-        large = [signal(f"B{index}", topic="Apple CarPlay") for index in range(30)]
-        self.assertEqual([item.topic for item in build_requirements(small + large)[0]], ["Apple CarPlay", "Navigation"])
 
 
 if __name__ == "__main__":

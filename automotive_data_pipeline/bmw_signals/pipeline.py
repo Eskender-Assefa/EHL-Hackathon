@@ -4,12 +4,13 @@ import json
 import math
 import re
 from collections import Counter
+from functools import lru_cache
 from typing import Protocol
 
 import httpx
 
-from .models import Aspect, Evaluation, EvidenceRef, FilteredSignal, RawPost
 from .bmw_topics import topic_category
+from .models import Aspect, Evaluation, EvidenceRef, FilteredSignal, RawPost
 from .taxonomy import TAXONOMY
 
 
@@ -24,9 +25,9 @@ OUT_OF_SCOPE = re.compile(
 
 CATEGORY_TERMS = {
     "C09": ("parking assistant", "highway assistant", "autonomous", "hands-free", "lane change", "cruise control", "automated driving"),
-    "C04": ("safety", "brake", "collision", "blind spot", "emergency", "airbag", "warning", "sensor", "hazard"),
+    "C04": ("crash safety", "crash protection", "crash test", "crash event", "brake failure", "braking performance", "emergency braking", "forward collision", "collision warning", "collision avoidance", "blind spot", "airbag", "seat belt", "pedestrian detection", "active safety alert"),
     "C02": ("range", "charging", "charger", "battery", "energy", "emission", "consumption", "thermal"),
-    "C07": ("idrive", "carplay", "android auto", "bluetooth", "software", "touch screen", "touchscreen", "infotainment", "navigation", "ota", "instrument cluster", "operating system", "app"),
+    "C07": ("idrive", "carplay", "android auto", "bluetooth", "software", "software bug", "touch screen", "touchscreen", "infotainment", "navigation", "ota", "instrument cluster", "operating system", "app", "menu", "submenu", "user interface", "connectivity", "screen freeze", "screen freezes", "reboot"),
     "C01": ("engine", "motor", "power", "acceleration", "throttle", "transmission", "drivetrain", "differential", "handling", "steering", "driving dynamics", "xdrive"),
     "C05": ("seat", "comfort", "climate", "air conditioning", "hvac", "noise", "vibration", "ride", "suspension", "heated steering", "massage"),
     "C06": ("exterior", "headlight", "taillight", "paint", "wheel", "aerodynamic", "body styling", "roof", "grille"),
@@ -35,34 +36,29 @@ CATEGORY_TERMS = {
     "C10": ("dealer", "service", "warranty", "manual", "accessory", "handover", "trunk", "key", "door"),
 }
 
+# These verbatim rules resolve category boundaries before workbook tags are
+# considered. Physical placement belongs to C08, digital interaction belongs
+# to C07, automation to C09, and C04 is reserved for an explicit safety event.
+VERBATIM_PRECEDENCE = (
+    ("C08", ("display placement", "screen placement", "dashboard layout", "center console layout")),
+    ("C07", CATEGORY_TERMS["C07"]),
+    ("C09", CATEGORY_TERMS["C09"]),
+    ("C04", CATEGORY_TERMS["C04"]),
+)
+
 POSITIVE = ("love", "like", "great", "good", "excellent", "comfortable", "happy", "improved", "joy", "best", "fast", "stable")
 NEGATIVE = ("hate", "bad", "terrible", "suck", "slow", "difficult", "problem", "issue", "defect", "glitch", "disappoint", "missing", "inconsistent", "uncomfortable", "noise", "cannot", "can't", "worse")
-# A request reads like praise to a word counter ("would like", "would love"), so it is matched first.
-REQUEST_PHRASES = ("would like", "would love", "would prefer", "would be nice", "wish", "wishes", "wished", "should have", "needs to")
 TYPE_SENTIMENT = {"Likes": 75, "Wants": -45, "Difficult to Use": -65, "Defect": -80}
+# A request reads like praise to a word counter ("would like", "would love"), so it is matched first.
+REQUEST_PHRASES = ("would like", "would love", "would prefer", "would be nice", "wish", "wished", "should have", "needs to")
+REQUEST_SENTIMENT = TYPE_SENTIMENT["Wants"]
 PAIN_TYPES = frozenset({"Wants", "Difficult to Use", "Defect"})
 PRAISE_TYPE = "Likes"
-UNCLASSIFIED_TOPIC = "Unclassified"
+# Topic given to text that matches no keyword; observed feedback under it is counted, not proposed.
+UNCLASSIFIED_TOPIC = "General"
 LABEL_CONFIDENCE = 0.9
+KEYWORD_TOPIC_SUFFIX = " (unlabelled rows)"
 LABEL_CONFIDENCE_UNMAPPED_TOPIC = 0.7
-KEYWORD_CONFIDENCE_WITH_TAGS = 0.62
-KEYWORD_CONFIDENCE = 0.48
-REQUEST_SENTIMENT = TYPE_SENTIMENT["Wants"]
-KEYWORD_SENTIMENT_SCALE = 85
-PRESERVE_SENTIMENT_THRESHOLD = 30
-
-
-def _word_pattern(term: str, suffixes: str) -> re.Pattern:
-    """Match a term as a whole word, so "app" no longer fires inside "happy" or "ota" inside "total"."""
-    return re.compile(rf"(?<![a-z0-9]){re.escape(term)}(?:{suffixes})?(?![a-z0-9])")
-
-
-CATEGORY_PATTERNS = {
-    category: [(term, _word_pattern(term, "s|es")) for term in terms] for category, terms in CATEGORY_TERMS.items()
-}
-POSITIVE_PATTERNS = [_word_pattern(word, "s|d|ed|ing") for word in POSITIVE]
-NEGATIVE_PATTERNS = [_word_pattern(word, "s|es|d|ed|ing|ive|y") for word in NEGATIVE]
-REQUEST_PATTERN = re.compile("|".join(rf"(?<![a-z]){re.escape(phrase)}(?![a-z])" for phrase in REQUEST_PHRASES))
 
 
 def fingerprint(text: str) -> str:
@@ -78,17 +74,45 @@ def credibility(post: RawPost) -> float:
     return round(min(2.0, value), 4)
 
 
-def _category(text: str) -> tuple[str, str, list[str]]:
-    lowered = text.casefold()
+def _normalise_for_matching(text: str) -> str:
+    return " " + re.sub(r"\s+", " ", re.sub(r"[-_/]+", " ", text.casefold())).strip() + " "
+
+
+@lru_cache(maxsize=None)
+def _term_pattern(term: str) -> re.Pattern:
+    needle = re.sub(r"[-_/]+", " ", term.casefold())
+    escaped = re.escape(needle)
+    if needle.endswith("y") and len(needle) > 1 and needle[-2].isalpha():
+        escaped = escaped[:-1] + r"(?:y|ies)"
+    elif not needle.endswith(("s", "ing")):
+        escaped += r"(?:s|es)?"
+    return re.compile(rf"(?<!\w){escaped}(?!\w)")
+
+
+def _term_count_normalised(normalised: str, term: str) -> int:
+    return len(_term_pattern(term).findall(normalised))
+
+
+def _category(text: str, context: str = "") -> tuple[str, str, list[str]]:
+    normalised_text = _normalise_for_matching(text)
+    normalised_context = _normalise_for_matching(context)
+    explicit = next((
+        category for category, terms in VERBATIM_PRECEDENCE
+        if any(_term_count_normalised(normalised_text, term) for term in terms)
+    ), None)
     counts = Counter({
-        category: sum(len(pattern.findall(lowered)) for _, pattern in patterns)
-        for category, patterns in CATEGORY_PATTERNS.items()
+        category: 3 * sum(_term_count_normalised(normalised_text, term) for term in terms)
+        + sum(_term_count_normalised(normalised_context, term) for term in terms)
+        for category, terms in CATEGORY_TERMS.items()
     })
     counts = +counts
     if not counts:
         return "C10", UNCLASSIFIED_TOPIC, []
-    primary, _ = counts.most_common(1)[0]
-    topic = next(term.title() for term, pattern in CATEGORY_PATTERNS[primary] if pattern.search(lowered))
+    primary = explicit or counts.most_common(1)[0][0]
+    topic = next(
+        (term.title() for term in CATEGORY_TERMS[primary] if _term_count_normalised(normalised_text, term)),
+        next((term.title() for term in CATEGORY_TERMS[primary] if _term_count_normalised(normalised_context, term)), TAXONOMY[primary].split(":", 1)[0]),
+    )
     secondary = [category for category, _ in counts.most_common() if category != primary]
     return primary, topic, secondary
 
@@ -99,13 +123,13 @@ def _label_sentiment(feedback_types: list[str]) -> int | None:
 
 
 def _keyword_sentiment(text: str) -> int | None:
-    lowered = text.casefold()
-    if REQUEST_PATTERN.search(lowered):
+    normalised = _normalise_for_matching(text)
+    if any(_term_count_normalised(normalised, phrase) for phrase in REQUEST_PHRASES):
         return REQUEST_SENTIMENT
-    positive = sum(len(pattern.findall(lowered)) for pattern in POSITIVE_PATTERNS)
-    negative = sum(len(pattern.findall(lowered)) for pattern in NEGATIVE_PATTERNS)
+    positive = sum(_term_count_normalised(normalised, word) for word in POSITIVE)
+    negative = sum(_term_count_normalised(normalised, word) for word in NEGATIVE)
     if positive or negative:
-        return max(-100, min(100, round((positive - negative) / (positive + negative) * KEYWORD_SENTIMENT_SCALE)))
+        return max(-100, min(100, round((positive - negative) / (positive + negative) * 85)))
     return None
 
 
@@ -122,23 +146,6 @@ def _sentiment(text: str, feedback_types: list[str]) -> int:
     return label or 0
 
 
-def _fragments(text: str) -> list[str]:
-    fragments = [part.strip(" ,;:-") for part in re.split(r"(?<=[.!?])\s+|\s+(?:but|however|although)\s+", text, flags=re.I)]
-    return [fragment for fragment in fragments if fragment and fragment in text]
-
-
-def _statement(feedback_types: list[str], sentiment: int, topic: str, platform: str | None) -> str:
-    praised = PRAISE_TYPE in feedback_types
-    pained = any(kind in PAIN_TYPES for kind in feedback_types)
-    if praised and pained:
-        action = "Review mixed feedback on"
-    elif praised or (not pained and sentiment > PRESERVE_SENTIMENT_THRESHOLD):
-        action = "Preserve"
-    else:
-        action = "Improve"
-    return f"{action} '{topic}' for {platform} customers."
-
-
 def _label_aspects(post: RawPost) -> list[Aspect]:
     """One aspect per BMW topic on the record, with BMW's feedback types deciding the polarity."""
     types_by_topic: dict[str, list[str]] = {}
@@ -149,27 +156,31 @@ def _label_aspects(post: RawPost) -> list[Aspect]:
     aspects = []
     for topic, kinds in types_by_topic.items():
         mapped = topic_category(topic)
-        category = mapped or _category(topic)[0]
         sentiment = _label_sentiment(kinds)
         if sentiment is None:
             sentiment = _keyword_sentiment(post.post_body) or 0
         aspects.append(Aspect(
-            taxonomy_category=category, cleaned_verbatim_text=post.post_body, sentiment_score=sentiment,
+            taxonomy_category=mapped or _category(topic)[0], cleaned_verbatim_text=post.post_body,
+            sentiment_score=sentiment,
             confidence=LABEL_CONFIDENCE if mapped else LABEL_CONFIDENCE_UNMAPPED_TOPIC, topic=topic,
-            requirement_statement=_statement(kinds, sentiment, topic, post.target_platform),
-            feedback_types=sorted(kinds), classification_basis="bmw_label",
+            requirement_statement=None, feedback_types=sorted(kinds), classification_basis="bmw_label",
         ))
     return aspects
 
 
+def _fragments(text: str) -> list[str]:
+    fragments = [part.strip(" ,;:-") for part in re.split(r"(?<=[.!?])\s+|\s+(?:but|however|although)\s+", text, flags=re.I)]
+    return [fragment for fragment in fragments if fragment and fragment in text]
+
+
 class RuleBasedEvaluator:
-    """Offline, deterministic baseline. BMW's own labels are used where present; keywords only fill gaps."""
+    """Offline, deterministic baseline. Confidence stays modest because this is not an NLI model."""
 
     async def evaluate(self, post: RawPost) -> Evaluation:
         if OUT_OF_SCOPE.search(post.post_body):
             return Evaluation(is_noise=True, reason="out-of-scope regulatory or component engineering content", aspects=[])
         if post.source_platform == "BMW_PDF":
-            category, topic, secondary = _category(post.post_body + " " + " ".join(post.original_tags))
+            category, topic, secondary = _category(post.post_body, " ".join(post.original_tags))
             return Evaluation(is_noise=False, reason="fixed baseline evidence", aspects=[Aspect(
                 taxonomy_category=category, cleaned_verbatim_text=post.post_body,
                 sentiment_score=0, confidence=0.8, topic=topic,
@@ -179,14 +190,21 @@ class RuleBasedEvaluator:
             return Evaluation(is_noise=False, reason="classified by BMW topic and feedback type", aspects=_label_aspects(post))
         aspects = []
         context = " ".join(post.original_tags)
-        for fragment in _fragments(post.post_body):
-            category, topic, secondary = _category(fragment + " " + context)
+        fragments = _fragments(post.post_body)
+        for fragment in fragments:
+            # Workbook tags describe the complete feedback record. Once that
+            # record is split, a tag must not force unrelated clauses into the
+            # same category. It remains a fallback for a single-clause record.
+            fragment_context = context if len(fragments) == 1 else ""
+            category, topic, secondary = _category(fragment, fragment_context)
+            if post.source_platform == "BMW_Workbook" and topic_category(topic) is not None:
+                # Keep a keyword-derived topic apart from BMW's own topic of the same name.
+                topic = f"{topic}{KEYWORD_TOPIC_SUFFIX}"
             sentiment = _sentiment(fragment, post.feedback_types)
             aspects.append(Aspect(
                 taxonomy_category=category, cleaned_verbatim_text=fragment,
-                sentiment_score=sentiment,
-                confidence=KEYWORD_CONFIDENCE_WITH_TAGS if post.original_tags else KEYWORD_CONFIDENCE,
-                topic=topic, requirement_statement=_statement([], sentiment, topic.lower(), post.target_platform),
+                sentiment_score=sentiment, confidence=0.62 if post.original_tags else 0.48,
+                topic=topic, requirement_statement=None,
                 secondary_tags=secondary, feedback_types=sorted(post.feedback_types),
             ))
         if not aspects:
@@ -207,7 +225,11 @@ class LLMEvaluator:
             "distinct customer-facing component or sentiment into an exact contiguous source excerpt. "
             "Assign exactly one C01-C10 primary category and optional secondary category tags. Score "
             "polarity from -100 (severe pain) to +100 (strong delight), give confidence from 0 to 1, "
-            "name a concise topic, and propose a customer-facing testable requirement. Fixed BMW PDF "
+            "name a concise topic, and propose a professional, testable requirement that states the exact "
+            "functional change. Never use generic wording such as 'Improve [keyword] for [model] customers'. "
+            "Touchscreens, menus, iDrive interaction, connectivity, and software bugs belong to C07; "
+            "physical dashboard or display placement belongs to C08. Reserve C04 for explicit crash safety, "
+            "airbag, braking, collision-warning, or other critical safety events. Fixed BMW PDF "
             "facts are baseline evidence and must not be presented as customer demand. C09 takes "
             "precedence for autonomous operation, automated parking, hands-free driving, and automated "
             "lane changes. C08 is physical display placement; C07 is digital UI behavior. Competitor "
@@ -279,8 +301,13 @@ async def process(posts: list[RawPost], evaluator: Evaluator, concurrency=4):
                 signal_identity = f"{post.source_url}|{post.source_record_id}|{post.target_platform}|{post.region}|{aspect.taxonomy_category}|{aspect.topic}|{aspect_key[2]}"
                 evidence = post.evidence or [EvidenceRef(
                     source_uri=post.source_url, locator=post.source_url,
+                    source_platform=post.source_platform,
                     record_id=post.source_record_id, quote=aspect.cleaned_verbatim_text,
                 )]
+                evidence = [
+                    item if item.source_platform else item.model_copy(update={"source_platform": post.source_platform})
+                    for item in evidence
+                ]
                 output.append(FilteredSignal(
                     signal_id=hashlib.sha256(signal_identity.encode()).hexdigest()[:24],
                     source_platform=post.source_platform, source_url=post.source_url,
@@ -293,8 +320,8 @@ async def process(posts: list[RawPost], evaluator: Evaluator, concurrency=4):
                     region=post.region, country=post.country, source_record_id=post.source_record_id,
                     source_score=post.score, author_reputation=post.author_reputation,
                     credibility_weight=credibility(post),
-                    evidence=evidence, feedback_types=aspect.feedback_types,
-                    classification_basis=aspect.classification_basis,
+                    feedback_types=aspect.feedback_types, classification_basis=aspect.classification_basis,
+                    evidence=evidence,
                 ))
             status = "accepted" if output else "discarded"
             reason = None if output else "all aspects below low-effort threshold"

@@ -8,6 +8,7 @@ It contains:
 - `source_manifest.json`: input filenames, checksums, row/page totals, and deduplication counts;
 - `structured_context.json`: supplied sales-volume and customer-study context with provenance;
 - `fixed_baseline_signals.json`: OptionList facts kept separate from customer requirements;
+- `collection_audit.json`: live-source failures and credential skips retained alongside successful collection;
 - `processing_audit.json`: accepted, discarded, and quarantined processing outcomes;
 - `requirements.json`: the complete evidence-linked requirement matrix;
 - `audit.jsonl`: the append-only, SHA-256 hash-chained proposal event stream;
@@ -16,5 +17,6 @@ It contains:
 The other local output directories are repeatable working artifacts and remain ignored. In particular, downloaded Playwright browsers, temporary Python packages, frontend build output, duplicate verification runs, `raw.json`, and `signals.json` should not be committed. Regenerate the full record-level output with:
 
 ```powershell
-python -m bmw_signals.cli run-local --material-dir ../material --engine rules --output output/local
+python -m bmw_signals.cli collect --config sources.example.json --output output/web
+python -m bmw_signals.cli run-all --material-dir ../material --external-raw output/web/raw.json --engine rules --output output/all-sources
 ```
