@@ -57,4 +57,8 @@ See [data dictionary](database/DATA_DICTIONARY.md), [foundation validation](data
 ## Team
 
 <!-- Add team members and their roles here. -->
-- To be added.
+- Sai Sharan
+- Soham
+- Amir
+- Eskender
+- Soham
